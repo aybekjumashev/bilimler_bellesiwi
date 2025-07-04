@@ -25,7 +25,7 @@ def generate_questions(subject="Matematika", grade=5, count=10):
         4. Durıs juwap variantlardıń indeksin (0, 1, 2, 3) beriw kerek
         5. Sorawlar qızıqlı hám úyretiwshi bolıwı kerek
         6. Sorawlar hám juwaplar qaraqalpaq tilinde hám qátesiz bolıwı kerek
-        7. Sorawlar tákirarlanbawı kerek, jańa hám qızıqlı sorawlar jaratıw kerek
+        7. Sorawlar tákirarlanbawı (aldın bunday soraw berilmegen bolıwı) kerek, jańa hám qızıqlı sorawlar jaratıw kerek
         8. Sorawdıń teması hár saparı hár túrli bolsın.
         9. EŃ ÁHMIYETLISI: Qátesiz latın álipbesinde hám qaraqalpaq tilinde bolıwı kerek.
         10. {count} dana sorawdı bir json tizimi túrinde qaytarıń.
