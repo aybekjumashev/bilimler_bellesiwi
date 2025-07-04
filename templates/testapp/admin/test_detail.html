@@ -1,0 +1,117 @@
+<!-- templates/testapp/admin/test_detail.html -->
+{% extends 'base.html' %}
+
+{% block title %}Test Details - {{ test.subject.name }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h2 class="fw-bold mb-1">
+                        <i class="bi bi-file-text text-primary"></i> 
+                        Test #{{ test.id }} Details
+                    </h2>
+                    <p class="text-secondary mb-0">{{ test.subject.name }} - Grade {{ test.subject.grade }}</p>
+                </div>
+                <div>
+                    <a href="{% url 'testapp:admin_tests' %}" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left"></i> Back to Tests
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Test Info Cards -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body text-center">
+                    <i class="bi bi-calendar display-4 text-primary mb-3"></i>
+                    <h6>Created</h6>
+                    <p class="text-secondary mb-0">{{ test.created_at|date:"H:i d.m.Y" }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body text-center">
+                    <i class="bi bi-question-circle display-4 text-success mb-3"></i>
+                    <h6>Questions</h6>
+                    <p class="text-secondary mb-0">{{ test.test_questions.count }} questions</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body text-center">
+                    <i class="bi bi-people display-4 text-info mb-3"></i>
+                    <h6>Participants</h6>
+                    <p class="text-secondary mb-0">{{ results.count }} students</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <!-- Results Table -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-0">
+                    {% if results %}
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Rank</th>
+                                        <th>Student</th>
+                                        <th>Student ID</th>
+                                        <th>Score</th>
+                                        <th>Correct Answers</th>
+                                        <th>Completion Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-dark">
+                                    {% for result in results %}
+                                        <tr>
+                                            <td>
+                                                <span class="badge bg-primary">#{{ forloop.counter }}</span>
+                                            </td>
+                                            <td>{{ result.student_name }}</td>
+                                            <td>
+                                                <span class="badge bg-light text-dark">{{ result.student_id }}</span>
+                                            </td>
+                                            <td>
+                                                <span class="{% if result.score_percentage >= 80 %}text-success{% elif result.score_percentage >= 60 %}text-warning{% else %}text-danger{% endif %}">
+                                                    {{ result.score_percentage|floatformat:1 }}%
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-info">{{ result.correct_answers }}/{{ result.total_questions }}</span>
+                                            </td>
+                                            <td>
+                                                <small class="text-secondary">{{ result.completed_at|date:"H:i d.m.Y" }}</small>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-4">
+                            <i class="bi bi-inbox display-4 text-secondary"></i>
+                            <h5 class="mt-3 text-secondary">No Results Yet</h5>
+                            <p class="text-secondary">No students have taken this test yet.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

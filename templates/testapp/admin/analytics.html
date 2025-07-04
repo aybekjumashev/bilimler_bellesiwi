@@ -1,0 +1,252 @@
+
+<!-- templates/testapp/admin/analytics.html -->
+{% extends 'base.html' %}
+
+{% block title %}Analytics Dashboard - Admin{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h2 class="fw-bold mb-1">
+                        <i class="bi bi-graph-up text-primary"></i> 
+                        Analytics Dashboard
+                    </h2>
+                    <p class="text-muted mb-0">Comprehensive analytics and performance insights</p>
+                </div>
+                <div>
+                    <select class="form-select" onchange="filterByDays(this.value)">
+                        <option value="7" {% if selected_days == 7 %}selected{% endif %}>Last 7 days</option>
+                        <option value="30" {% if selected_days == 30 %}selected{% endif %}>Last 30 days</option>
+                        <option value="90" {% if selected_days == 90 %}selected{% endif %}>Last 90 days</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Overall Statistics -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-file-text display-4 text-primary mb-3"></i>
+                    <h4 class="text-primary">{{ overall_stats.total_tests }}</h4>
+                    <p class="text-muted mb-0">Total Tests</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-people display-4 text-success mb-3"></i>
+                    <h4 class="text-success">{{ overall_stats.total_participants }}</h4>
+                    <p class="text-muted mb-0">Total Participants</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-graph-up display-4 text-info mb-3"></i>
+                    <h4 class="text-info">{{ overall_stats.average_score|floatformat:1 }}%</h4>
+                    <p class="text-muted mb-0">Average Score</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-trophy display-4 text-warning mb-3"></i>
+                    <h4 class="text-warning">{{ overall_stats.pass_rate|floatformat:1 }}%</h4>
+                    <p class="text-muted mb-0">Pass Rate</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Charts Row -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">Daily Activity</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="dailyChart" height="100"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">Grade Performance</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="gradeChart" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Subject Performance -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">Subject Performance</h5>
+                </div>
+                <div class="card-body p-0">
+                    {% if subject_performance %}
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Subject</th>
+                                        <th>Grade</th>
+                                        <th>Tests</th>
+                                        <th>Participants</th>
+                                        <th>Avg Score</th>
+                                        <th>Pass Rate</th>
+                                        <th>Performance</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for subject in subject_performance %}
+                                        <tr>
+                                            <td>{{ subject.subject_name }}</td>
+                                            <td>
+                                                <span class="badge bg-info">Grade {{ subject.grade }}</span>
+                                            </td>
+                                            <td>{{ subject.total_tests }}</td>
+                                            <td>{{ subject.participant_count }}</td>
+                                            <td>
+                                                <span class="{% if subject.avg_score >= 80 %}text-success{% elif subject.avg_score >= 60 %}text-warning{% else %}text-danger{% endif %}">
+                                                    {{ subject.avg_score|floatformat:1 }}%
+                                                </span>
+                                            </td>
+                                            <td>{{ subject.pass_rate|floatformat:1 }}%</td>
+                                            <td>
+                                                <div class="progress" style="height: 8px;">
+                                                    <div class="progress-bar {% if subject.avg_score >= 80 %}bg-success{% elif subject.avg_score >= 60 %}bg-warning{% else %}bg-danger{% endif %}" 
+                                                         style="width: {{ subject.avg_score }}%"></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Top Performers and Question Difficulty -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">Top Performers</h5>
+                </div>
+                <div class="card-body">
+                    {% for performer in top_performers %}
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div>
+                                <h6 class="mb-0">{{ performer.student_name }}</h6>
+                                <small class="text-muted">{{ performer.test.subject.name }}</small>
+                            </div>
+                            <div>
+                                <span class="badge bg-success">{{ performer.score_percentage|floatformat:1 }}%</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">Question Difficulty</h5>
+                </div>
+                <div class="card-body">
+                    {% for question in question_difficulty %}
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <small class="text-muted">{{ question.subject }}</small>
+                                <span class="badge bg-{% if question.difficulty == 'Easy' %}success{% elif question.difficulty == 'Medium' %}warning{% else %}danger{% endif %}">
+                                    {{ question.difficulty }}
+                                </span>
+                            </div>
+                            <div class="progress" style="height: 6px;">
+                                <div class="progress-bar" style="width: {{ question.success_rate }}%"></div>
+                            </div>
+                            <small class="text-muted">{{ question.success_rate }}% success rate</small>
+                        </div>
+                    {% endfor %}
+                    <a href="{% url 'testapp:question_difficulty_analysis' %}" class="btn btn-sm btn-outline-primary">
+                        View Detailed Analysis
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+function filterByDays(days) {
+    window.location.href = `?days=${days}`;
+}
+
+// Daily Chart
+const dailyCtx = document.getElementById('dailyChart').getContext('2d');
+const dailyChart = new Chart(dailyCtx, {
+    type: 'line',
+    data: {
+        labels: [{% for day in daily_stats %}'{{ day.date|date:"M d" }}'{% if not forloop.last %},{% endif %}{% endfor %}],
+        datasets: [{
+            label: 'Tests Created',
+            data: [{% for day in daily_stats %}{{ day.tests_created }}{% if not forloop.last %},{% endif %}{% endfor %}],
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        }, {
+            label: 'Participants',
+            data: [{% for day in daily_stats %}{{ day.participants }}{% if not forloop.last %},{% endif %}{% endfor %}],
+            borderColor: 'rgb(255, 99, 132)',
+            tension: 0.1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false
+    }
+});
+
+// Grade Chart
+const gradeCtx = document.getElementById('gradeChart').getContext('2d');
+const gradeChart = new Chart(gradeCtx, {
+    type: 'doughnut',
+    data: {
+        labels: [{% for grade in grade_comparison %}'Grade {{ grade.grade }}'{% if not forloop.last %},{% endif %}{% endfor %}],
+        datasets: [{
+            data: [{% for grade in grade_comparison %}{{ grade.avg_score|floatformat:0 }}{% if not forloop.last %},{% endif %}{% endfor %}],
+            backgroundColor: [
+                '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', 
+                '#9966FF', '#FF9F40', '#FF6384', '#C9CBCF'
+            ]
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false
+    }
+});
+</script>
+{% endblock %}

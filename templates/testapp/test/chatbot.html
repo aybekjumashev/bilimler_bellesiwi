@@ -1,0 +1,215 @@
+<!-- templates/testapp/test/start.html -->
+{% extends 'base.html' %}
+
+{% block title %}Take Test - {{ test.subject.name }}{% endblock %}
+
+{% block content %}
+<nav class="d-block d-md-none navbar fixed-bottom bg-dark shadow-sm" id="bottom_navbar">
+  <div class="container d-flex justify-content-around text-center">
+    <a href="{% url 'testapp:test_start' %}?test_id={{test.id}}" class="nav-link text-secondary">
+        <i class="bi bi-rocket-takeoff-fill d-block m-0"></i>
+        <small>Testke qatnasıw</small>
+    </a>
+    <a href="#" class="nav-link text-primary">
+        <i class="bi bi-stars d-block m-0"></i>
+        <small>Analizlew</small>
+    </a>
+    <a href="{% url 'testapp:test_results' %}?test_id={{test.id}}" class="nav-link text-secondary">
+        <i class="bi bi-clipboard-data d-block m-0"></i>
+        <small>Barlıq nátiyjeler</small>
+    </a>
+  </div>
+</nav>
+<style>
+    nav {
+        display: none !important;
+    }
+    /* .question-number {
+        color: var(--bs-primary);
+        font-weight: bold;
+        font-size: large;
+    } */
+    /* .line-element {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        max-width: 100%;    
+    } */
+    .chatbot-container {
+        font-size: smaller;
+    }
+    .bot-message {
+        border-bottom-left-radius: 0 !important;
+    }
+    .user-message {
+        border-bottom-right-radius: 0 !important;
+    }
+</style>
+
+<h5 class="text-center text-danger d-none my-5 mx-3" id="not_participated">Siz bul testke qatnaspaǵansız!</h5>
+
+<div id="chatbot_display" class="chatbot-container d-none">
+    <div class="chatbot-messages pt-3 pb-0 px-3 bg-transparent" style="height: calc(100vh - 125px); overflow-y: auto;"></div>
+    <div class="chatbot-input d-flex bg-transparent p-2">
+        <input type="text" class="form-control me-2" placeholder="Sorawıńızdı jazıń..." id="chatbot_input">
+        <button class="btn btn-primary" type="button" onclick="sendMessage()" id="chatbot_send_btn"><i class="bi bi-send"></i></button>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+    var testId = '';
+    var studentId = ''; 
+
+
+  function getQueryParam(name) {
+    const url = new URL(window.location.href);
+    return url.searchParams.get(name);
+  }
+
+    function addChatMessage(sender, text, typing=true) {
+        const messagesDiv = document.querySelector('.chatbot-messages');
+        const msgWrapper = document.createElement('div');
+        msgWrapper.classList.add('d-flex', 'mb-3');        
+        if (sender === 'user') {
+            msgWrapper.classList.add('flex-row-reverse');
+        }
+        const msgInner = document.createElement('div');
+        const msgBubble = document.createElement('div');
+        if (sender === 'bot') { 
+            msgBubble.className = 'bg-dark p-2 rounded shadow-sm bot-message';
+            msgBubble.innerHTML = marked.parse(text);
+            if (typing) {
+                console.log('typing');                
+            } 
+        } else {
+            msgBubble.className = 'bg-primary text-white p-2 rounded shadow-sm user-message';
+            msgBubble.textContent = text;
+        }
+        msgInner.appendChild(msgBubble);
+        msgWrapper.appendChild(msgInner);
+        messagesDiv.appendChild(msgWrapper);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+
+    // Send message function
+    function sendMessage() {
+        document.querySelector('#chatbot_send_btn').disabled = true;
+        document.querySelector('#chatbot_send_btn').innerHTML = '<div class="spinner-border text-light" role="status" style="height:15px; width:15px;""></div>';
+        const inputField = document.getElementById('chatbot_input');
+        const messageText = inputField.value.trim();
+        if (messageText) {
+            // Add user message to chat
+            addChatMessage('user', messageText);
+            // Clear input field
+            inputField.value = '';
+            const payload = {
+                test_id: testId,
+                student_id: studentId,
+                message: messageText
+            };
+            try {
+                fetch('/api/generate-answer/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'                        
+                    },
+                    body: JSON.stringify(payload)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        addChatMessage('bot', data.answer);
+                    } else {
+                        addChatMessage('bot', 'Error: ' + (data.error || 'Unknown error'));
+                    }
+                })
+                .catch(error => {
+                    addChatMessage('bot', 'Error: Could not connect to server. ' + error.message);
+                })
+                .finally(() => {
+                    document.querySelector('#chatbot_send_btn').disabled = false;
+                    document.querySelector('#chatbot_send_btn').innerHTML = '<i class="bi bi-send"></i>'
+                })
+            } catch (error) {
+                addChatMessage('bot', 'Error: Could not connect to server.'+error);
+            }
+        }
+    }
+
+  // Fetch and render chat history
+    function loadChatHistory() {
+    document.querySelector('#chatbot_send_btn').disabled = true;
+    if (!studentId || !testId) return;
+    fetch(`/api/chat-history?student_id=${studentId}&test_id=${testId}`)
+        .then(function(response) { return response.json(); })
+        .then(function(data) {
+        if (data.success && Array.isArray(data.history)) {
+            const messagesDiv = document.querySelector('.chatbot-messages');
+            messagesDiv.innerHTML = '';
+            data.history.forEach(function(msg) {
+            addChatMessage(msg.role === 'user' ? 'user' : 'bot', msg.text, typing=true ? data.history.length==1 : false);
+            });
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+        })
+        .catch(function(error) {
+            console.error('Failed to load chat history:', error);
+        })
+        .finally(function() {
+            document.querySelector('#chatbot_send_btn').disabled = false;
+        })
+    }
+
+  window.onload = function () {
+    // Telegram Web App API orqali foydalanuvchi ma'lumotlarini olish
+    const tg = window.Telegram.WebApp;
+
+    // test_id ni URLdan olish
+    testId = getQueryParam('test_id') || getQueryParam('tgWebAppStartParam');
+
+    // Foydalanuvchi ma'lumotlarini tekshiramiz
+    if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
+        const user = tg.initDataUnsafe.user;
+        studentId = user.id;
+    
+        fetch(`/api/check-participation/?student_id=${user.id}&test_id=${testId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.participated) {
+                document.getElementById('chatbot_display').classList.remove('d-none');
+                // Load chat history from backend
+                loadChatHistory();
+                // // Scroll chat to bottom on load
+                // const messagesDiv = document.querySelector('.chatbot-messages');
+                // if (messagesDiv) {
+                //   messagesDiv.scrollTop = messagesDiv.scrollHeight;
+                // }
+            } else {
+                document.getElementById('not_participated').classList.remove('d-none');
+            }
+        })
+        .catch(error => {
+            console.error('Xatolik:', error);
+        });
+  
+    } else {
+      console.warn("Foydalanuvchi ma'lumotlari mavjud emas.");
+    }
+
+
+  };
+</script>
+
+
+
+
+{% endblock %}

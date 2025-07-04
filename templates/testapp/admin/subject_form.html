@@ -1,0 +1,217 @@
+<!-- templates/testapp/admin/subject_form.html -->
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if subject %}Edit Subject{% else %}Add Subject{% endif %} - Admin
+{% endblock %}
+
+{% block content %}
+<style>
+    .day-button {
+        padding: 0.5rem 1rem;
+        border: 1px solid #0d6efd;
+        border-radius: 0.5rem;
+        background-color: white;
+        color: #0d6efd;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+    }
+
+    input[type="checkbox"]:checked + label.day-button {
+        background-color: #0d6efd;
+        color: white;
+    }
+
+    input[type="checkbox"] {
+        display: none;
+    }
+</style>
+<div class="container py-4">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h2 class="fw-bold mb-1">
+                        <i class="bi bi-{% if subject %}pencil{% else %}plus-circle{% endif %} text-primary"></i>
+                        {% if subject %}Edit Subject{% else %}Add New Subject{% endif %}
+                    </h2>
+                    <p class="text-secondary mb-0">
+                        {% if subject %}
+                            Update subject information and schedule
+                        {% else %}
+                            Create a new subject with schedule and settings
+                        {% endif %}
+                    </p>
+                </div>
+                <div>
+                    <a href="{% url 'testapp:admin_subjects' %}" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left"></i> Back to Subjects
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-lg">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-info-circle"></i> Subject Information
+                    </h5>
+                </div>
+                
+                <div class="card-body p-4">
+                    <form method="post" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        
+                        <!-- Subject Name -->
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label for="{{ form.name.id_for_label }}" class="form-label fw-bold">
+                                    <i class="bi bi-book"></i> Subject Name
+                                </label>
+                                {{ form.name }}
+                                {% if form.name.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.name.errors.0 }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label for="{{ form.grade.id_for_label }}" class="form-label fw-bold">
+                                    <i class="bi bi-award"></i> Grade Level
+                                </label>
+                                {{ form.grade }}
+                                {% if form.grade.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.grade.errors.0 }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <!-- Schedule Section -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold text-primary mb-3">
+                                <i class="bi bi-calendar-week"></i> Weekly Schedule
+                            </h6>
+                            
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <label class="form-label fw-bold">Select Days:</label>
+                                    <div class="d-flex flex-wrap gap-2">
+                                        {% for choice in form.days %}
+                                            {{ choice.tag }}
+                                            <label class="btn btn-outline-primary day-button" for="{{ choice.id_for_label }}">
+                                                {{ choice.choice_label }}
+                                            </label>
+                                        {% endfor %}
+                                    </div>
+
+                                    {% if form.days.errors %}
+                                        <div class="text-danger small mt-1">
+                                            {{ form.days.errors.0 }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="{{ form.start_time.id_for_label }}" class="form-label fw-bold">
+                                        <i class="bi bi-clock"></i> Start Time
+                                    </label>
+                                    {{ form.start_time }}
+                                    {% if form.start_time.errors %}
+                                        <div class="text-danger small mt-1">
+                                            {{ form.start_time.errors.0 }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Test Settings -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold text-primary mb-3">
+                                <i class="bi bi-gear"></i> Test Settings
+                            </h6>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="{{ form.questions_count.id_for_label }}" class="form-label fw-bold">
+                                        <i class="bi bi-question-circle"></i> Questions per Test
+                                    </label>
+                                    {{ form.questions_count }}
+                                    <div class="form-text text-secondary">
+                                        Number of questions to include in each test (5-50)
+                                    </div>
+                                    {% if form.questions_count.errors %}
+                                        <div class="text-danger small mt-1">
+                                            {{ form.questions_count.errors.0 }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Form Actions -->
+                        <div class="d-flex justify-content-end gap-2">
+                            <a href="{% url 'testapp:admin_subjects' %}" class="btn btn-outline-secondary">
+                                <i class="bi bi-x-circle"></i> Cancel
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-{% if subject %}check-circle{% else %}plus-circle{% endif %}"></i>
+                                {% if subject %}Update Subject{% else %}Create Subject{% endif %}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+$(document).ready(function() {
+    
+    // Form validation
+    const form = document.querySelector('.needs-validation');
+    form.addEventListener('submit', function(event) {
+        // Check if at least one day is selected
+        const checkedDays = document.querySelectorAll('input[name="days"]:checked');
+        if (checkedDays.length === 0) {
+            event.preventDefault();
+            event.stopPropagation();
+            alert('Please select at least one day for the schedule!');
+            return false;
+        }
+        
+        if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+    }, false);
+    
+    // Questions count warning
+    $('#id_questions_count').on('input', function() {
+        const count = parseInt($(this).val());
+        if (count > 30) {
+            if (!$('#questionsWarning').length) {
+                $(this).after(`
+                    <div id="questionsWarning" class="alert alert-warning alert-sm mt-2">
+                        <small><i class="bi bi-exclamation-triangle"></i> 
+                        Make sure you have enough questions in the database for this count.</small>
+                    </div>
+                `);
+            }
+        } else {
+            $('#questionsWarning').remove();
+        }
+    });
+});
+</script>
+{% endblock %}

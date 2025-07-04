@@ -1,0 +1,433 @@
+<!-- templates/testapp/test/start.html -->
+{% extends 'base.html' %}
+
+{% block title %}Take Test - {{ test.subject.name }}{% endblock %}
+
+{% block content %}
+<nav class="d-block d-md-none navbar fixed-bottom bg-dark shadow-sm">
+  <div class="container d-flex justify-content-around text-center">
+    <a href="#" class="nav-link text-primary">
+        <i class="bi bi-rocket-takeoff-fill d-block m-0"></i>
+        <small>Testke qatnasıw</small>
+    </a>
+    <a href="{% url 'testapp:test_chatbot' %}?test_id={{test.id}}" class="nav-link text-secondary">
+        <i class="bi bi-stars d-block m-0 shining-star"></i>
+        <small>Analizlew</small>
+    </a>
+    <a href="{% url 'testapp:test_results' %}?test_id={{test.id}}" class="nav-link text-secondary">
+        <i class="bi bi-clipboard-data d-block m-0"></i>
+        <small>Barlıq nátiyjeler</small>
+    </a>
+  </div>
+</nav>
+<style>
+    nav {
+        display: none !important;
+    }
+    /* .question-number {
+        color: var(--bs-primary);
+        font-weight: bold;
+        font-size: large;
+    } */
+     @keyframes twinkle {
+        0%, 100% { opacity: 0.3; transform: scale(1); }
+        50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    .shining-star {
+        display: inline-block;
+        color: gold;
+        animation: twinkle 1.5s infinite ease-in-out;
+    }
+</style>
+<div class="container py-3">
+    <!-- Test Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm bg-primary text-white">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h3 class="mb-1">
+                                <i class="bi bi-rocket-takeoff-fill"></i> Test №{{ test.id }}
+                            </h3>
+                            <p class="mb-0 opacity-75">
+                                {{ test.subject.name }} • {{ test.subject.grade }}-klass • {{ test.test_questions.count }} soraw
+                            </p>
+                        </div>
+                        <!-- <div class="col-md-4 text-md-end">
+                            <div class="badge bg-light text-dark fs-6 p-2">
+                                <i class="bi bi-calendar"></i> {{ test.created_at|date:"M d, Y" }}
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <form method="post" id="testForm" class="needs-validation d-none" novalidate>
+        {% csrf_token %}
+        
+        <!-- Student Information -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <div>
+                            <label class="form-label fw-bold">Atıńız Familiyańız <span class="text-danger">*</span></label>
+                            <input type="text" 
+                                    name="student_name" 
+                                    class="form-control" 
+                                    value="{{ student_name|default:'' }}"
+                                    id="student_name"
+                                    required>
+                            <div class="invalid-feedback">
+                                Please enter your full name.
+                            </div>
+                        </div>
+                        <div>
+                            <input type="hidden" 
+                                    name="student_id" 
+                                    class="form-control" 
+                                    placeholder="Enter your Student ID"
+                                    value="{{ student_id|default:'' }}"
+                                    id="student_id"
+                                    required>
+                            <div class="invalid-feedback">
+                                Please enter your Student ID.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Instructions -->
+        <!-- <div class="row mb-4">
+            <div class="col-12">
+                <div class="alert alert-info border-0">
+                    <h6 class="alert-heading">
+                        <i class="bi bi-info-circle"></i> Instructions
+                    </h6>
+                    <ul class="mb-0">
+                        <li>Read each question carefully before selecting your answer</li>
+                        <li>Select only ONE option for each question</li>
+                        <li>You can change your answers before submitting</li>
+                        <li>Make sure to fill in your Student ID and Name correctly</li>
+                        <li>Click "Submit Test" when you're done</li>
+                    </ul>
+                </div>
+            </div>
+        </div> -->
+        
+        <!-- Questions -->
+        <div class="row">
+            <div class="col-12">
+                {% for question in questions %}
+                    <div class="card question-card border-0 shadow-sm mb-4">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start gap-2">
+                                <!-- <div class="question-number">{{ forloop.counter }}</div> -->
+                                <div class="flex-grow-1">
+                                    <h6 class="fw-bold mb-4">{{ forloop.counter }}. {{ question.question_text }}</h6>
+                                    
+                                    <div class="options">
+                                        <div class="form-check mt-3">
+                                            <input class="form-check-input" 
+                                                   type="radio" 
+                                                   name="question_{{ question.id }}" 
+                                                   value="A" 
+                                                   id="q{{ question.id }}_a"
+                                                   required>
+                                            <label class="form-check-label option-label" for="q{{ question.id }}_a">
+                                                {{ question.option_a }}
+                                            </label>
+                                        </div>
+                                        
+                                        <div class="form-check mt-3">
+                                            <input class="form-check-input" 
+                                                   type="radio" 
+                                                   name="question_{{ question.id }}" 
+                                                   value="B" 
+                                                   id="q{{ question.id }}_b"
+                                                   required>
+                                            <label class="form-check-label option-label" for="q{{ question.id }}_b">
+                                                {{ question.option_b }}
+                                            </label>
+                                        </div>
+                                        
+                                        <div class="form-check mt-3">
+                                            <input class="form-check-input" 
+                                                   type="radio" 
+                                                   name="question_{{ question.id }}" 
+                                                   value="C" 
+                                                   id="q{{ question.id }}_c"
+                                                   required>
+                                            <label class="form-check-label option-label" for="q{{ question.id }}_c">
+                                                {{ question.option_c }}
+                                            </label>
+                                        </div>
+                                        
+                                        <div class="form-check mt-3">
+                                            <input class="form-check-input" 
+                                                   type="radio" 
+                                                   name="question_{{ question.id }}" 
+                                                   value="D" 
+                                                   id="q{{ question.id }}_d"
+                                                   required>
+                                            <label class="form-check-label option-label" for="q{{ question.id }}_d">
+                                                {{ question.option_d }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <!-- Submit Section -->
+        <div class="text-center">
+            <button type="submit" class="btn btn-success btn-lg mb-3" id="submitBtn">
+                <i class="bi bi-check-circle"></i> Juwmaqlaw
+            </button>
+            <div>
+                <small class="text-secondary">
+                    Iltimas, juwmaqlawdan aldın juwaplarıńızdı kórip shıǵıń. Siz bul testti tek bir márte tapsıra alasız.
+                </small>
+            </div>
+        </div>
+        <div class="m-4 text-center text-secondary">-</div>
+    </form>
+
+    <div id="result" class="card border-0 shadow-sm d-none">
+        <div class="card-body pb-3">
+            <div class="d-flex justify-content-between mb-4 text-primary">
+                <h1>Nátiyjeńiz:</h1>
+                <h1 id="correct_answers_display" class="text-center"></h1>
+            </div>
+            <div class="d-flex justify-content-between text-secondary mb-1">
+                <small>Qatnasıwshı:</small>
+                <small id="student_name_display"></small>
+            </div>
+            <div class="d-flex justify-content-between text-secondary mb-1">
+                <small>Tapsırılǵan waqıt:</small>
+                <small id="time_taken_display"></small>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Review Modal -->
+<div class="modal fade" id="reviewModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Review Your Answers</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="reviewContent">
+                <!-- Review content will be populated here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Continue Editing</button>
+                <button type="button" class="btn btn-success" onclick="submitTestFromReview()">Submit Test</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+  function getQueryParam(name) {
+    const url = new URL(window.location.href);
+    return url.searchParams.get(name);
+  }
+
+  window.onload = function () {
+    // Telegram Web App API orqali foydalanuvchi ma'lumotlarini olish
+    const tg = window.Telegram.WebApp;
+
+    // test_id ni URLdan olish
+    const testId = getQueryParam('test_id') || getQueryParam('tgWebAppStartParam');
+
+    // Foydalanuvchi ma'lumotlarini tekshiramiz
+    if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
+        const user = tg.initDataUnsafe.user;
+    
+        fetch(`/api/check-participation/?student_id=${user.id}&test_id=${testId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.participated) {
+            // Student bu testga qatnashgan
+                // alert(`${data.result.student_name} siz bu testga qatnashgansiz! ${data.result.correct_answers} to'g'ri javob berdingiz.`);
+                document.getElementById("testForm").style.display = "none"; 
+                document.getElementById("result").classList.remove("d-none");
+                document.getElementById("correct_answers_display").textContent = `${data.result.correct_answers}/${data.result.total_questions}`;
+                document.getElementById("student_name_display").textContent =
+                  data.result.student_name.length > 30
+                    ? data.result.student_name.slice(0, 30) + '...'
+                    : data.result.student_name;
+                document.getElementById("time_taken_display").textContent = data.result.completed_at;
+            } else {
+                document.getElementById("testForm").classList.remove("d-none");
+                document.getElementById("student_id").value = user.id;
+                document.getElementById("student_name").value = `${user.first_name || ""} ${user.last_name || ""}`.trim();
+            }
+        })
+        .catch(error => {
+            console.error('Xatolik:', error);
+        });
+  
+    } else {
+      console.warn("Foydalanuvchi ma'lumotlari mavjud emas.");
+    }
+  };
+</script>
+
+<script>
+$(document).ready(function() {
+    // Progress tracking
+    updateProgress();
+    
+    // Bind radio button changes to update progress
+    $('input[type="radio"]').on('change', updateProgress);
+    
+    // Form submission
+    $('#testForm').on('submit', function(e) {
+        e.preventDefault();
+        
+        if (validateForm()) {
+            $('#submitBtn').addClass('loading');
+            this.submit();
+        }
+    });
+    
+    // Auto-save functionality (optional)
+    setInterval(autoSave, 30000); // Auto-save every 30 seconds
+});
+
+function updateProgress() {
+    const totalQuestions = {{ questions.count }};
+    const answeredQuestions = $('input[type="radio"]:checked').length;
+    const percentage = Math.round((answeredQuestions / totalQuestions) * 100);
+    
+    // Update progress in header or create a progress bar
+    if ($('#progressBar').length === 0) {
+        $('.container').first().after(`
+            <div class="fixed-bottom bg-white border-top p-2" id="progressContainer">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="progress">
+                                <div class="progress-bar" id="progressBar" role="progressbar" style="width: ${percentage}%">
+                                    ${percentage}%
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <small class="text-muted">
+                                ${answeredQuestions} of ${totalQuestions} answered
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `);
+    } else {
+        $('#progressBar').css('width', percentage + '%').text(percentage + '%');
+        $('#progressContainer small').text(`${answeredQuestions} of ${totalQuestions} answered`);
+    }
+}
+
+function validateForm() {
+    const studentId = $('input[name="student_id"]').val().trim();
+    const studentName = $('input[name="student_name"]').val().trim();
+    
+    if (!studentId) {
+        alert('Please enter your Student ID');
+        $('input[name="student_id"]').focus();
+        return false;
+    }
+    
+    if (!studentName) {
+        alert('Please enter your full name');
+        $('input[name="student_name"]').focus();
+        return false;
+    }
+    
+    // Check if all questions are answered
+    const totalQuestions = {{ questions.count }};
+    const answeredQuestions = $('input[type="radio"]:checked').length;
+    
+    if (answeredQuestions < totalQuestions) {
+        const unanswered = totalQuestions - answeredQuestions;
+    }
+    
+    return true;
+}
+
+
+function submitTestFromReview() {
+    bootstrap.Modal.getInstance(document.getElementById('reviewModal')).hide();
+    if (validateForm()) {
+        $('#submitBtn').addClass('loading');
+        document.getElementById('testForm').submit();
+    }
+}
+
+function autoSave() {
+    // Save current answers to localStorage
+    const answers = {};
+    $('input[type="radio"]:checked').each(function() {
+        answers[this.name] = this.value;
+    });
+    
+    localStorage.setItem('test_{{ test.id }}_answers', JSON.stringify(answers));
+    localStorage.setItem('test_{{ test.id }}_student_id', $('input[name="student_id"]').val());
+    localStorage.setItem('test_{{ test.id }}_student_name', $('input[name="student_name"]').val());
+}
+
+// Load saved answers on page load
+$(document).ready(function() {
+    const savedAnswers = localStorage.getItem('test_{{ test.id }}_answers');
+    const savedStudentId = localStorage.getItem('test_{{ test.id }}_student_id');
+    const savedStudentName = localStorage.getItem('test_{{ test.id }}_student_name');
+    
+    if (savedAnswers) {
+        const answers = JSON.parse(savedAnswers);
+        Object.keys(answers).forEach(questionName => {
+            $(`input[name="${questionName}"][value="${answers[questionName]}"]`).prop('checked', true);
+        });
+    }
+    
+    if (savedStudentId) {
+        $('input[name="student_id"]').val(savedStudentId);
+    }
+    
+    if (savedStudentName) {
+        $('input[name="student_name"]').val(savedStudentName);
+    }
+    
+    updateProgress();
+});
+
+// Clear saved data on successful submission
+window.addEventListener('beforeunload', function() {
+    if (performance.navigation.type === 1) { // Page refresh
+        localStorage.removeItem('test_{{ test.id }}_answers');
+        localStorage.removeItem('test_{{ test.id }}_student_id');
+        localStorage.removeItem('test_{{ test.id }}_student_name');
+    }
+});
+</script>
+
+
+{% endblock %}

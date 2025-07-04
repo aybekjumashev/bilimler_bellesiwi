@@ -1,0 +1,169 @@
+<!-- templates/testapp/includes/pagination.html -->
+{% load pagination_tags %}
+
+{% if paginator.num_pages > 1 %}
+    <div class="border-top p-3">
+        <div class="row align-items-center">
+            <!-- Pagination Info -->
+            <div class="col-md-6">
+                <p class="mb-0 text-secondary">
+                    Showing <strong>{{ page_obj.start_index }}</strong> to <strong>{{ page_obj.end_index }}</strong> 
+                    of <strong>{{ paginator.count }}</strong> tests
+                </p>
+            </div>
+            
+            <!-- Pagination Links -->
+            <div class="col-md-6">
+                <nav aria-label="Tests pagination">
+                    <ul class="pagination pagination-sm justify-content-md-end justify-content-center mb-0">
+                        <!-- First Page -->
+                        {% if page_obj.number > 3 %}
+                            <li class="page-item">
+                                <a class="page-link" href="{% pagination_url 1 %}" title="First page">
+                                    <i class="bi bi-chevron-double-left"></i>
+                                </a>
+                            </li>
+                        {% endif %}
+                        
+                        <!-- Previous Page -->
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="{% pagination_url page_obj.previous_page_number %}" title="Previous page">
+                                    <i class="bi bi-chevron-left"></i>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <span class="page-link">
+                                    <i class="bi bi-chevron-left"></i>
+                                </span>
+                            </li>
+                        {% endif %}
+                        
+                        <!-- Page Numbers -->
+                        {% for page_num in page_range %}
+                            {% if page_num == '...' %}
+                                <li class="page-item disabled">
+                                    <span class="page-link">...</span>
+                                </li>
+                            {% elif page_num == page_obj.number %}
+                                <li class="page-item active">
+                                    <span class="page-link">
+                                        {{ page_num }}
+                                        <span class="sr-only">(current)</span>
+                                    </span>
+                                </li>
+                            {% else %}
+                                <li class="page-item">
+                                    <a class="page-link" href="{% pagination_url page_num %}" title="Go to page {{ page_num }}">
+                                        {{ page_num }}
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                        
+                        <!-- Next Page -->
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="{% pagination_url page_obj.next_page_number %}" title="Next page">
+                                    <i class="bi bi-chevron-right"></i>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <span class="page-link">
+                                    <i class="bi bi-chevron-right"></i>
+                                </span>
+                            </li>
+                        {% endif %}
+                        
+                        <!-- Last Page -->
+                        {% if page_obj.number < paginator.num_pages|add:"-2" %}
+                            <li class="page-item">
+                                <a class="page-link" href="{% pagination_url paginator.num_pages %}" title="Last page">
+                                    <i class="bi bi-chevron-double-right"></i>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        
+        <!-- Additional Pagination Info and Quick Jump -->
+        <div class="row mt-2">
+            <div class="col-md-6">
+                <small class="text-muted">
+                    Page {{ page_obj.number }} of {{ paginator.num_pages }}
+                    {% if paginator.count > 0 %}
+                        ({{ paginator.count }} total result{{ paginator.count|pluralize }})
+                    {% endif %}
+                </small>
+            </div>
+            
+            <!-- Quick Jump for pages > 10 -->
+            {% if paginator.num_pages > 10 %}
+                <div class="col-md-6">
+                    <div class="d-flex justify-content-md-end justify-content-center">
+                        <div class="input-group input-group-sm" style="max-width: 200px;">
+                            <span class="input-group-text">Go to:</span>
+                            <input type="number" 
+                                   class="form-control" 
+                                   id="pageJump" 
+                                   min="1" 
+                                   max="{{ paginator.num_pages }}" 
+                                   value="{{ page_obj.number }}"
+                                   placeholder="Page"
+                                   style="max-width: 80px;">
+                            <button class="btn btn-outline-secondary" type="button" onclick="jumpToPage()" title="Go to page">
+                                <i class="bi bi-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}
+
+<script>
+// Page jump function (only if not already defined)
+if (typeof jumpToPage === 'undefined') {
+    function jumpToPage() {
+        const pageInput = document.getElementById('pageJump');
+        if (!pageInput) return;
+        
+        const pageNum = parseInt(pageInput.value);
+        const maxPages = parseInt(pageInput.max);
+        
+        if (pageNum >= 1 && pageNum <= maxPages && pageNum !== {{ page_obj.number }}) {
+            // Build URL with current parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            urlParams.set('page', pageNum);
+            window.location.href = '?' + urlParams.toString();
+        } else if (pageNum < 1 || pageNum > maxPages) {
+            alert(`Please enter a page number between 1 and ${maxPages}`);
+            pageInput.focus();
+            pageInput.select();
+        }
+    }
+}
+
+// Add enter key support for page jump
+document.addEventListener('DOMContentLoaded', function() {
+    const pageJumpInput = document.getElementById('pageJump');
+    if (pageJumpInput) {
+        pageJumpInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                jumpToPage();
+            }
+        });
+        
+        // Select all text when focused
+        pageJumpInput.addEventListener('focus', function() {
+            this.select();
+        });
+    }
+});
+</script>

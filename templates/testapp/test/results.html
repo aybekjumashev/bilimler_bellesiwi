@@ -1,0 +1,205 @@
+<!-- templates/testapp/test/results.html -->
+{% extends 'base.html' %}
+
+{% block title %}Test Results - {{ test.subject.name }}{% endblock %}
+
+{% block content %}
+<nav class="d-block d-md-none navbar fixed-bottom bg-dark shadow-sm">
+  <div class="container d-flex justify-content-around text-center">
+    <a href="{% url 'testapp:test_start' %}?test_id={{test.id}}" class="nav-link text-secondary">
+        <i class="bi bi-rocket-takeoff-fill d-block m-0"></i>
+        <small>Testke qatnasıw</small>
+    </a>
+    <a href="{% url 'testapp:test_chatbot' %}?test_id={{test.id}}" class="nav-link text-secondary">
+        <i class="bi bi-stars d-block m-0 shining-star"></i>
+        <small>Analizlew</small>
+    </a>
+    <a href="#" class="nav-link text-primary">
+        <i class="bi bi-clipboard-data d-block m-0"></i>
+        <small>Barlıq nátiyjeler</small>
+    </a>
+  </div>
+</nav>
+<style>
+    nav {
+        display: none !important;
+    }
+    .student-name-wrap {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        /* word-break: break-all; */
+        max-width: 180px;
+        white-space: normal;
+        font-size: 1rem;
+        line-height: 1.2;
+        /* min-height: 2.4em; */
+    }
+    @keyframes twinkle {
+        0%, 100% { opacity: 0.3; transform: scale(1); }
+        50% { opacity: 1; transform: scale(1.2); }
+    }
+    .shining-star {
+        display: inline-block;
+        color: gold;
+        animation: twinkle 1.5s infinite ease-in-out;
+    }
+    #searchInput::placeholder {
+        color: var(--bs-secondary);
+    }
+</style>
+<div class="container py-3">
+    <!-- Test Header -->
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm bg-success text-white">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h3 class="mb-1">
+                                <i class="bi bi-clipboard-data"></i> Test №{{ test.id }} nátiyjeleri
+                            </h3>
+                            <p class="mb-0 opacity-75">
+                                {{ test.subject.name }} • {{ test.subject.grade }}-klass • {{ test.test_questions.count }} soraw
+                            </p>
+                        </div>
+                        <!-- <div class="col-md-4 text-md-end">
+                            <div class="badge bg-light text-dark fs-6 p-2">
+                                <i class="bi bi-calendar"></i> {{ test.created_at|date:"M d, Y H:i" }}
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- Results Table -->
+    <div class="row">
+        <div class="col-12">
+            <div class="input-group mb-3 px-5 ">
+                <span class="input-group-text bg-dark text-white border-0">
+                    <i class="bi bi-search"></i>
+                </span>
+                <input type="text" class="form-control bg-dark text-white border-0" placeholder="Izlew..." id="searchInput">
+            </div>
+            <div class="card border-0 shadow-sm">      
+                <div class="card-body p-0">
+                    {% if results %}
+                        <div class="table-responsive">
+                            <table class="table results-table mb-0 border-0">
+                                <!-- <thead>
+                                    <tr>
+                                        <th>Rank</th>
+                                        <th>Student Name</th>
+                                        <th>Correct Answers</th>
+                                    </tr>
+                                </thead> -->
+                                <tbody class="table-dark">
+                                    {% for result in results %}
+                                        <tr class="searchable-item" data-name="{{ result.student_name }}">
+                                            <td>
+                                                {% if forloop.counter <= 3 %}
+                                                    <span class="badge rank-badge rank-{{ forloop.counter }}">
+                                                        {{ forloop.counter }}
+                                                    </span>
+                                                {% else %}
+                                                    <span class="badge bg-secondary rank-badge">
+                                                        {{ forloop.counter }}
+                                                    </span>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div>
+                                                        <h6 class="mb-0 student-name-wrap">{{ result.student_name }}</h6>
+                                                        <!-- {% if forloop.counter == 1 %}
+                                                            <small class="text-warning">
+                                                                <i class="bi bi-crown"></i> Eń joqarı nátiyje
+                                                            </small>
+                                                        {% endif %} -->
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="text-end">
+                                                    <h6 class="mb-0">
+                                                        {{ result.correct_answers }} / {{ result.total_questions }}
+                                                    </h6>
+                                                </div>                                            
+                                
+                                                <div class="text-end">
+                                                    <small class="text-secondary">
+                                                        {{ result.completed_at|date:"H:i d.m.Y" }}
+                                                    </small>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-5">
+                            <i class="bi bi-inbox display-1"></i>
+                            <h4 class="mt-3">Nátiyjeler joq</h4>
+                            <p class="text-secondary">Hesh kim bul testke qatnaspaǵan.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+
+function copyTestURL() {
+    const testUrl = `${window.location.origin}/start/?test_id={{ test.id }}`;
+    copyToClipboard(testUrl);
+}
+
+function copyResultsURL() {
+    const resultsUrl = window.location.href;
+    copyToClipboard(resultsUrl);
+}
+
+// Auto-refresh results every 30 seconds
+setInterval(function() {
+    if ({{ results.count }} > 0) {
+        location.reload();
+    }
+}, 30000);
+
+// Add pulse animation to new results
+$(document).ready(function() {
+    const lastResultCount = localStorage.getItem('test_{{ test.id }}_results_count');
+    const currentCount = {{ results.count }};
+
+    localStorage.setItem('test_{{ test.id }}_results_count', currentCount);
+});
+
+// Live search functionality
+// $(document).ready(function() {
+//     $('#searchInput').on('input', function() {
+//         const searchTerm = $(this).val().toLowerCase();
+        
+//         $('.searchable-item').each(function() {
+//             const name = $(this).data('name').toLowerCase();
+            
+//             if (name.includes(searchTerm)) {
+//                 $(this).show();
+//             } else {
+//                 $(this).hide();
+//             }
+//         });
+//     });
+// });
+</script>
+{% endblock %}

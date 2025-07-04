@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+*.egg-info/
+.venv/
+
+# Django
+*.log
+db.sqlite3
+media/
+staticfiles/
+celerybeat-schedule*
+
+# VSCode
+.vscode/
+
+# Environment
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Other
+*.bak
+*.swp
+*.swo
+
+# Node
+node_modules/
+deploy.sh

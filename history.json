@@ -1,0 +1,682 @@
+[
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "\n        Qaraqalpaq tilinde Matematika páni boyınsha 5-klass oqıwshıları ushın 10 DANA quiz sorawın jaratıń.\n\n        Talaplar:\n        1. Soraw anıq hám túsinikli bolıwı kerek\n        2. Tek 4 juwap variantı bolıwı kerek\n        3. Tek bir dana durıs juwap variantı bolıwı kerek\n        4. Durıs juwap variantlardıń indeksin (0, 1, 2, 3) beriw kerek\n        5. Sorawlar qızıqlı hám úyretiwshi bolıwı kerek\n        6. Sorawlar hám juwaplar qaraqalpaq tilinde hám qátesiz bolıwı kerek\n        7. Sorawlar tákirarlanbawı kerek, jańa hám qızıqlı sorawlar jaratıw kerek\n        8. Sorawdıń teması hár saparı hár túrli bolsın.\n        9. EŃ ÁHMIYETLISI: Qátesiz latın álipbesinde hám qaraqalpaq tilinde bolıwı kerek.\n        10. 10 dana sorawdı bir json tizimi túrinde qaytarıń.\n    \n\n10 dana soraw jaratıń."
+            }
+        ],
+        "role": "user"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "[\n  {\n    \"question\": \"Sanlardı oqıw. \\\"245 789\\\" sanı qaysı juwapta durıs oqılg'an?\",\n    \"options\": [\n      \"Eki ju'z qırq bes mıń jeti ju'z segsen toǵız\",\n      \"Jeti ju'z segsen toǵız mıń eki ju'z qırq bes\",\n      \"Eki mıń qırq bes jeti ju'z segsen toǵız\",\n      \"Eki ju'z qırq bes jeti ju'z segsen toǵız\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"Qosındını tabıń: 3456 + 1234 = ?\",\n    \"options\": [\n      \"4690\",\n      \"4700\",\n      \"4680\",\n      \"4590\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"Ayırmanı tabıń: 8765 - 5432 = ?\",\n    \"options\": [\n      \"3333\",\n      \"3233\",\n      \"3323\",\n      \"3223\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"Ko'beytindini tabıń: 125 * 8 = ?\",\n    \"options\": [\n      \"900\",\n      \"1000\",\n      \"1100\",\n      \"950\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Bo'lindini tabıń: 720 / 9 = ?\",\n    \"options\": [\n      \"70\",\n      \"80\",\n      \"90\",\n      \"60\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Uzınlıg'ı 10 sm, eni 5 sm bolg'an tuwrıto'rtburchaktıń perimetrin tabıń.\",\n    \"options\": [\n      \"15 sm\",\n      \"30 sm\",\n      \"50 sm\",\n      \"25 sm\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Tárepi 7 sm bolg'an kvadrattıń maydanın tabıń.\",\n    \"options\": [\n      \"14 sm²\",\n      \"28 sm²\",\n      \"49 sm²\",\n      \"35 sm²\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Esaplań: 15 + 5 * 2 = ?\",\n    \"options\": [\n      \"40\",\n      \"25\",\n      \"30\",\n      \"20\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"1 metrde neshe santimetr bar?\",\n    \"options\": [\n      \"10 santimetr\",\n      \"100 santimetr\",\n      \"1000 santimetr\",\n      \"1 santimetr\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"1/2 bo'legine teń bolg'an kesir qaysı?\",\n    \"options\": [\n      \"2/3\",\n      \"3/4\",\n      \"2/4\",\n      \"4/6\"\n    ],\n    \"correct_option_id\": 2\n  }\n]"
+            }
+        ],
+        "role": "model"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "\n        Qaraqalpaq tilinde Matematika páni boyınsha 5-klass oqıwshıları ushın 10 DANA quiz sorawın jaratıń.\n\n        Talaplar:\n        1. Soraw anıq hám túsinikli bolıwı kerek\n        2. Tek 4 juwap variantı bolıwı kerek\n        3. Tek bir dana durıs juwap variantı bolıwı kerek\n        4. Durıs juwap variantlardıń indeksin (0, 1, 2, 3) beriw kerek\n        5. Sorawlar qızıqlı hám úyretiwshi bolıwı kerek\n        6. Sorawlar hám juwaplar qaraqalpaq tilinde hám qátesiz bolıwı kerek\n        7. Sorawlar tákirarlanbawı kerek, jańa hám qızıqlı sorawlar jaratıw kerek\n        8. Sorawdıń teması hár saparı hár túrli bolsın.\n        9. EŃ ÁHMIYETLISI: Qátesiz latın álipbesinde hám qaraqalpaq tilinde bolıwı kerek.\n        10. 10 dana sorawdı bir json tizimi túrinde qaytarıń.\n    \n\n10 dana soraw jaratıń."
+            }
+        ],
+        "role": "user"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "[\n  {\n    \"question\": \"Sanlardı oqıw. \\\"245 789\\\" sanı qaysı juwapta durıs oqılg'an?\",\n    \"options\": [\n      \"Eki ju'z qırq bes mıń jeti ju'z segsen toǵız\",\n      \"Jeti ju'z segsen toǵız mıń eki ju'z qırq bes\",\n      \"Eki mıń qırq bes jeti ju'z segsen toǵız\",\n      \"Eki ju'z qırq bes jeti ju'z segsen toǵız\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"Qosındını tabıń: 3456 + 1234 = ?\",\n    \"options\": [\n      \"4690\",\n      \"4700\",\n      \"4680\",\n      \"4590\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"Ayırmanı tabıń: 8765 - 5432 = ?\",\n    \"options\": [\n      \"3333\",\n      \"3233\",\n      \"3323\",\n      \"3223\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"Ko'beytindini tabıń: 125 * 8 = ?\",\n    \"options\": [\n      \"900\",\n      \"1000\",\n      \"1100\",\n      \"950\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Bo'lindini tabıń: 720 / 9 = ?\",\n    \"options\": [\n      \"70\",\n      \"80\",\n      \"90\",\n      \"60\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Uzınlıg'ı 10 sm, eni 5 sm bolg'an tuwrıto'rtburchaktıń perimetrin tabıń.\",\n    \"options\": [\n      \"15 sm\",\n      \"30 sm\",\n      \"50 sm\",\n      \"25 sm\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Tárepi 7 sm bolg'an kvadrattıń maydanın tabıń.\",\n    \"options\": [\n      \"14 sm²\",\n      \"28 sm²\",\n      \"49 sm²\",\n      \"35 sm²\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Esaplań: 15 + 5 * 2 = ?\",\n    \"options\": [\n      \"40\",\n      \"25\",\n      \"30\",\n      \"20\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"1 metrde neshe santimetr bar?\",\n    \"options\": [\n      \"10 santimetr\",\n      \"100 santimetr\",\n      \"1000 santimetr\",\n      \"1 santimetr\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"1/2 bo'legine teń bolg'an kesir qaysı?\",\n    \"options\": [\n      \"2/3\",\n      \"3/4\",\n      \"2/4\",\n      \"4/6\"\n    ],\n    \"correct_option_id\": 2\n  }\n]"
+            }
+        ],
+        "role": "model"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "\n        Qaraqalpaq tilinde Matematika páni boyınsha 5-klass oqıwshıları ushın 10 DANA quiz sorawın jaratıń.\n\n        Talaplar:\n        1. Soraw anıq hám túsinikli bolıwı kerek\n        2. Tek 4 juwap variantı bolıwı kerek\n        3. Tek bir dana durıs juwap variantı bolıwı kerek\n        4. Durıs juwap variantlardıń indeksin (0, 1, 2, 3) beriw kerek\n        5. Sorawlar qızıqlı hám úyretiwshi bolıwı kerek\n        6. Sorawlar hám juwaplar qaraqalpaq tilinde hám qátesiz bolıwı kerek\n        7. Sorawlar tákirarlanbawı kerek, jańa hám qızıqlı sorawlar jaratıw kerek\n        8. Sorawdıń teması hár saparı hár túrli bolsın.\n        9. EŃ ÁHMIYETLISI: Qátesiz latın álipbesinde hám qaraqalpaq tilinde bolıwı kerek.\n        10. 10 dana sorawdı bir json tizimi túrinde qaytarıń.\n    \n\n10 dana soraw jaratıń."
+            }
+        ],
+        "role": "user"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "[\n  {\n    \"question\": \"Qaysı juwapta \\\"5 678 901\\\" sanı durıs jazılg'an?\",\n    \"options\": [\n      \"Bes million altı ju'z jetpis segiz mıń toǵız ju'z bir\",\n      \"Bes ju'z altmıs jetim mıń segiz ju'z toǵıs ju'z bir\",\n      \"Bes million altı ju'z jetpis segiz toǵız ju'z bir\",\n      \"Ellik altı million jetpis segiz mıń toǵız ju'z bir\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"12 345 + 6 789 qosındısı neshege teń?\",\n    \"options\": [\n      \"19 134\",\n      \"18 034\",\n      \"19 034\",\n      \"18 134\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"9 876 - 5 432 ayırması neshege teń?\",\n    \"options\": [\n      \"4 444\",\n      \"4 544\",\n      \"4 454\",\n      \"4 344\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"250 * 15 ko'beytindisi neshege teń?\",\n    \"options\": [\n      \"3500\",\n      \"3750\",\n      \"4000\",\n      \"3250\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"3600 / 60 bo'lindisi neshege teń?\",\n    \"options\": [\n      \"50\",\n      \"60\",\n      \"70\",\n      \"80\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Tárepi 9 sm bolg'an kvadrattıń perimetri qansha?\",\n    \"options\": [\n      \"18 sm\",\n      \"36 sm\",\n      \"27 sm\",\n      \"81 sm\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Uzınlıg'ı 12 sm, eni 6 sm bolg'an tuwrıto'rtburchaktıń maydanı qansha?\",\n    \"options\": [\n      \"18 sm²\",\n      \"36 sm²\",\n      \"72 sm²\",\n      \"48 sm²\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Esaplań: (20 - 5) * 3 + 10 = ?\",\n    \"options\": [\n      \"55\",\n      \"45\",\n      \"35\",\n      \"60\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"2 saatta neshe minut bar?\",\n    \"options\": [\n      \"60 minut\",\n      \"90 minut\",\n      \"120 minut\",\n      \"180 minut\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Qaysı kesir 1/2 den úlken?\",\n    \"options\": [\n      \"1/4\",\n      \"2/5\",\n      \"3/4\",\n      \"3/7\"\n    ],\n    \"correct_option_id\": 2\n  }\n]"
+            }
+        ],
+        "role": "model"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "\n        Qaraqalpaq tilinde Matematika páni boyınsha 5-klass oqıwshıları ushın 20 DANA quiz sorawın jaratıń.\n\n        Talaplar:\n        1. Soraw anıq hám túsinikli bolıwı kerek\n        2. Tek 4 juwap variantı bolıwı kerek\n        3. Tek bir dana durıs juwap variantı bolıwı kerek\n        4. Durıs juwap variantlardıń indeksin (0, 1, 2, 3) beriw kerek\n        5. Sorawlar qızıqlı hám úyretiwshi bolıwı kerek\n        6. Sorawlar hám juwaplar qaraqalpaq tilinde hám qátesiz bolıwı kerek\n        7. Sorawlar tákirarlanbawı kerek, jańa hám qızıqlı sorawlar jaratıw kerek\n        8. Sorawdıń teması hár saparı hár túrli bolsın.\n        9. EŃ ÁHMIYETLISI: Qátesiz latın álipbesinde hám qaraqalpaq tilinde bolıwı kerek.\n        10. 20 dana sorawdı bir json tizimi túrinde qaytarıń.\n    \n\n20 dana soraw jaratıń."
+            }
+        ],
+        "role": "user"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "[\n  {\n    \"question\": \"\\\"4 705 083\\\" sanında jeti cifri qaysı razryadta jaylasqan?\",\n    \"options\": [\n      \"Birler\",\n      \"Mıńlar\",\n      \"Mıllionlar\",\n      \"Ju'z mıńlar\"\n    ],\n    \"correct_option_id\": 3\n  },\n  {\n    \"question\": \"Qosındını tabıń: 15 678 + 9 321 = ?\",\n    \"options\": [\n      \"24 999\",\n      \"25 000\",\n      \"24 000\",\n      \"25 099\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"Ayırmanı tabıń: 32 100 - 14 567 = ?\",\n    \"options\": [\n      \"17 533\",\n      \"18 533\",\n      \"17 633\",\n      \"18 633\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"Ko'beytindini tabıń: 45 * 200 = ?\",\n    \"options\": [\n      \"8000\",\n      \"9000\",\n      \"900\",\n      \"8500\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Bo'lindini tabıń: 1240 / 8 = ?\",\n    \"options\": [\n      \"150\",\n      \"155\",\n      \"160\",\n      \"145\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Esaplań: (100 - 25) / 5 + 15 = ?\",\n    \"options\": [\n      \"30\",\n      \"35\",\n      \"20\",\n      \"40\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"Tárepi 11 sm bolg'an kvadrattıń perimetri qansha?\",\n    \"options\": [\n      \"22 sm\",\n      \"44 sm\",\n      \"121 sm\",\n      \"33 sm\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Uzınlıg'ı 15 m, eni 8 m bolg'an sport maydanınıń maydanı qansha?\",\n    \"options\": [\n      \"23 m²\",\n      \"46 m²\",\n      \"120 m²\",\n      \"60 m²\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Bir sutkada neshe saat bar?\",\n    \"options\": [\n      \"12 saat\",\n      \"36 saat\",\n      \"24 saat\",\n      \"60 saat\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Eki to'rtten bir (2/4) kesiri qaysı juwapta durıs qısqartılg'an?\",\n    \"options\": [\n      \"1/2\",\n      \"1/4\",\n      \"2/1\",\n      \"3/4\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"\\\"0.75\\\" sanı qaysı juwapta durıs oqılg'an?\",\n    \"options\": [\n      \"Nol pu'tin jetpis bes\",\n      \"Jetpis bes ju'zden bir\",\n      \"Ju'zden jetpis bes\",\n      \"Nol pu'tin ju'zden jetpis bes\"\n    ],\n    \"correct_option_id\": 3\n  },\n  {\n    \"question\": \"Bir bala 15 qálem aldı, ekinshisi odan 7 qálem artıq aldı. Ekinshi bala neshe qálem aldı?\",\n    \"options\": [\n      \"20 qálem\",\n      \"22 qálem\",\n      \"8 qálem\",\n      \"25 qálem\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Kvadrattıń neshe tárepi bar hám olar qanday boladı?\",\n    \"options\": [\n      \"U'sh tárepi bar, hárbiri hár qıylı\",\n      \"To'rt tárepi bar, hárbiri teń\",\n      \"To'rt tárepi bar, ekewi teń\",\n      \"Bes tárepi bar, hárbiri teń\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Mektep sabaqları saat 8:00 de baslandı hám 12:30 da tamamlandı. Sabaqlar qansha waqıt dawam etti?\",\n    \"options\": [\n      \"3 saat 30 minut\",\n      \"4 saat\",\n      \"4 saat 30 minut\",\n      \"5 saat\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"6789 sanın jaqın mıńlıqqa deyin dóngelekleń.\",\n    \"options\": [\n      \"6000\",\n      \"7000\",\n      \"6800\",\n      \"6700\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Rim sanlarında \\\"X\\\" qaysı sifferdi bildiredi?\",\n    \"options\": [\n      \"5\",\n      \"10\",\n      \"50\",\n      \"100\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Naǵıstı dawam ettiriń: 3, 6, 9, 12, __, __\",\n    \"options\": [\n      \"14, 16\",\n      \"15, 18\",\n      \"13, 16\",\n      \"10, 11\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Qaysı san eń úlken: 5099, 5909, 5009, 5990?\",\n    \"options\": [\n      \"5099\",\n      \"5909\",\n      \"5009\",\n      \"5990\"\n    ],\n    \"correct_option_id\": 3\n  },\n  {\n    \"question\": \"U'sh sandıń qosındısı 60 bolsa, olardıń ortasha arifmetikalıq mánisi neshege teń?\",\n    \"options\": [\n      \"10\",\n      \"20\",\n      \"30\",\n      \"15\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Álısherde 50 000 sum bar edi. Ol 25 500 sumg'a kitap satıp aldı. Álısherde qansha pul qaldı?\",\n    \"options\": [\n      \"24 500 sum\",\n      \"25 000 sum\",\n      \"20 000 sum\",\n      \"24 000 sum\"\n    ],\n    \"correct_option_id\": 0\n  }\n]"
+            }
+        ],
+        "role": "model"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "\n        Qaraqalpaq tilinde Matematika páni boyınsha 5-klass oqıwshıları ushın 20 DANA quiz sorawın jaratıń.\n\n        Talaplar:\n        1. Soraw anıq hám túsinikli bolıwı kerek\n        2. Tek 4 juwap variantı bolıwı kerek\n        3. Tek bir dana durıs juwap variantı bolıwı kerek\n        4. Durıs juwap variantlardıń indeksin (0, 1, 2, 3) beriw kerek\n        5. Sorawlar qızıqlı hám úyretiwshi bolıwı kerek\n        6. Sorawlar hám juwaplar qaraqalpaq tilinde hám qátesiz bolıwı kerek\n        7. Sorawlar tákirarlanbawı kerek, jańa hám qızıqlı sorawlar jaratıw kerek\n        8. Sorawdıń teması hár saparı hár túrli bolsın.\n        9. EŃ ÁHMIYETLISI: Qátesiz latın álipbesinde hám qaraqalpaq tilinde bolıwı kerek.\n        10. 20 dana sorawdı bir json tizimi túrinde qaytarıń.\n    \n\n20 dana soraw jaratıń."
+            }
+        ],
+        "role": "user"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "[\n  {\n    \"question\": \"\\\"7 203 541\\\" sanı qaysı juwapta durıs oqılg'an?\",\n    \"options\": [\n      \"Jeti million eki ju'z u'sh mıń bes ju'z qırq bir\",\n      \"Jeti million eki ju'z u'sh mıń bes ju'z qırq\",\n      \"Jeti mıń eki ju'z u'sh million bes ju'z qırq bir\",\n      \"Jeti eki ju'z u'sh bes ju'z qırq bir\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"45 789 + 32 101 qosındısı neshege teń?\",\n    \"options\": [\n      \"77 890\",\n      \"77 880\",\n      \"77 900\",\n      \"77 870\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"98 765 - 12 345 ayırması neshege teń?\",\n    \"options\": [\n      \"86 420\",\n      \"86 410\",\n      \"86 520\",\n      \"86 320\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"345 * 25 ko'beytindisi neshege teń?\",\n    \"options\": [\n      \"8625\",\n      \"8525\",\n      \"8725\",\n      \"8425\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"5600 / 70 bo'lindisi neshege teń?\",\n    \"options\": [\n      \"70\",\n      \"80\",\n      \"60\",\n      \"90\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Esaplań: (45 + 15) / 10 - 3 = ?\",\n    \"options\": [\n      \"3\",\n      \"6\",\n      \"0\",\n      \"1\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"Tárepi 13 sm bolg'an teń tárepli u'shburshtıń perimetri qansha?\",\n    \"options\": [\n      \"26 sm\",\n      \"39 sm\",\n      \"13 sm\",\n      \"52 sm\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Uzınlıg'ı 20 m, eni 10 m bolg'an basseynnıń maydanı qansha?\",\n    \"options\": [\n      \"30 m²\",\n      \"60 m²\",\n      \"200 m²\",\n      \"100 m²\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"3 metrde neshe millimetr bar?\",\n    \"options\": [\n      \"300 mm\",\n      \"3000 mm\",\n      \"30 mm\",\n      \"30000 mm\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"3/5 kesiriniń tolıq mániske deyin jetpesi ushın qansha kesir kerek?\",\n    \"options\": [\n      \"1/5\",\n      \"2/5\",\n      \"3/5\",\n      \"4/5\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Qaysı san \\\"nol pu'tin onnan segiz\\\" dep oqıladı?\",\n    \"options\": [\n      \"0.08\",\n      \"0.8\",\n      \"8.0\",\n      \"0.008\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Bir qalta almanıń salmag'ı 3 kg bolsa, 4 qalta almanıń salmag'ı qansha?\",\n    \"options\": [\n      \"7 kg\",\n      \"12 kg\",\n      \"1 kg\",\n      \"4 kg\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Do'n'gelek geometriyalıq figuranıń ne oraylıq noqatı bar?\",\n    \"options\": [\n      \"Bir\",\n      \"Eki\",\n      \"U'sh\",\n      \"Joq\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"Saat 9:45 ten 10:15 ke shekem qansha waqıt o'tedi?\",\n    \"options\": [\n      \"15 minut\",\n      \"30 minut\",\n      \"45 minut\",\n      \"1 saat\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"12 345 sanın jaqın ju'zlikke deyin dóngelekleń.\",\n    \"options\": [\n      \"12 300\",\n      \"12 400\",\n      \"12 000\",\n      \"13 000\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"Rim sanlarında \\\"V\\\" qaysı arab sanyna teń?\",\n    \"options\": [\n      \"1\",\n      \"5\",\n      \"10\",\n      \"50\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Naǵıstı dawam ettiriń: 2, 4, 8, 16, __, __\",\n    \"options\": [\n      \"20, 24\",\n      \"30, 40\",\n      \"32, 64\",\n      \"18, 20\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Qaysı san eń kishisi: 10 001, 9 999, 10 010, 9 909?\",\n    \"options\": [\n      \"10 001\",\n      \"9 999\",\n      \"10 010\",\n      \"9 909\"\n    ],\n    \"correct_option_id\": 3\n  },\n  {\n    \"question\": \"10, 20, 30 sanlarınıń ortasha arifmetikalıq mánisi neshe?\",\n    \"options\": [\n      \"15\",\n      \"20\",\n      \"25\",\n      \"30\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Álısherde 50 000 sum bar edi. Ol 25 500 sumg'a kitap satıp aldı. Álısherde qansha pul qaldı?\",\n    \"options\": [\n      \"24 500 sum\",\n      \"25 000 sum\",\n      \"20 000 sum\",\n      \"24 000 sum\"\n    ],\n    \"correct_option_id\": 0\n  }\n]"
+            }
+        ],
+        "role": "model"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "\n        Qaraqalpaq tilinde Matematika páni boyınsha 5-klass oqıwshıları ushın 30 DANA quiz sorawın jaratıń.\n\n        Talaplar:\n        1. Soraw anıq hám túsinikli bolıwı kerek\n        2. Tek 4 juwap variantı bolıwı kerek\n        3. Tek bir dana durıs juwap variantı bolıwı kerek\n        4. Durıs juwap variantlardıń indeksin (0, 1, 2, 3) beriw kerek\n        5. Sorawlar qızıqlı hám úyretiwshi bolıwı kerek\n        6. Sorawlar hám juwaplar qaraqalpaq tilinde hám qátesiz bolıwı kerek\n        7. Sorawlar tákirarlanbawı kerek, jańa hám qızıqlı sorawlar jaratıw kerek\n        8. Sorawdıń teması hár saparı hár túrli bolsın.\n        9. EŃ ÁHMIYETLISI: Qátesiz latın álipbesinde hám qaraqalpaq tilinde bolıwı kerek.\n        10. 30 dana sorawdı bir json tizimi túrinde qaytarıń.\n    \n\n30 dana soraw jaratıń."
+            }
+        ],
+        "role": "user"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "[\n  {\n    \"question\": \"\\\"8 054 219\\\" sanında bes cifri qaysı razryadta jaylasqan?\",\n    \"options\": [\n      \"Birler\",\n      \"Mıńlar\",\n      \"On mıńlar\",\n      \"Ju'z mıńlar\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"56 789 + 12 345 qosındısı neshege teń?\",\n    \"options\": [\n      \"69 134\",\n      \"69 124\",\n      \"69 034\",\n      \"69 104\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"75 432 - 38 910 ayırması neshege teń?\",\n    \"options\": [\n      \"36 522\",\n      \"36 622\",\n      \"36 512\",\n      \"36 422\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"315 * 30 ko'beytindisi neshege teń?\",\n    \"options\": [\n      \"9350\",\n      \"9450\",\n      \"9050\",\n      \"9550\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"8400 / 120 bo'lindisi neshege teń?\",\n    \"options\": [\n      \"60\",\n      \"70\",\n      \"80\",\n      \"90\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Esaplań: 7 * (12 - 5) + 10 = ?\",\n    \"options\": [\n      \"59\",\n      \"69\",\n      \"79\",\n      \"89\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"Tárepi 14 sm bolg'an kvadrattıń perimetri qansha?\",\n    \"options\": [\n      \"28 sm\",\n      \"42 sm\",\n      \"56 sm\",\n      \"196 sm\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Uzınlıg'ı 18 m, eni 9 m bolg'an tuwrıto'rtburchaktıń maydanı qansha?\",\n    \"options\": [\n      \"27 m²\",\n      \"54 m²\",\n      \"162 m²\",\n      \"72 m²\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"3 saatta neshe sekund bar?\",\n    \"options\": [\n      \"180 sekund\",\n      \"3600 sekund\",\n      \"7200 sekund\",\n      \"10800 sekund\"\n    ],\n    \"correct_option_id\": 3\n  },\n  {\n    \"question\": \"15/25 kesiriniń qısqartılg'an tu'ri qaysı?\",\n    \"options\": [\n      \"3/5\",\n      \"5/3\",\n      \"1/5\",\n      \"3/4\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"\\\"23.45\\\" sanı qaysı juwapta durıs oqılg'an?\",\n    \"options\": [\n      \"Jiyırma u'sh pu'tin qırq bes\",\n      \"Jiyırma u'sh pu'tin ju'zden qırq bes\",\n      \"Jiyırma u'sh qırq bes\",\n      \"Eki u'sh qırq bes\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Bir dúkanda 125 kg alma, ekinshi dúkanda odan 75 kg artıq alma bar. Eki dúkanda barlıg'ı qansha alma bar?\",\n    \"options\": [\n      \"200 kg\",\n      \"325 kg\",\n      \"275 kg\",\n      \"250 kg\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"U'sh tárepi de teń bolg'an u'shbursht qanday ataladı?\",\n    \"options\": [\n      \"Teń qabırg'alı u'shbursht\",\n      \"Teń qıyarlı u'shbursht\",\n      \"Tuwrı mu'yeshli u'shbursht\",\n      \"Ápiwayı u'shbursht\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"Sag'at 14:15 ten 16:05 ke shekem qansha waqıt o'tti?\",\n    \"options\": [\n      \"1 saat 50 minut\",\n      \"1 saat 40 minut\",\n      \"2 saat 10 minut\",\n      \"2 saat 20 minut\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"45 678 sanın jaqın mıńlıqqa deyin dóngelekleń.\",\n    \"options\": [\n      \"45 000\",\n      \"46 000\",\n      \"45 700\",\n      \"45 600\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Rim sanlarında \\\"L\\\" qaysı cifrdi bildiredi?\",\n    \"options\": [\n      \"5\",\n      \"10\",\n      \"50\",\n      \"100\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Naǵıstı dawam ettiriń: 5, 10, 15, 20, __, __\",\n    \"options\": [\n      \"22, 25\",\n      \"25, 30\",\n      \"20, 25\",\n      \"30, 35\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Qaysı san eń kishisi: 7 890, 7 809, 7 908, 7 089?\",\n    \"options\": [\n      \"7 890\",\n      \"7 809\",\n      \"7 908\",\n      \"7 089\"\n    ],\n    \"correct_option_id\": 3\n  },\n  {\n    \"question\": \"5, 8, 12, 15 sanlarınıń ortasha arifmetikalıq mánisi neshe?\",\n    \"options\": [\n      \"10\",\n      \"9\",\n      \"11\",\n      \"12\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"Ayjamalda 120 000 sum bar edi. Ol 30 000 sumg'a kiyim, 15 000 sumg'a oyınshıq satıp aldı. Ayjamalda qansha pul qaldı?\",\n    \"options\": [\n      \"75 000 sum\",\n      \"65 000 sum\",\n      \"70 000 sum\",\n      \"80 000 sum\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"\\\"6 789 123\\\" sanında birler bólegindegi cifrlar qaysılar?\",\n    \"options\": [\n      \"6, 7, 8\",\n      \"7, 8, 9\",\n      \"9, 1, 2\",\n      \"1, 2, 3\"\n    ],\n    \"correct_option_id\": 3\n  },\n  {\n    \"question\": \"Sanlardı nolge ko'beytsek qanday nátiyje beredi?\",\n    \"options\": [\n      \"Sol san ózi\",\n      \"Nol\",\n      \"Bir\",\n      \"Belgisiz san\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Uzınlıg'ı 25 sm, eni 15 sm bolg'an tuwrıto'rtburchaktıń perimetrin tabıń.\",\n    \"options\": [\n      \"40 sm\",\n      \"50 sm\",\n      \"80 sm\",\n      \"100 sm\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Tárepi 10 dm bolg'an kvadrattıń maydanı qansha?\",\n    \"options\": [\n      \"40 dm²\",\n      \"100 dm²\",\n      \"20 dm²\",\n      \"1000 dm²\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"5 kilometrde neshe metr bar?\",\n    \"options\": [\n      \"500 metr\",\n      \"5000 metr\",\n      \"50 metr\",\n      \"50 000 metr\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Qaysı kesir 1/3 ten úlken?\",\n    \"options\": [\n      \"1/4\",\n      \"2/6\",\n      \"2/5\",\n      \"1/5\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"75 / 8 bo'lgende bo'lindiniń pútin bólegi hám qaldıg'ı neshege teń?\",\n    \"options\": [\n      \"8 qaldıq 7\",\n      \"9 qaldıq 3\",\n      \"9 qaldıq 1\",\n      \"8 qaldıq 11\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Bir qapta 50 kg gúrish bar bolsa, 12 qapta qansha gúrish bar?\",\n    \"options\": [\n      \"500 kg\",\n      \"600 kg\",\n      \"550 kg\",\n      \"450 kg\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"90 gradustan kishi bolg'an burısh qanday ataladı?\",\n    \"options\": [\n      \"Tuwrı burısh\",\n      \"Dojır burısh\",\n      \"Keyin burısh\",\n      \"To'te burısh\"\n    ],\n    \"correct_option_id\": 3\n  },\n  {\n    \"question\": \"Tub san dep qaysı sanǵa aytıladı?\",\n    \"options\": [\n      \"Tek ózine hám birge bólinetuǵın san\",\n      \"Eki hám onnan artıq bo'liwshisi bar san\",\n      \"Tek ju'p sanlar\",\n      \"Nol hám bir sanlar\"\n    ],\n    \"correct_option_id\": 0\n  }\n]"
+            }
+        ],
+        "role": "model"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "\n        Qaraqalpaq tilinde Matematika páni boyınsha 5-klass oqıwshıları ushın 10 DANA quiz sorawın jaratıń.\n\n        Talaplar:\n        1. Soraw anıq hám túsinikli bolıwı kerek\n        2. Tek 4 juwap variantı bolıwı kerek\n        3. Tek bir dana durıs juwap variantı bolıwı kerek\n        4. Durıs juwap variantlardıń indeksin (0, 1, 2, 3) beriw kerek\n        5. Sorawlar qızıqlı hám úyretiwshi bolıwı kerek\n        6. Sorawlar hám juwaplar qaraqalpaq tilinde hám qátesiz bolıwı kerek\n        7. Sorawlar tákirarlanbawı kerek, jańa hám qızıqlı sorawlar jaratıw kerek\n        8. Sorawdıń teması hár saparı hár túrli bolsın.\n        9. EŃ ÁHMIYETLISI: Qátesiz latın álipbesinde hám qaraqalpaq tilinde bolıwı kerek.\n        10. 10 dana sorawdı bir json tizimi túrinde qaytarıń.\n    \n\n10 dana soraw jaratıń."
+            }
+        ],
+        "role": "user"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "[\n  {\n    \"question\": \"\\\"1 500 207\\\" sanı qaysı juwapta durıs oqılg'an?\",\n    \"options\": [\n      \"Bir mıń bes ju'z eki ju'z jeti\",\n      \"Bir million bes ju'z mıń eki ju'z jeti\",\n      \"Bir million bes ju'z eki ju'z jeti\",\n      \"On bes mıń eki ju'z jeti\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Qosındını tabıń: 5678 + 3219 = ?\",\n    \"options\": [\n      \"8887\",\n      \"8897\",\n      \"8907\",\n      \"8917\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Ayırmanı tabıń: 9876 - 4321 = ?\",\n    \"options\": [\n      \"5555\",\n      \"5565\",\n      \"5455\",\n      \"5545\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"Ko'beytindini tabıń: 150 * 7 = ?\",\n    \"options\": [\n      \"950\",\n      \"1000\",\n      \"1050\",\n      \"1100\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Bo'lindini tabıń: 810 / 9 = ?\",\n    \"options\": [\n      \"80\",\n      \"70\",\n      \"90\",\n      \"100\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Esaplań: 20 + 5 * 3 - 10 = ?\",\n    \"options\": [\n      \"75\",\n      \"25\",\n      \"45\",\n      \"35\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Uzınlıg'ı 12 sm, eni 7 sm bolg'an tuwrıto'rtburchaktıń perimetrin tabıń.\",\n    \"options\": [\n      \"19 sm\",\n      \"38 sm\",\n      \"84 sm\",\n      \"26 sm\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Tárepi 9 sm bolg'an kvadrattıń maydanın tabıń.\",\n    \"options\": [\n      \"18 sm²\",\n      \"36 sm²\",\n      \"81 sm²\",\n      \"45 sm²\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"5 kilometrde neshe metr bar?\",\n    \"options\": [\n      \"500 metr\",\n      \"5000 metr\",\n      \"50 metr\",\n      \"50 000 metr\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Qaysı kesir 1/2 den kishi?\",\n    \"options\": [\n      \"3/4\",\n      \"2/3\",\n      \"1/3\",\n      \"4/5\"\n    ],\n    \"correct_option_id\": 2\n  }\n]"
+            }
+        ],
+        "role": "model"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "\n        Qaraqalpaq tilinde Matematika páni boyınsha 5-klass oqıwshıları ushın 10 DANA quiz sorawın jaratıń.\n\n        Talaplar:\n        1. Soraw anıq hám túsinikli bolıwı kerek\n        2. Tek 4 juwap variantı bolıwı kerek\n        3. Tek bir dana durıs juwap variantı bolıwı kerek\n        4. Durıs juwap variantlardıń indeksin (0, 1, 2, 3) beriw kerek\n        5. Sorawlar qızıqlı hám úyretiwshi bolıwı kerek\n        6. Sorawlar hám juwaplar qaraqalpaq tilinde hám qátesiz bolıwı kerek\n        7. Sorawlar tákirarlanbawı kerek, jańa hám qızıqlı sorawlar jaratıw kerek\n        8. Sorawdıń teması hár saparı hár túrli bolsın.\n        9. EŃ ÁHMIYETLISI: Qátesiz latın álipbesinde hám qaraqalpaq tilinde bolıwı kerek.\n        10. 10 dana sorawdı bir json tizimi túrinde qaytarıń.\n    \n\n10 dana soraw jaratıń."
+            }
+        ],
+        "role": "user"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "[\n  {\n    \"question\": \"\\\"3 005 078\\\" sanı qaysı juwapta durıs oqılg'an?\",\n    \"options\": [\n      \"U'sh million bes mıń jetpis segiz\",\n      \"U'sh mıń bes ju'z jetpis segiz\",\n      \"U'sh million bes ju'z jetpis segiz\",\n      \"U'sh million bes mıń jetpis jetim\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"Qosındını tabıń: 23 456 + 10 789 = ?\",\n    \"options\": [\n      \"34 245\",\n      \"34 145\",\n      \"34 235\",\n      \"34 255\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"Ayırmanı tabıń: 76 543 - 21 098 = ?\",\n    \"options\": [\n      \"55 445\",\n      \"55 545\",\n      \"55 455\",\n      \"55 345\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"Ko'beytindini tabıń: 240 * 15 = ?\",\n    \"options\": [\n      \"3500\",\n      \"3600\",\n      \"3700\",\n      \"3400\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Bo'lindini tabıń: 1080 / 12 = ?\",\n    \"options\": [\n      \"80\",\n      \"90\",\n      \"100\",\n      \"70\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Esaplań: (30 - 10) * 4 + 5 = ?\",\n    \"options\": [\n      \"85\",\n      \"75\",\n      \"65\",\n      \"95\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"Uzınlıg'ı 15 sm, eni 6 sm bolg'an tuwrıto'rtburchaktıń perimetrin tabıń.\",\n    \"options\": [\n      \"21 sm\",\n      \"42 sm\",\n      \"90 sm\",\n      \"30 sm\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Tárepi 10 sm bolg'an kvadrattıń maydanın tabıń.\",\n    \"options\": [\n      \"20 sm²\",\n      \"40 sm²\",\n      \"100 sm²\",\n      \"50 sm²\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"4 kilogramda neshe gramm bar?\",\n    \"options\": [\n      \"400 gramm\",\n      \"4000 gramm\",\n      \"40 gramm\",\n      \"40 000 gramm\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Qaysı kesir 1/4 ten úlken?\",\n    \"options\": [\n      \"1/5\",\n      \"2/8\",\n      \"3/10\",\n      \"1/6\"\n    ],\n    \"correct_option_id\": 2\n  }\n]"
+            }
+        ],
+        "role": "model"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "\n        Qaraqalpaq tilinde Matematika páni boyınsha 6-klass oqıwshıları ushın 10 DANA quiz sorawın jaratıń.\n\n        Talaplar:\n        1. Soraw anıq hám túsinikli bolıwı kerek\n        2. Tek 4 juwap variantı bolıwı kerek\n        3. Tek bir dana durıs juwap variantı bolıwı kerek\n        4. Durıs juwap variantlardıń indeksin (0, 1, 2, 3) beriw kerek\n        5. Sorawlar qızıqlı hám úyretiwshi bolıwı kerek\n        6. Sorawlar hám juwaplar qaraqalpaq tilinde hám qátesiz bolıwı kerek\n        7. Sorawlar tákirarlanbawı kerek, jańa hám qızıqlı sorawlar jaratıw kerek\n        8. Sorawdıń teması hár saparı hár túrli bolsın.\n        9. EŃ ÁHMIYETLISI: Qátesiz latın álipbesinde hám qaraqalpaq tilinde bolıwı kerek.\n        10. 10 dana sorawdı bir json tizimi túrinde qaytarıń.\n    \n\n10 dana soraw jaratıń."
+            }
+        ],
+        "role": "user"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "[\n  {\n    \"question\": \"Qaysı san 2 hám 5 ke bir waqıtta bo'linedi?\",\n    \"options\": [\n      \"12\",\n      \"25\",\n      \"30\",\n      \"42\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Tómendegilerden qaysı san tub san bolıp tabıladı?\",\n    \"options\": [\n      \"9\",\n      \"15\",\n      \"17\",\n      \"21\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"1/4 + 2/4 qosındısı neshege teń?\",\n    \"options\": [\n      \"3/8\",\n      \"1/2\",\n      \"3/4\",\n      \"2/4\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"0.5 * 3.2 ko'beytindisi neshege teń?\",\n    \"options\": [\n      \"1.5\",\n      \"1.6\",\n      \"0.16\",\n      \"16.0\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"100 sanınıń 20% i neshege teń?\",\n    \"options\": [\n      \"10\",\n      \"20\",\n      \"25\",\n      \"50\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"12 hám 18 sanlarınıń eń úlken ulıwma bo'liwshisin (EKUB) tabıń.\",\n    \"options\": [\n      \"3\",\n      \"4\",\n      \"6\",\n      \"9\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"4 hám 6 sanlarınıń eń kishi ulıwma eselisin (EKUK) tabıń.\",\n    \"options\": [\n      \"12\",\n      \"18\",\n      \"24\",\n      \"6\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"X + 15 = 40 teńlemesinde X tiń mánisin tabıń.\",\n    \"options\": [\n      \"20\",\n      \"25\",\n      \"30\",\n      \"35\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Tómendegi sanlardıń qaysısı eń kishisi: -5, 0, -2, 3?\",\n    \"options\": [\n      \"0\",\n      \"3\",\n      \"-2\",\n      \"-5\"\n    ],\n    \"correct_option_id\": 3\n  },\n  {\n    \"question\": \"Tuwrı burısh neshe gradusqa teń?\",\n    \"options\": [\n      \"45°\",\n      \"90°\",\n      \"180°\",\n      \"360°\"\n    ],\n    \"correct_option_id\": 1\n  }\n]"
+            }
+        ],
+        "role": "model"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "\n        Qaraqalpaq tilinde Matematika páni boyınsha 7-klass oqıwshıları ushın 10 DANA quiz sorawın jaratıń.\n\n        Talaplar:\n        1. Soraw anıq hám túsinikli bolıwı kerek\n        2. Tek 4 juwap variantı bolıwı kerek\n        3. Tek bir dana durıs juwap variantı bolıwı kerek\n        4. Durıs juwap variantlardıń indeksin (0, 1, 2, 3) beriw kerek\n        5. Sorawlar qızıqlı hám úyretiwshi bolıwı kerek\n        6. Sorawlar hám juwaplar qaraqalpaq tilinde hám qátesiz bolıwı kerek\n        7. Sorawlar tákirarlanbawı kerek, jańa hám qızıqlı sorawlar jaratıw kerek\n        8. Sorawdıń teması hár saparı hár túrli bolsın.\n        9. EŃ ÁHMIYETLISI: Qátesiz latın álipbesinde hám qaraqalpaq tilinde bolıwı kerek.\n        10. 10 dana sorawdı bir json tizimi túrinde qaytarıń.\n    \n\n10 dana soraw jaratıń."
+            }
+        ],
+        "role": "user"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "[\n  {\n    \"question\": \"Ápiwayılastırıń: 3a + 5b - a + 2b\",\n    \"options\": [\n      \"2a + 7b\",\n      \"4a + 7b\",\n      \"2a + 3b\",\n      \"4a + 3b\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"Teńlemeni sheshiń: 2x - 7 = 11\",\n    \"options\": [\n      \"x = 8\",\n      \"x = 9\",\n      \"x = 10\",\n      \"x = 12\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Esaplań: (-8) + 5 - (-3) = ?\",\n    \"options\": [\n      \"-10\",\n      \"-6\",\n      \"0\",\n      \"4\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Sanınıń 25% i 50 ge teń bolsa, bul san neshege teń?\",\n    \"options\": [\n      \"12.5\",\n      \"100\",\n      \"200\",\n      \"250\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"U'shburshtıń ishki mu'yeshleriniń qosındısı neshe gradusqa teń?\",\n    \"options\": [\n      \"90°\",\n      \"180°\",\n      \"270°\",\n      \"360°\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"2:3 qatnası qaysı kesirge teń?\",\n    \"options\": [\n      \"3/2\",\n      \"2/3\",\n      \"1/3\",\n      \"2/5\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Esaplań: 5³ = ?\",\n    \"options\": [\n      \"15\",\n      \"25\",\n      \"125\",\n      \"250\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Teńsizlikti sheshiń: x + 4 < 10\",\n    \"options\": [\n      \"x > 6\",\n      \"x < 6\",\n      \"x = 6\",\n      \"x <= 6\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Koordinata tegisligindegi (-3, 4) noqatı qaysı sherekte jaylasqan?\",\n    \"options\": [\n      \"Birinshi sherek\",\n      \"Ekinshi sherek\",\n      \"U'shinshi sherek\",\n      \"To'rtinshi sherek\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Esaplań: (3/4) * (2/5) = ?\",\n    \"options\": [\n      \"6/20\",\n      \"3/10\",\n      \"5/9\",\n      \"1/2\"\n    ],\n    \"correct_option_id\": 1\n  }\n]"
+            }
+        ],
+        "role": "model"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "\n        Qaraqalpaq tilinde Matematika páni boyınsha 8-klass oqıwshıları ushın 10 DANA quiz sorawın jaratıń.\n\n        Talaplar:\n        1. Soraw anıq hám túsinikli bolıwı kerek\n        2. Tek 4 juwap variantı bolıwı kerek\n        3. Tek bir dana durıs juwap variantı bolıwı kerek\n        4. Durıs juwap variantlardıń indeksin (0, 1, 2, 3) beriw kerek\n        5. Sorawlar qızıqlı hám úyretiwshi bolıwı kerek\n        6. Sorawlar hám juwaplar qaraqalpaq tilinde hám qátesiz bolıwı kerek\n        7. Sorawlar tákirarlanbawı kerek, jańa hám qızıqlı sorawlar jaratıw kerek\n        8. Sorawdıń teması hár saparı hár túrli bolsın.\n        9. EŃ ÁHMIYETLISI: Qátesiz latın álipbesinde hám qaraqalpaq tilinde bolıwı kerek.\n        10. 10 dana sorawdı bir json tizimi túrinde qaytarıń.\n    \n\n10 dana soraw jaratıń."
+            }
+        ],
+        "role": "user"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "[\n  {\n    \"question\": \"Qısqa ko'beytiw formulasınan paydalanıp, (a + b)² ańlatpasın jańadan jazıń.\",\n    \"options\": [\n      \"a² + b²\",\n      \"a² - 2ab + b²\",\n      \"a² + 2ab + b²\",\n      \"a² + ab + b²\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Teńlemeni sheshiń: 4x - 10 = 18\",\n    \"options\": [\n      \"x = 5\",\n      \"x = 7\",\n      \"x = 6\",\n      \"x = 8\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Esaplań: √169 neshege teń?\",\n    \"options\": [\n      \"12\",\n      \"13\",\n      \"14\",\n      \"15\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Dáreje qaǵıydası boyınsha esaplań: 3⁴ * 3² = ?\",\n    \"options\": [\n      \"3⁶\",\n      \"3⁸\",\n      \"9⁶\",\n      \"9⁸\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"Tuwrımu'yeshli u'shburshtıń katetleri 6 sm hám 8 sm bolsa, gipotenuzasın tabıń.\",\n    \"options\": [\n      \"10 sm\",\n      \"12 sm\",\n      \"14 sm\",\n      \"100 sm\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"Funkciya grafiginiń tu'rin anıqlań: y = 3x - 5.\",\n    \"options\": [\n      \"Parabola\",\n      \"Tuwrı sızıq\",\n      \"Giperbola\",\n      \"Do'n'gelek\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Teńsizlikti sheshiń: 2x + 3 > 15\",\n    \"options\": [\n      \"x < 6\",\n      \"x = 6\",\n      \"x > 6\",\n      \"x >= 6\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Ko'beytiwshilerge ajıratıń: 5ab - 10a²\",\n    \"options\": [\n      \"5a(b - 2a)\",\n      \"5a(b - 10a)\",\n      \"5b(a - 2a)\",\n      \"5a(b + 2a)\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"12, 18, 24 sanlarınıń ortasha arifmetikalıq mánisin tabıń.\",\n    \"options\": [\n      \"16\",\n      \"18\",\n      \"20\",\n      \"22\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Diametri 14 sm bolg'an do'n'gelek aylanalarınıń uzınlıg'ın tabıń (π ≈ 22/7 dep alıń).\",\n    \"options\": [\n      \"22 sm\",\n      \"44 sm\",\n      \"66 sm\",\n      \"14 sm\"\n    ],\n    \"correct_option_id\": 1\n  }\n]"
+            }
+        ],
+        "role": "model"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "\n        Qaraqalpaq tilinde Matematika páni boyınsha 9-klass oqıwshıları ushın 10 DANA quiz sorawın jaratıń.\n\n        Talaplar:\n        1. Soraw anıq hám túsinikli bolıwı kerek\n        2. Tek 4 juwap variantı bolıwı kerek\n        3. Tek bir dana durıs juwap variantı bolıwı kerek\n        4. Durıs juwap variantlardıń indeksin (0, 1, 2, 3) beriw kerek\n        5. Sorawlar qızıqlı hám úyretiwshi bolıwı kerek\n        6. Sorawlar hám juwaplar qaraqalpaq tilinde hám qátesiz bolıwı kerek\n        7. Sorawlar tákirarlanbawı kerek, jańa hám qızıqlı sorawlar jaratıw kerek\n        8. Sorawdıń teması hár saparı hár túrli bolsın.\n        9. EŃ ÁHMIYETLISI: Qátesiz latın álipbesinde hám qaraqalpaq tilinde bolıwı kerek.\n        10. 10 dana sorawdı bir json tizimi túrinde qaytarıń.\n    \n\n10 dana soraw jaratıń."
+            }
+        ],
+        "role": "user"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "[\n  {\n    \"question\": \"X² - 5X + 6 = 0 kvadrat teńlemesiniń koreńlerin tabıń.\",\n    \"options\": [\n      \"X₁=2, X₂=3\",\n      \"X₁=1, X₂=6\",\n      \"X₁=-2, X₂=-3\",\n      \"X₁=-1, X₂=5\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"Arifmetikalıq progressiya 2, 5, 8, ... bolsa, onıń 7-shi aǵzasın tabıń.\",\n    \"options\": [\n      \"17\",\n      \"20\",\n      \"23\",\n      \"26\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Tuwrımu'yeshli u'shburshtta qarsı katetti gipotenuzag'a bo'liw qaysı trigonometriyalıq funkciyanı beredi?\",\n    \"options\": [\n      \"Kosinus\",\n      \"Tangens\",\n      \"Sinus\",\n      \"Kotangens\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"3x - 6 > 9 teńsizligin sheshiń.\",\n    \"options\": [\n      \"x < 5\",\n      \"x = 5\",\n      \"x > 5\",\n      \"x > 3\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Tómendegi sanlardıń qaysısı irracional san bolıp tabıladı?\",\n    \"options\": [\n      \"0.5\",\n      \"√9\",\n      \"π (Pi)\",\n      \"2/3\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"f(x) = 2x² - 3 funkciyası berilgen. f(-2) ni esaplań.\",\n    \"options\": [\n      \"11\",\n      \"5\",\n      \"-7\",\n      \"8\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Geometriyalıq progressiya 3, 6, 12, ... bolsa, onıń 5-shi aǵzasın tabıń.\",\n    \"options\": [\n      \"24\",\n      \"36\",\n      \"48\",\n      \"96\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Qapta 5 qızıl hám 7 ko'k shar bar. Randevu bir qızıl shardı alıw itimallıg'ı qansha?\",\n    \"options\": [\n      \"5/12\",\n      \"7/12\",\n      \"5/7\",\n      \"12/5\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"x + y = 7 hám x - y = 3 teńlemeler sistemasın sheshiń.\",\n    \"options\": [\n      \"x=5, y=2\",\n      \"x=4, y=3\",\n      \"x=6, y=1\",\n      \"x=7, y=0\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"Radiusi 6 sm bolg'an do'n'gelektiń maydanın tabıń (π ≈ 3.14 dep alıń).\",\n    \"options\": [\n      \"37.68 sm²\",\n      \"113.04 sm²\",\n      \"18.84 sm²\",\n      \"36 sm²\"\n    ],\n    \"correct_option_id\": 1\n  }\n]"
+            }
+        ],
+        "role": "model"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "\n        Qaraqalpaq tilinde Matematika páni boyınsha 10-klass oqıwshıları ushın 10 DANA quiz sorawın jaratıń.\n\n        Talaplar:\n        1. Soraw anıq hám túsinikli bolıwı kerek\n        2. Tek 4 juwap variantı bolıwı kerek\n        3. Tek bir dana durıs juwap variantı bolıwı kerek\n        4. Durıs juwap variantlardıń indeksin (0, 1, 2, 3) beriw kerek\n        5. Sorawlar qızıqlı hám úyretiwshi bolıwı kerek\n        6. Sorawlar hám juwaplar qaraqalpaq tilinde hám qátesiz bolıwı kerek\n        7. Sorawlar tákirarlanbawı kerek, jańa hám qızıqlı sorawlar jaratıw kerek\n        8. Sorawdıń teması hár saparı hár túrli bolsın.\n        9. EŃ ÁHMIYETLISI: Qátesiz latın álipbesinde hám qaraqalpaq tilinde bolıwı kerek.\n        10. 10 dana sorawdı bir json tizimi túrinde qaytarıń.\n    \n\n10 dana soraw jaratıń."
+            }
+        ],
+        "role": "user"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "[\n  {\n    \"question\": \"Sinus 30 gradus neshege teń?\",\n    \"options\": [\n      \"0\",\n      \"1/2\",\n      \"√3/2\",\n      \"1\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Logarifm xassaları boyınsha Log₂8 = ?\",\n    \"options\": [\n      \"2\",\n      \"3\",\n      \"4\",\n      \"8\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"X² - 4 > 0 teńsizliginiń sheshimin tabıń.\",\n    \"options\": [\n      \"x > 2\",\n      \"x < -2 hám x > 2\",\n      \"-2 < x < 2\",\n      \"x < -2\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"A=(2; -3) hám B=(-1; 5) vektorları berilgen. A+B vektorınıń koordinataların tabıń.\",\n    \"options\": [\n      \"(1; 2)\",\n      \"(3; -8)\",\n      \"(-3; -8)\",\n      \"(1; 8)\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"y = 1 / (x - 3) funkciyasınıń anıqlanıw aymaǵın tabıń.\",\n    \"options\": [\n      \"Barlıq haqıyqıy sanlar\",\n      \"x ≠ 3\",\n      \"x > 3\",\n      \"x < 3\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Geometriyalıq progressiyanıń birinshi aǵzası 2, bólimi 3 bolsa, onıń 4-shi aǵzasın tabıń.\",\n    \"options\": [\n      \"18\",\n      \"24\",\n      \"36\",\n      \"54\"\n    ],\n    \"correct_option_id\": 3\n  },\n  {\n    \"question\": \"f(x) = 3x² - 5x + 1 funkciyasınıń tórewmesin (derivativin) tabıń.\",\n    \"options\": [\n      \"6x - 5\",\n      \"3x - 5\",\n      \"6x + 1\",\n      \"3x² - 5\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"Tárepi 5 sm bolg'an kubtıń kólemin tabıń.\",\n    \"options\": [\n      \"25 sm³\",\n      \"100 sm³\",\n      \"125 sm³\",\n      \"150 sm³\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Qapta 4 aq hám 6 qara shar bar. Randevu bir shar alıwda qara shar shıǵıw itimallıg'ı qansha?\",\n    \"options\": [\n      \"2/5\",\n      \"3/5\",\n      \"1/2\",\n      \"1/10\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Teńlemeni sheshiń: 2ˣ = 32.\",\n    \"options\": [\n      \"x = 4\",\n      \"x = 5\",\n      \"x = 6\",\n      \"x = 16\"\n    ],\n    \"correct_option_id\": 1\n  }\n]"
+            }
+        ],
+        "role": "model"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "\n        Qaraqalpaq tilinde Matematika páni boyınsha 11-klass oqıwshıları ushın 10 DANA quiz sorawın jaratıń.\n\n        Talaplar:\n        1. Soraw anıq hám túsinikli bolıwı kerek\n        2. Tek 4 juwap variantı bolıwı kerek\n        3. Tek bir dana durıs juwap variantı bolıwı kerek\n        4. Durıs juwap variantlardıń indeksin (0, 1, 2, 3) beriw kerek\n        5. Sorawlar qızıqlı hám úyretiwshi bolıwı kerek\n        6. Sorawlar hám juwaplar qaraqalpaq tilinde hám qátesiz bolıwı kerek\n        7. Sorawlar tákirarlanbawı kerek, jańa hám qızıqlı sorawlar jaratıw kerek\n        8. Sorawdıń teması hár saparı hár túrli bolsın.\n        9. EŃ ÁHMIYETLISI: Qátesiz latın álipbesinde hám qaraqalpaq tilinde bolıwı kerek.\n        10. 10 dana sorawdı bir json tizimi túrinde qaytarıń.\n    \n\n10 dana soraw jaratıń."
+            }
+        ],
+        "role": "user"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "[\n  {\n    \"question\": \"Sin(x) = 1/2 teńlemesiniń ulıwma sheshimin tabıń.\",\n    \"options\": [\n      \"x = π/6 + 2πn, n ∈ Z\",\n      \"x = π/6 + πn, n ∈ Z\",\n      \"x = (-1)ⁿπ/6 + πn, n ∈ Z\",\n      \"x = π/3 + 2πn, n ∈ Z\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"f(x) = x³ - 4x funkciyasınıń tórewmesin (derivativin) tabıń.\",\n    \"options\": [\n      \"3x² - 4\",\n      \"x² - 4\",\n      \"3x - 4\",\n      \"3x³ - 4\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"Log₂(x - 3) = 3 teńlemesin sheshiń.\",\n    \"options\": [\n      \"x = 6\",\n      \"x = 9\",\n      \"x = 11\",\n      \"x = 12\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"4^(x+1) = 64 teńlemesin sheshiń.\",\n    \"options\": [\n      \"x = 1\",\n      \"x = 2\",\n      \"x = 3\",\n      \"x = 4\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"∫₁² (2x) dx anıq integralın esaplań.\",\n    \"options\": [\n      \"2\",\n      \"3\",\n      \"4\",\n      \"6\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Geometriyalıq progressiyada b₁ = 4 hám q = 1/2 bolsa, sheksiz kemeyiwshi progressiyanıń qosındısın tabıń.\",\n    \"options\": [\n      \"4\",\n      \"6\",\n      \"8\",\n      \"10\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Qapta 4 qızıl hám 6 jasıl shar bar. Randevu bir shardı alıwda jasıl shar shıǵıw itimallıg'ı qansha?\",\n    \"options\": [\n      \"2/5\",\n      \"3/5\",\n      \"1/2\",\n      \"4/10\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"z₁ = 3 + 2i hám z₂ = 1 - 4i bolsa, z₁ - z₂ ayırmasın tabıń.\",\n    \"options\": [\n      \"2 - 2i\",\n      \"2 + 6i\",\n      \"4 - 2i\",\n      \"4 + 6i\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Radiusi 5 sm bolg'an shardıń kólemin tabıń (V = 4/3 * π * R³ formulasın qollanıń, π ≈ 3.14).\",\n    \"options\": [\n      \"157 cm³\",\n      \"523.33 cm³\",\n      \"314 cm³\",\n      \"628 cm³\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"y = x² - 4x + 7 funkciyasınıń eń kishi mánisin tabıń.\",\n    \"options\": [\n      \"1\",\n      \"2\",\n      \"3\",\n      \"4\"\n    ],\n    \"correct_option_id\": 2\n  }\n]"
+            }
+        ],
+        "role": "model"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "\n        Qaraqalpaq tilinde Matematika páni boyınsha 5-klass oqıwshıları ushın 10 DANA quiz sorawın jaratıń.\n\n        Talaplar:\n        1. Soraw anıq hám túsinikli bolıwı kerek\n        2. Tek 4 juwap variantı bolıwı kerek\n        3. Tek bir dana durıs juwap variantı bolıwı kerek\n        4. Durıs juwap variantlardıń indeksin (0, 1, 2, 3) beriw kerek\n        5. Sorawlar qızıqlı hám úyretiwshi bolıwı kerek\n        6. Sorawlar hám juwaplar qaraqalpaq tilinde hám qátesiz bolıwı kerek\n        7. Sorawlar tákirarlanbawı kerek, jańa hám qızıqlı sorawlar jaratıw kerek\n        8. Sorawdıń teması hár saparı hár túrli bolsın.\n        9. EŃ ÁHMIYETLISI: Qátesiz latın álipbesinde hám qaraqalpaq tilinde bolıwı kerek.\n        10. 10 dana sorawdı bir json tizimi túrinde qaytarıń.\n    \n\n10 dana soraw jaratıń."
+            }
+        ],
+        "role": "user"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "[\n  {\n    \"question\": \"Sanlardı oqıw. \\\"3 050 120\\\" sanı qaysı juwapta durıs oqılǵan?\",\n    \"options\": [\n      \"Úsh million eliw mıń bir júz jigirma\",\n      \"Úsh million bes mıń bir júz jigirma\",\n      \"Úsh million eliw bir júz jigirma\",\n      \"Úsh million eliw mıń jigirma\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"Qosındını esaplań: 14 250 + 5 750 = ?\",\n    \"options\": [\n      \"19 000\",\n      \"20 000\",\n      \"19 900\",\n      \"20 100\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Ayırmanı tabıń: 10 000 - 4 555 = ?\",\n    \"options\": [\n      \"5 555\",\n      \"5 455\",\n      \"6 445\",\n      \"5 445\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Kóbeytindini tabıń: 300 * 15 = ?\",\n    \"options\": [\n      \"3 500\",\n      \"4 000\",\n      \"4 500\",\n      \"4 050\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Bólindini hám qaldıqtı tabıń: 100 di 9 ǵa bólgende.\",\n    \"options\": [\n      \"10 (qaldıq 10)\",\n      \"11 (qaldıq 1)\",\n      \"11 (qaldıq 0)\",\n      \"12 (qaldıq 2)\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Ámellerdi durıs tártipte orınlań: 50 - (5 * 6) + 10 = ?\",\n    \"options\": [\n      \"20\",\n      \"270\",\n      \"30\",\n      \"0\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Uzınlıǵı 20 sm, eni 10 sm bolǵan tuwrımúyeshliktiń perimetrin tabıń.\",\n    \"options\": [\n      \"30 sm\",\n      \"200 sm\",\n      \"60 sm\",\n      \"50 sm\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Tárepi 12 m bolǵan kvadrattıń maydanın esaplań.\",\n    \"options\": [\n      \"48 m²\",\n      \"144 m²\",\n      \"24 m²\",\n      \"120 m²\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"2 saat 15 minutta neshe minut bar?\",\n    \"options\": [\n      \"120 minut\",\n      \"135 minut\",\n      \"150 minut\",\n      \"115 minut\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Qaysı bólshek 1/3 ke teń?\",\n    \"options\": [\n      \"2/5\",\n      \"3/6\",\n      \"4/12\",\n      \"5/10\"\n    ],\n    \"correct_option_id\": 2\n  }\n]"
+            }
+        ],
+        "role": "model"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "\n        Qaraqalpaq tilinde Matematika páni boyınsha 11-klass oqıwshıları ushın 10 DANA quiz sorawın jaratıń.\n\n        Talaplar:\n        1. Soraw anıq hám túsinikli bolıwı kerek\n        2. Tek 4 juwap variantı bolıwı kerek\n        3. Tek bir dana durıs juwap variantı bolıwı kerek\n        4. Durıs juwap variantlardıń indeksin (0, 1, 2, 3) beriw kerek\n        5. Sorawlar qızıqlı hám úyretiwshi bolıwı kerek\n        6. Sorawlar hám juwaplar qaraqalpaq tilinde hám qátesiz bolıwı kerek\n        7. Sorawlar tákirarlanbawı kerek, jańa hám qızıqlı sorawlar jaratıw kerek\n        8. Sorawdıń teması hár saparı hár túrli bolsın.\n        9. EŃ ÁHMIYETLISI: Qátesiz latın álipbesinde hám qaraqalpaq tilinde bolıwı kerek.\n        10. 10 dana sorawdı bir json tizimi túrinde qaytarıń.\n    \n\n10 dana soraw jaratıń."
+            }
+        ],
+        "role": "user"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "[\n  {\n    \"question\": \"cos(x) = 1/2 teńlemesiniń ulıwma sheshimin tabıń.\",\n    \"options\": [\n      \"x = ±π/3 + πn, n ∈ Z\",\n      \"x = π/3 + 2πn, n ∈ Z\",\n      \"x = ±π/3 + 2πn, n ∈ Z\",\n      \"x = π/6 + 2πn, n ∈ Z\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"f(x) = 4x³ + 2x funkciyası ushın ulıwma baslanǵısh funkciyanı tabıń.\",\n    \"options\": [\n      \"12x² + 2 + C\",\n      \"x⁴ + x² + C\",\n      \"4x⁴ + 2x² + C\",\n      \"x³ + x + C\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"log₃(x + 1) = 2 teńlemesin sheshiń.\",\n    \"options\": [\n      \"x = 5\",\n      \"x = 7\",\n      \"x = 8\",\n      \"x = 9\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"5^(x-2) = 125 teńlemesin sheshiń.\",\n    \"options\": [\n      \"x = 3\",\n      \"x = 4\",\n      \"x = 5\",\n      \"x = 6\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"∫₀¹ (3x²) dx anıq integralın esaplań.\",\n    \"options\": [\n      \"1\",\n      \"3\",\n      \"1/3\",\n      \"0\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"Geometriyalıq progressiyada b₁ = 10 hám q = 1/3 bolsa, sheksiz kemeyiwshi progressiyanıń qosındısın tabıń.\",\n    \"options\": [\n      \"10\",\n      \"15\",\n      \"20\",\n      \"30\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Tiyin eki ret taslandı. Eki ret te gerb tárepiniń túsiw itimallıǵı qansha?\",\n    \"options\": [\n      \"1/2\",\n      \"1/3\",\n      \"1/4\",\n      \"3/4\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"z₁ = 2 + 3i hám z₂ = 1 - i bolsa, z₁ * z₂ kóbeymesin tabıń.\",\n    \"options\": [\n      \"2 - 3i\",\n      \"5 + i\",\n      \"-1 + i\",\n      \"5 - i\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Tubınıń radiusi 3 sm hám biyikligi 10 sm bolǵan cilindrdiń kólemin tabıń (π ≈ 3.14 dep alıń).\",\n    \"options\": [\n      \"94.2 sm³\",\n      \"282.6 sm³\",\n      \"188.4 sm³\",\n      \"30 sm³\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"y = -x² + 6x - 5 funkciyasınıń maksimum noqatınıń (tóbesiniń) apsissasın tabıń.\",\n    \"options\": [\n      \"x = -3\",\n      \"x = 6\",\n      \"x = 3\",\n      \"x = 5\"\n    ],\n    \"correct_option_id\": 2\n  }\n]"
+            }
+        ],
+        "role": "model"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "\n        Qaraqalpaq tilinde English páni boyınsha 5-klass oqıwshıları ushın 10 DANA quiz sorawın jaratıń.\n\n        Talaplar:\n        1. Soraw anıq hám túsinikli bolıwı kerek\n        2. Tek 4 juwap variantı bolıwı kerek\n        3. Tek bir dana durıs juwap variantı bolıwı kerek\n        4. Durıs juwap variantlardıń indeksin (0, 1, 2, 3) beriw kerek\n        5. Sorawlar qızıqlı hám úyretiwshi bolıwı kerek\n        6. Sorawlar hám juwaplar qaraqalpaq tilinde hám qátesiz bolıwı kerek\n        7. Sorawlar tákirarlanbawı kerek, jańa hám qızıqlı sorawlar jaratıw kerek\n        8. Sorawdıń teması hár saparı hár túrli bolsın.\n        9. EŃ ÁHMIYETLISI: Qátesiz latın álipbesinde hám qaraqalpaq tilinde bolıwı kerek.\n        10. 10 dana sorawdı bir json tizimi túrinde qaytarıń.\n    \n\n10 dana soraw jaratıń."
+            }
+        ],
+        "role": "user"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "[\n  {\n    \"question\": \"\\\"Sálem\\\" sózi inglis tilinde qalay aytıladı?\",\n    \"options\": [\n      \"Goodbye\",\n      \"Hello\",\n      \"Thank you\",\n      \"Please\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Quyash inglis tilinde qaysı reńde boladı?\",\n    \"options\": [\n      \"Blue\",\n      \"Red\",\n      \"Yellow\",\n      \"Green\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"\\\"On\\\" sanı inglis tilinde qalay jazıladı?\",\n    \"options\": [\n      \"Seven\",\n      \"Eight\",\n      \"Nine\",\n      \"Ten\"\n    ],\n    \"correct_option_id\": 3\n  },\n  {\n    \"question\": \"\\\"Pıshıq\\\" sózi inglis tilinde ne dep aytıladı?\",\n    \"options\": [\n      \"Dog\",\n      \"Cat\",\n      \"Bird\",\n      \"Fish\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Ananıń ulı inglis tilinde kim boladı?\",\n    \"options\": [\n      \"Sister\",\n      \"Father\",\n      \"Brother\",\n      \"Aunt\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Hápteniń birinshi kúni inglis tilinde qalay ataladı?\",\n    \"options\": [\n      \"Monday\",\n      \"Sunday\",\n      \"Friday\",\n      \"Tuesday\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"Gáptegi bos orındı durıs toltırıń: \\\"I ___ a student.\\\"\",\n    \"options\": [\n      \"is\",\n      \"are\",\n      \"am\",\n      \"be\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"\\\"Ruchka\\\" inglis tilinde ne dep ataladı?\",\n    \"options\": [\n      \"Book\",\n      \"Table\",\n      \"Pen\",\n      \"Chair\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Inglis tilinde birewdiń atın soraq ushın qaysı sorawdı qollanasız?\",\n    \"options\": [\n      \"How are you?\",\n      \"What is your name?\",\n      \"Where are you from?\",\n      \"How old are you?\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"\\\"Alma\\\" sózi inglis tilinde ne dep aytıladı?\",\n    \"options\": [\n      \"Banana\",\n      \"Orange\",\n      \"Apple\",\n      \"Grape\"\n    ],\n    \"correct_option_id\": 2\n  }\n]"
+            }
+        ],
+        "role": "model"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "\n        Qaraqalpaq tilinde English páni boyınsha 5-klass oqıwshıları ushın 10 DANA quiz sorawın jaratıń.\n\n        Talaplar:\n        1. Soraw anıq hám túsinikli bolıwı kerek\n        2. Tek 4 juwap variantı bolıwı kerek\n        3. Tek bir dana durıs juwap variantı bolıwı kerek\n        4. Durıs juwap variantlardıń indeksin (0, 1, 2, 3) beriw kerek\n        5. Sorawlar qızıqlı hám úyretiwshi bolıwı kerek\n        6. Sorawlar hám juwaplar qaraqalpaq tilinde hám qátesiz bolıwı kerek\n        7. Sorawlar tákirarlanbawı kerek, jańa hám qızıqlı sorawlar jaratıw kerek\n        8. Sorawdıń teması hár saparı hár túrli bolsın.\n        9. EŃ ÁHMIYETLISI: Qátesiz latın álipbesinde hám qaraqalpaq tilinde bolıwı kerek.\n        10. 10 dana sorawdı bir json tizimi túrinde qaytarıń.\n    \n\n10 dana soraw jaratıń."
+            }
+        ],
+        "role": "user"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "[\n  {\n    \"question\": \"\\\"Raxmet\\\" sózi inglis tilinde qalay aytıladı?\",\n    \"options\": [\n      \"Hello\",\n      \"Sorry\",\n      \"Thank you\",\n      \"Goodbye\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Aspannıń reńi inglis tilinde qanday?\",\n    \"options\": [\n      \"Red\",\n      \"Green\",\n      \"Yellow\",\n      \"Blue\"\n    ],\n    \"correct_option_id\": 3\n  },\n  {\n    \"question\": \"\\\"Bes\\\" sanı inglis tilinde qalay jazıladı?\",\n    \"options\": [\n      \"Four\",\n      \"Five\",\n      \"Six\",\n      \"Seven\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"\\\"Iyt\\\" sózi inglis tilinde ne dep aytıladı?\",\n    \"options\": [\n      \"Cat\",\n      \"Fish\",\n      \"Bird\",\n      \"Dog\"\n    ],\n    \"correct_option_id\": 3\n  },\n  {\n    \"question\": \"Ákeniń ákesi inglis tilinde kim boladı?\",\n    \"options\": [\n      \"Father\",\n      \"Brother\",\n      \"Grandfather\",\n      \"Uncle\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Jıldıń birinshi ayı inglis tilinde qalay ataladı?\",\n    \"options\": [\n      \"February\",\n      \"March\",\n      \"December\",\n      \"January\"\n    ],\n    \"correct_option_id\": 3\n  },\n  {\n    \"question\": \"Gáptegi bos orındı durıs toltırıń: \\\"She ___ a good student.\\\"\",\n    \"options\": [\n      \"am\",\n      \"are\",\n      \"is\",\n      \"be\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"\\\"Kitap\\\" inglis tilinde ne dep ataladı?\",\n    \"options\": [\n      \"Pen\",\n      \"Book\",\n      \"Table\",\n      \"Chair\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Inglis tilinde waqıttı soraq ushın qaysı sorawdı qollanasız?\",\n    \"options\": [\n      \"What is your name?\",\n      \"How old are you?\",\n      \"Where are you from?\",\n      \"What time is it?\"\n    ],\n    \"correct_option_id\": 3\n  },\n  {\n    \"question\": \"\\\"Suw\\\" sózi inglis tilinde ne dep aytıladı?\",\n    \"options\": [\n      \"Milk\",\n      \"Juice\",\n      \"Water\",\n      \"Tea\"\n    ],\n    \"correct_option_id\": 2\n  }\n]"
+            }
+        ],
+        "role": "model"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "\n        Qaraqalpaq tilinde English páni boyınsha 11-klass oqıwshıları ushın 10 DANA quiz sorawın jaratıń.\n\n        Talaplar:\n        1. Soraw anıq hám túsinikli bolıwı kerek\n        2. Tek 4 juwap variantı bolıwı kerek\n        3. Tek bir dana durıs juwap variantı bolıwı kerek\n        4. Durıs juwap variantlardıń indeksin (0, 1, 2, 3) beriw kerek\n        5. Sorawlar qızıqlı hám úyretiwshi bolıwı kerek\n        6. Sorawlar hám juwaplar qaraqalpaq tilinde hám qátesiz bolıwı kerek\n        7. Sorawlar tákirarlanbawı kerek, jańa hám qızıqlı sorawlar jaratıw kerek\n        8. Sorawdıń teması hár saparı hár túrli bolsın.\n        9. EŃ ÁHMIYETLISI: Qátesiz latın álipbesinde hám qaraqalpaq tilinde bolıwı kerek.\n        10. 10 dana sorawdı bir json tizimi túrinde qaytarıń.\n    \n\n10 dana soraw jaratıń."
+            }
+        ],
+        "role": "user"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "[\n  {\n    \"question\": \"Shártli gápti durıs tolıqtırıń: \\\"If I had known you were coming, I ___ a cake.\\\"\",\n    \"options\": [\n      \"will bake\",\n      \"baked\",\n      \"would have baked\",\n      \"would bake\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Tómendegi gápti ózlestirme gápke (reported speech) aylandırıń: She asked, \\\"Are you a student?\\\"\",\n    \"options\": [\n      \"She asked if I was a student.\",\n      \"She asked am I a student.\",\n      \"She asked if I am a student.\",\n      \"She asked that I was a student.\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"Durıs passiv (passive voice) formasın tańlań: \\\"The problem ___ by the experts tomorrow.\\\"\",\n    \"options\": [\n      \"is solved\",\n      \"was solved\",\n      \"will solve\",\n      \"will be solved\"\n    ],\n    \"correct_option_id\": 3\n  },\n  {\n    \"question\": \"\\\"To procrastinate\\\" feyiliniń eń jaqın mánisi qaysı?\",\n    \"options\": [\n      \"To do something quickly (Bir närseni tez islew)\",\n      \"To decide something (Bir närsege sheshim qabıllaw)\",\n      \"To delay or postpone an action (Bir is-háreketti keyinge qaldırıw)\",\n      \"To work hard (Kóp miynet etiw)\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Bos orınǵa sáykes keletuǵın frazalıq feyildi (phrasal verb) tańlań: \\\"I need to ___ the new words in the dictionary.\\\"\",\n    \"options\": [\n      \"look up\",\n      \"look after\",\n      \"look for\",\n      \"look out\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"\\\"To cost an arm and a leg\\\" degen idiomanıń mánisi ne?\",\n    \"options\": [\n      \"To be very cheap (Júdá arzan bolıw)\",\n      \"To be very expensive (Júdá qımbat bolıw)\",\n      \"To be broken (Sınǵan bolıw)\",\n      \"To be easy to get (Tábıw ańsat bolıw)\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Durıs modal feyildi tańlań: \\\"He ___ be at home. His car is not in the garage.\\\"\",\n    \"options\": [\n      \"must\",\n      \"should\",\n      \"can't\",\n      \"might\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Durıs feyil formasın tańlań: \\\"I regret ___ you the bad news.\\\"\",\n    \"options\": [\n      \"tell\",\n      \"to tell\",\n      \"telling\",\n      \"told\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Gápti durıs baylanıstırıwshı sóz benen tolıqtırıń: \\\"The man ___ car was stolen went to the police.\\\"\",\n    \"options\": [\n      \"who\",\n      \"which\",\n      \"whose\",\n      \"that\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Bos orınǵa eń sáykes keletuǵın sózdi tańlań: \\\"___ the fact that he was tired, he continued working.\\\"\",\n    \"options\": [\n      \"Although\",\n      \"Because of\",\n      \"However\",\n      \"In spite of\"\n    ],\n    \"correct_option_id\": 3\n  }\n]"
+            }
+        ],
+        "role": "model"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "\n        Qaraqalpaq tilinde Fizika páni boyınsha 11-klass oqıwshıları ushın 10 DANA quiz sorawın jaratıń.\n\n        Talaplar:\n        1. Soraw anıq hám túsinikli bolıwı kerek\n        2. Tek 4 juwap variantı bolıwı kerek\n        3. Tek bir dana durıs juwap variantı bolıwı kerek\n        4. Durıs juwap variantlardıń indeksin (0, 1, 2, 3) beriw kerek\n        5. Sorawlar qızıqlı hám úyretiwshi bolıwı kerek\n        6. Sorawlar hám juwaplar qaraqalpaq tilinde hám qátesiz bolıwı kerek\n        7. Sorawlar tákirarlanbawı kerek, jańa hám qızıqlı sorawlar jaratıw kerek\n        8. Sorawdıń teması hár saparı hár túrli bolsın.\n        9. EŃ ÁHMIYETLISI: Qátesiz latın álipbesinde hám qaraqalpaq tilinde bolıwı kerek.\n        10. 10 dana sorawdı bir json tizimi túrinde qaytarıń.\n    \n\n10 dana soraw jaratıń."
+            }
+        ],
+        "role": "user"
+    },
+    {
+        "parts": [
+            {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "[\n  {\n    \"question\": \"Qaysı nızam elektromagnit indukciya qubılısın táriypleydi?\",\n    \"options\": [\n      \"Om nızamı\",\n      \"Kulon nızamı\",\n      \"Faradey nızamı\",\n      \"Amper nızamı\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Fotoeffekt qubılısı ushın Eynshteyn teńlemesi qanday ko'riniste boladı?\",\n    \"options\": [\n      \"E = mc²\",\n      \"F = ma\",\n      \"hν = A + mv²/2\",\n      \"U = IR\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Albert Eynshteynniń sallıstırmalılıq teoriyasına kóre massa hám energiya arasındaǵı baylanıs qaysı formula menen ańlatıladı?\",\n    \"options\": [\n      \"F = G * (m₁m₂)/r²\",\n      \"W = F * s\",\n      \"P = U * I\",\n      \"E = mc²\"\n    ],\n    \"correct_option_id\": 3\n  },\n  {\n    \"question\": \"Jarıqlıqtıń interferenciyası qubılısın baqlaw ushın qanday shárt orınlanıwı kerek?\",\n    \"options\": [\n      \"Tolqınlar kogerent bolıwı kerek.\",\n      \"Tolqınlar polyarizaciyalanǵan bolıwı kerek.\",\n      \"Tolqınlar perpendikulyar bolıwı kerek.\",\n      \"Jarıqlıq deregi júdá kúshli bolıwı kerek.\"\n    ],\n    \"correct_option_id\": 0\n  },\n  {\n    \"question\": \"Bor postulatlarına kóre, elektron bir energetikalıq dárejeden ekinshisine ótkende ne júz beredi?\",\n    \"options\": [\n      \"Proton ajıralıp shıǵadı.\",\n      \"Foton nurlanadı yamasa jutıladı.\",\n      \"Elektron massası ózgeredi.\",\n      \"Yadro zaryadı ózgeredi.\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Alfa-jemiriliw processinde yadro quramında qanday ózgeris boladı?\",\n    \"options\": [\n      \"Massalıq san 2 ge, zaryad sanı 1 ge kemeyedi.\",\n      \"Massalıq san 4 ke, zaryad sanı 2 ge kemeyedi.\",\n      \"Massalıq san ózgermeydi, zaryad sanı 1 ge artadı.\",\n      \"Massalıq san 4 ke artadı, zaryad sanı 2 ge artadı.\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Transformatorlardıń tiykarǵı wazıypası ne?\",\n    \"options\": [\n      \"Turaqlı toktı ózgermeli tokqa aylandırıw.\",\n      \"Ózgermeli toktıń kernewin hám tok kúshin ózgertiw.\",\n      \"Elektr energiyasın jıynaw.\",\n      \"Tok jıligin ólshew.\"\n    ],\n    \"correct_option_id\": 1\n  },\n  {\n    \"question\": \"Jarıqlıqtıń difrakciyası degenimiz ne?\",\n    \"options\": [\n      \"Jarıqlıqtıń prizmadan ótkende reńlerge ajıralıwı.\",\n      \"Jarıqlıqtıń eki ortalıq shegarasında sınırı.\",\n      \"Jarıqlıq tolqınlarınıń tosıqlardı aylanıp ótiwi.\",\n      \"Jarıqlıq terbelisleriniń bir tegislikte jaylasıwı.\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Háreketlenip atırǵan zaryadlanǵan bólekishe óz átirapında qanday maydanlar payda etedi?\",\n    \"options\": [\n      \"Tek ǵana elektr maydanın.\",\n      \"Tek ǵana magnit maydanın.\",\n      \"Elektr hám magnit maydanların.\",\n      \"Gravitaciya maydanın.\"\n    ],\n    \"correct_option_id\": 2\n  },\n  {\n    \"question\": \"Kvant fizikasında tiykarǵı turaqlılardan biri bolǵan Plank turaqlısı (h) qaysı qatnasta ushıraydı?\",\n    \"options\": [\n      \"E = mc²\",\n      \"F = ma\",\n      \"E = hν\",\n      \"U = IR\"\n    ],\n    \"correct_option_id\": 2\n  }\n]"
+            }
+        ],
+        "role": "model"
+    }
+]

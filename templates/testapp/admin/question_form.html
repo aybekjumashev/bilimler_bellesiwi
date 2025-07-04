@@ -1,0 +1,309 @@
+<!-- templates/testapp/admin/question_form.html -->
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if question %}Edit Question{% else %}Add Question{% endif %} - Admin
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h2 class="fw-bold mb-1">
+                        <i class="bi bi-{% if question %}pencil{% else %}plus-circle{% endif %} text-primary"></i>
+                        {% if question %}Edit Question{% else %}Add New Question{% endif %}
+                    </h2>
+                    <p class="text-secondary mb-0">
+                        {% if question %}
+                            Update question information and options
+                        {% else %}
+                            Create a new question for a subject
+                        {% endif %}
+                    </p>
+                </div>
+                <div>
+                    <a href="{% url 'testapp:admin_questions' %}" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left"></i> Back to Questions
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-lg">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-question-circle"></i> Question Details
+                    </h5>
+                </div>
+                
+                <div class="card-body p-4">
+                    <form method="post" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        
+                        <!-- Subject Selection -->
+                        <div class="mb-4">
+                            <label for="{{ form.subject.id_for_label }}" class="form-label fw-bold">
+                                <i class="bi bi-book"></i> Subject <span class="text-danger">*</span>
+                            </label>
+                            {{ form.subject }}
+                            {% if form.subject.errors %}
+                                <div class="text-danger small mt-1">
+                                    {{ form.subject.errors.0 }}
+                                </div>
+                            {% endif %}
+                            <div class="form-text text-secondary">
+                                Select the subject this question belongs to
+                            </div>
+                        </div>
+                        
+                        <!-- Question Text -->
+                        <div class="mb-4">
+                            <label for="{{ form.question_text.id_for_label }}" class="form-label fw-bold">
+                                <i class="bi bi-chat-text"></i> Question Text <span class="text-danger">*</span>
+                            </label>
+                            {{ form.question_text }}
+                            {% if form.question_text.errors %}
+                                <div class="text-danger small mt-1">
+                                    {{ form.question_text.errors.0 }}
+                                </div>
+                            {% endif %}
+                            <div class="form-text text-secondary">
+                                Enter the complete question text clearly and concisely
+                            </div>
+                        </div>
+                        
+                        <!-- Answer Options -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold text-primary mb-3">
+                                <i class="bi bi-list-ul"></i> Answer Options
+                            </h6>
+                            
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="{{ form.option_a.id_for_label }}" class="form-label fw-bold">
+                                        Option A <span class="text-danger">*</span>
+                                    </label>
+                                    {{ form.option_a }}
+                                    {% if form.option_a.errors %}
+                                        <div class="text-danger small mt-1">
+                                            {{ form.option_a.errors.0 }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label for="{{ form.option_b.id_for_label }}" class="form-label fw-bold">
+                                        Option B <span class="text-danger">*</span>
+                                    </label>
+                                    {{ form.option_b }}
+                                    {% if form.option_b.errors %}
+                                        <div class="text-danger small mt-1">
+                                            {{ form.option_b.errors.0 }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label for="{{ form.option_c.id_for_label }}" class="form-label fw-bold">
+                                        Option C <span class="text-danger">*</span>
+                                    </label>
+                                    {{ form.option_c }}
+                                    {% if form.option_c.errors %}
+                                        <div class="text-danger small mt-1">
+                                            {{ form.option_c.errors.0 }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label for="{{ form.option_d.id_for_label }}" class="form-label fw-bold">
+                                        Option D <span class="text-danger">*</span>
+                                    </label>
+                                    {{ form.option_d }}
+                                    {% if form.option_d.errors %}
+                                        <div class="text-danger small mt-1">
+                                            {{ form.option_d.errors.0 }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Correct Answer -->
+                        <div class="mb-4">
+                            <label for="{{ form.correct_answer.id_for_label }}" class="form-label fw-bold">
+                                <i class="bi bi-check-circle"></i> Correct Answer <span class="text-danger">*</span>
+                            </label>
+                            {{ form.correct_answer }}
+                            {% if form.correct_answer.errors %}
+                                <div class="text-danger small mt-1">
+                                    {{ form.correct_answer.errors.0 }}
+                                </div>
+                            {% endif %}
+                            <div class="form-text text-secondary">
+                                Select which option (A, B, C, or D) is the correct answer
+                            </div>
+                        </div>
+                        
+                        <!-- Preview Section -->
+                        <div class="mb-4" id="questionPreview" style="display: none;">
+                            <h6 class="fw-bold text-success mb-3">
+                                <i class="bi bi-eye"></i> Question Preview
+                            </h6>
+                            <div class="card bg-light border">
+                                <div class="card-body">
+                                    <div id="previewContent">
+                                        <!-- Will be populated by JavaScript -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Form Actions -->
+                        <div class="d-flex justify-content-between">
+                                <a href="{% url 'testapp:admin_questions' %}" class="btn btn-outline-secondary">
+                                    <i class="bi bi-x-circle"></i> Cancel
+                                </a>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-{% if question %}check-circle{% else %}plus-circle{% endif %}"></i>
+                                    {% if question %}Update Question{% else %}Save Question{% endif %}
+                                </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            {% if question %}
+                <!-- Additional Info for Existing Question -->
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body text-center">
+                                <i class="bi bi-info-circle display-4 text-info mb-3"></i>
+                                <h6>Question Info</h6>
+                                <p class="text-secondary small mb-1">Created: {{ question.created_at|date:"M d, Y H:i" }}</p>
+                                <p class="text-secondary small mb-0">Subject: {{ question.subject.name }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body text-center">
+                                <i class="bi bi-file-text display-4 text-warning mb-3"></i>
+                                <h6>Usage Statistics</h6>
+                                <p class="text-secondary small mb-1">Used in: {{ question.test_questions.count }} tests</p>
+                                <p class="text-secondary small mb-0">Subject Grade: {{ question.subject.grade }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+$(document).ready(function() {    
+    // Form validation
+    const form = document.querySelector('.needs-validation');
+    form.addEventListener('submit', function(event) {
+        if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+    }, false);
+    
+    // Check for duplicate options
+    $('#id_option_a, #id_option_b, #id_option_c, #id_option_d').on('blur', function() {
+        checkDuplicateOptions();
+    });
+});
+
+
+
+
+function checkDuplicateOptions() {
+    const options = [
+        $('#id_option_a').val().trim().toLowerCase(),
+        $('#id_option_b').val().trim().toLowerCase(),
+        $('#id_option_c').val().trim().toLowerCase(),
+        $('#id_option_d').val().trim().toLowerCase()
+    ].filter(opt => opt !== '');
+    
+    const duplicates = options.filter((item, index) => options.indexOf(item) !== index);
+    
+    if (duplicates.length > 0) {
+        // Remove any existing warnings
+        $('.duplicate-warning').remove();
+        
+        // Add warning
+        $('.row.g-3').after(`
+            <div class="alert alert-warning duplicate-warning">
+                <i class="bi bi-exclamation-triangle"></i>
+                <strong>Warning:</strong> Some options appear to be duplicates. Please ensure all options are unique.
+            </div>
+        `);
+    } else {
+        $('.duplicate-warning').remove();
+    }
+}
+
+// Character counter for question text
+$('#id_question_text').on('input', function() {
+    const maxLength = 1000; // Reasonable limit for question text
+    const currentLength = $(this).val().length;
+    
+    // Remove existing counter
+    $('.char-counter').remove();
+    
+    // Add counter
+    $(this).after(`
+        <div class="char-counter mt-1">
+            <small class="text-secondary">${currentLength} / ${maxLength} characters</small>
+        </div>
+    `);
+    
+    if (currentLength > maxLength * 0.9) {
+        $('.char-counter small').removeClass('text-secondary').addClass('text-warning');
+    }
+    
+    if (currentLength >= maxLength) {
+        $('.char-counter small').removeClass('text-warning').addClass('text-danger');
+    }
+});
+
+// Auto-focus next field when current is filled
+$('#id_option_a').on('blur', function() {
+    if ($(this).val().trim() && !$('#id_option_b').val().trim()) {
+        $('#id_option_b').focus();
+    }
+});
+
+$('#id_option_b').on('blur', function() {
+    if ($(this).val().trim() && !$('#id_option_c').val().trim()) {
+        $('#id_option_c').focus();
+    }
+});
+
+$('#id_option_c').on('blur', function() {
+    if ($(this).val().trim() && !$('#id_option_d').val().trim()) {
+        $('#id_option_d').focus();
+    }
+});
+
+$('#id_option_d').on('blur', function() {
+    if ($(this).val().trim() && !$('#id_correct_answer').val()) {
+        $('#id_correct_answer').focus();
+    }
+});
+</script>
+{% endblock %}

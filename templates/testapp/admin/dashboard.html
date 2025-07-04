@@ -1,0 +1,271 @@
+<!-- templates/testapp/admin/dashboard.html -->
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard - Bilim Sinovi{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h2 class="fw-bold mb-1">
+                        <i class="bi bi-speedometer2 text-primary"></i> 
+                        Admin Dashboard
+                    </h2>
+                    <p class="text-secondary mb-0">Welcome back, {{ user.username }}!</p>
+                </div>
+                <div>
+                    <small class="text-secondary">
+                        <i class="bi bi-calendar"></i> 
+                        {{ now|date:"d.m.Y" }}
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Statistics Cards -->
+    <div class="row g-4 mb-5">
+        <div class="col-xl-3 col-md-6">
+            <div class="card dashboard-card border-0 shadow-sm h-100">
+                <div class="card-body text-center">
+                    <div class="dashboard-icon text-primary">
+                        <i class="bi bi-book"></i>
+                    </div>
+                    <div class="stats-number">{{ stats.total_subjects }}</div>
+                    <h6 class="text-secondary mb-0">Total Subjects</h6>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-3 col-md-6">
+            <div class="card dashboard-card border-0 shadow-sm h-100">
+                <div class="card-body text-center">
+                    <div class="dashboard-icon text-success">
+                        <i class="bi bi-question-circle"></i>
+                    </div>
+                    <div class="stats-number">{{ stats.total_questions }}</div>
+                    <h6 class="text-secondary mb-0">Total Questions</h6>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-3 col-md-6">
+            <div class="card dashboard-card border-0 shadow-sm h-100">
+                <div class="card-body text-center">
+                    <div class="dashboard-icon text-info">
+                        <i class="bi bi-file-text"></i>
+                    </div>
+                    <div class="stats-number">{{ stats.total_tests }}</div>
+                    <h6 class="text-secondary mb-0">Total Tests</h6>
+                    <small class="text-success">{{ stats.today_tests }} today</small>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-3 col-md-6">
+            <div class="card dashboard-card border-0 shadow-sm h-100">
+                <div class="card-body text-center">
+                    <div class="dashboard-icon text-warning">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <div class="stats-number">{{ stats.total_participants }}</div>
+                    <h6 class="text-secondary mb-0">Total Participants</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row g-4">
+        <!-- Quick Actions -->
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-gear"></i> Management
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a href="{% url 'testapp:admin_subjects' %}" class="btn btn-outline-primary w-100">
+                            <i class="bi bi-book"></i><br>
+                            Manage Subjects
+                        </a>
+                        <a href="{% url 'testapp:admin_questions' %}" class="btn btn-outline-success w-100">
+                            <i class="bi bi-question-circle"></i><br>
+                            Manage Questions
+                        </a>
+                        <a href="{% url 'testapp:admin_tests' %}" class="btn btn-outline-info w-100">
+                            <i class="bi bi-file-text"></i><br>
+                            View Tests
+                        </a>
+                        <a href="{% url 'testapp:admin_results' %}" class="btn btn-outline-warning w-100">
+                            <i class="bi bi-graph-up"></i><br>
+                            View Results
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Today's Tests -->
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-calendar-check"></i> Today's Tests
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if today_tests %}
+                        <div class="list-group list-group-flush">
+                            {% for test in today_tests %}
+                                <div class="list-group-item border-0 px-0 bg-transparent">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-1 text-light">{{ test.subject.name }}</h6>
+                                            <small class="text-secondary">
+                                                Grade {{ test.subject.grade }} • 
+                                                {{ test.created_at|time:"H:i" }}
+                                            </small>
+                                        </div>
+                                        <div class="btn-group btn-group-sm">
+                                            <a href="{% url 'testapp:admin_results' %}?test_id={{ test.id }}" 
+                                                class="btn btn-outline-primary" 
+                                                title="View Results">
+                                                {{ test.results.count }}
+                                                <i class="bi bi-bar-chart"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="text-center text-secondary py-4">
+                            <i class="bi bi-calendar-x display-4"></i>
+                            <p class="mt-2">No tests created today</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Recent Results -->
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-graph-up"></i> Recent Results
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if recent_results %}
+                        <div class="list-group list-group-flus">
+                            {% for result in recent_results %}
+                                <div class="list-group-item border-0 px-0 bg-transparent">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-1 text-light">{{ result.student_name }}</h6>
+                                            <small class="text-secondary">
+                                                {{ result.test.subject.name }} • 
+                                                {{ result.completed_at|timesince }} ago
+                                            </small>
+                                        </div>
+                                        <div class="text-end">
+                                            <span class="badge bg-primary rounded-pill">
+                                                {{ result.correct_answers }}/{{ result.total_questions }}
+                                            </span>
+                                            <div>
+                                                <small class="text-secondary">
+                                                    {{ result.score_percentage|floatformat:1 }}%
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="text-center mt-3">
+                            <a href="{% url 'testapp:admin_results' %}" class="btn btn-sm btn-outline-success">
+                                View All Results
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="text-center text-secondary py-4">
+                            <i class="bi bi-graph-down display-4"></i>
+                            <p class="mt-2">No results yet</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+</div>
+
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function createRandomTest() {
+    // Load subjects for modal
+    fetch('/admin/subjects/')
+        .then(response => response.text())
+        .then(html => {
+            // Extract subjects data (this is a simplified approach)
+            const modal = new bootstrap.Modal(document.getElementById('createTestModal'));
+            modal.show();
+            
+            // You would typically load subjects via API
+            // For now, we'll populate with dummy data
+            const subjectSelect = document.getElementById('subjectSelect');
+            subjectSelect.innerHTML = '<option value="">Choose a subject...</option>';
+        });
+}
+
+function confirmCreateTest() {
+    const subjectId = document.getElementById('subjectSelect').value;
+    
+    if (!subjectId) {
+        alert('Please select a subject!');
+        return;
+    }
+    
+    // Create test via API
+    fetch('/api/create-test/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        },
+        body: JSON.stringify({
+            subject_id: subjectId
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showToast('Test created successfully!', 'success');
+            bootstrap.Modal.getInstance(document.getElementById('createTestModal')).hide();
+            location.reload();
+        } else {
+            alert(data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error creating test');
+    });
+}
+
+function copyTestURL(testId) {
+    const url = `${window.location.origin}/start/?test_id=${testId}`;
+    copyToClipboard(url);
+}
+</script>
+{% endblock %}

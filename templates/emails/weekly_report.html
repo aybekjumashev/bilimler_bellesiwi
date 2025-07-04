@@ -1,0 +1,135 @@
+
+<!-- templates/emails/weekly_report.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Test Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background: #198754;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+        }
+        .content {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 0 0 8px 8px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 4px solid #198754;
+        }
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #198754;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+        }
+        .table th, .table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .table th {
+            background: #e9ecef;
+            font-weight: bold;
+        }
+        .btn {
+            display: inline-block;
+            background: #198754;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📊 Weekly Test Report</h1>
+        <p>{{ report.start_date }} to {{ report.end_date }}</p>
+    </div>
+    
+    <div class="content">
+        <h2>Overall Statistics</h2>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">{{ report.total_tests }}</div>
+                <div>Tests Created</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{ report.total_participants }}</div>
+                <div>Total Participants</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{ report.average_score|floatformat:1 }}%</div>
+                <div>Average Score</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{ report.pass_rate|floatformat:1 }}%</div>
+                <div>Pass Rate</div>
+            </div>
+        </div>
+        
+        {% if report.top_subjects %}
+        <h3>Top Performing Subjects</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Grade</th>
+                    <th>Participants</th>
+                    <th>Average Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for subject in report.top_subjects %}
+                <tr>
+                    <td>{{ subject.name }}</td>
+                    <td>{{ subject.grade }}</td>
+                    <td>{{ subject.participants }}</td>
+                    <td>{{ subject.avg_score|floatformat:1 }}%</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        
+        <p style="text-align: center; margin-top: 30px;">
+            <a href="{{ admin_url }}" class="btn">📈 View Full Dashboard</a>
+        </p>
+        
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd;">
+            <p><small>This is an automated weekly report from Bilim Sinovi platform.</small></p>
+        </div>
+    </div>
+</body>
+</html>

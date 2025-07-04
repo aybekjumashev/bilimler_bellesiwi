@@ -1,0 +1,83 @@
+
+<!-- templates/emails/test_created.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Test Created</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background: #0d6efd;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+        }
+        .content {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 0 0 8px 8px;
+        }
+        .test-info {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #0d6efd;
+        }
+        .btn {
+            display: inline-block;
+            background: #0d6efd;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 5px;
+        }
+        .btn-secondary {
+            background: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📚 New Test Created</h1>
+    </div>
+    
+    <div class="content">
+        <p>Hello!</p>
+        
+        <p>A new test has been created and is ready for students to take.</p>
+        
+        <div class="test-info">
+            <h3>Test Information:</h3>
+            <ul>
+                <li><strong>Subject:</strong> {{ test.subject.name }}</li>
+                <li><strong>Grade:</strong> {{ test.subject.grade }}</li>
+                <li><strong>Test ID:</strong> {{ test.id }}</li>
+                <li><strong>Questions:</strong> {{ test.test_questions.count }}</li>
+                <li><strong>Created:</strong> {{ test.created_at|date:"F d, Y H:i" }}</li>
+            </ul>
+        </div>
+        
+        <h3>Quick Links:</h3>
+        <p>
+            <a href="{{ test_url }}" class="btn">📝 Take Test</a>
+            <a href="{{ results_url }}" class="btn btn-secondary">📊 View Results</a>
+        </p>
+        
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd;">
+            <p><small>This is an automated notification from Bilim Sinovi platform.</small></p>
+        </div>
+    </div>
+</body>
+</html>

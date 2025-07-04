@@ -1,0 +1,281 @@
+<!-- templates/testapp/admin/bulk_questions.html -->
+{% extends 'base.html' %}
+
+{% block title %}Bulk Add Questions - Admin{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h2 class="fw-bold mb-1">
+                        <i class="bi bi-plus-square text-primary"></i> 
+                        Bulk Add Questions
+                    </h2>
+                    <p class="text-secondary mb-0">Add multiple questions at once for a subject</p>
+                </div>
+                <div>
+                    <a href="{% url 'testapp:admin_questions' %}" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left"></i> Back to Questions
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <form method="post" id="bulkQuestionsForm" class="needs-validation" novalidate>
+        {% csrf_token %}
+        
+        <!-- Subject Selection -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.subject.id_for_label }}" class="form-label fw-bold">
+                                    Select Subject <span class="text-danger">*</span>
+                                </label>
+                                {{ form.subject }}
+                                {% if form.subject.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.subject.errors.0 }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="questionsCount" class="form-label fw-bold">
+                                    Number of Questions for Generate <span class="text-danger">*</span>
+                                </label>
+                                <input type="number" class="form-control" id="questionsCount" name="questions_count" min="1" max="50" value="10" required>
+                                <div class="invalid-feedback">
+                                    Please enter a valid number of questions (1-50).
+                                </div>
+                            </div>
+                            <div class="col-md-3 align-self-end mb-3">
+                                <button type="button" class="btn btn-success w-100" onclick="generateQuestions()"><i class="bi bi-stars"></i> Generate Questions</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Questions Container -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-success text-white">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">
+                                <i class="bi bi-question-circle"></i> Questions
+                            </h5>
+                            <div>
+                                <span class="badge bg-light text-dark" id="questionCounter">1 Question</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="questionsContainer">
+                            <!-- Initial question row -->
+                            <!-- <div class="question-row" id="question-1">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h6 class="mb-0 text-primary">Question 1</h6>
+                                    <button type="button" class="btn btn-sm btn-outline-danger remove-question-btn" onclick="removeQuestionRow(1)" style="display: none;">
+                                        <i class="bi bi-trash"></i> Remove
+                                    </button>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Question Text <span class="text-danger">*</span></label>
+                                    <textarea class="form-control question-text" rows="3" placeholder="Enter the question text here..." required></textarea>
+                                    <div class="invalid-feedback">Please enter the question text.</div>
+                                </div>
+                                
+                                <div class="row g-2 mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Option A <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control option-a" placeholder="Enter option A" required>
+                                        <div class="invalid-feedback">Please enter option A.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Option B <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control option-b" placeholder="Enter option B" required>
+                                        <div class="invalid-feedback">Please enter option B.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Option C <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control option-c" placeholder="Enter option C" required>
+                                        <div class="invalid-feedback">Please enter option C.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Option D <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control option-d" placeholder="Enter option D" required>
+                                        <div class="invalid-feedback">Please enter option D.</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Correct Answer <span class="text-danger">*</span></label>
+                                    <select class="form-control correct-answer" required>
+                                        <option value="">Select correct answer</option>
+                                        <option value="A">A</option>
+                                        <option value="B">B</option>
+                                        <option value="C">C</option>
+                                        <option value="D">D</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please select the correct answer.</div>
+                                </div>
+                            </div> -->
+                        </div>
+                        
+                        <!-- Add Question Button -->
+                        <div class="text-center mt-4">
+                            <button type="button" class="btn btn-outline-success" onclick="addQuestionRow()" id="addQuestionBtn">
+                                <i class="bi bi-plus-circle"></i> Add Question
+                            </button>
+                            <div class="mt-2">
+                                <small class="text-secondary">You can add up to 50 questions at once</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Hidden field for questions JSON data -->
+        {{ form.questions_json }}
+        
+        <!-- Submit Section -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm bg-dark">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-1">Ready to Save Questions?</h6>
+                                <small class="text-secondary">All filled questions will be saved to the selected subject</small>
+                            </div>
+                            <div class="btn-group">
+                                <a href="{% url 'testapp:admin_questions' %}" class="btn btn-outline-secondary">
+                                    <i class="bi bi-x-circle"></i> Cancel
+                                </a>
+                                <button type="submit" class="btn btn-success" id="saveQuestionsBtn">
+                                    <i class="bi bi-check-circle"></i> Save All Questions
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function generateQuestions() {
+    const count = parseInt($('#questionsCount').val());
+    const subject = $('#id_subject').val();
+    const $btn = $('#addQuestionBtn');
+    const $generateBtn = $("button[onclick='generateQuestions()']");
+    if (isNaN(count) || count < 1 || count > 50) {
+        alert('Please enter a valid number of questions (1-50)');
+        return;
+    }
+    if (!subject) {
+        alert('Please select a subject first');
+        return;
+    }
+    $('#questionsContainer').empty();
+    $generateBtn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-2"></span>Generating...');
+    fetch(`/api/generate-questions/?subject_id=${subject}&questionsCount=${count}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.questions && Array.isArray(data.questions)) {
+                data.questions.forEach(q => {
+                    addQuestionRow(q.questionText, q.options);
+                });
+            } else {
+                alert('Savollarni generatsiya qilishda xatolik!');
+            }
+        })
+        .catch(error => {
+            alert('Xatolik: ' + error);
+        })
+        .finally(() => {
+            $generateBtn.prop('disabled', false).html('<i class="bi bi-stars"></i> Generate Questions');
+        });
+}
+
+function submitForm() {
+    const questionsData = collectQuestionsData();
+    
+    if (questionsData.length === 0) {
+        alert('Please fill in at least one complete question');
+        return false;
+    }
+    
+    // Set the questions data in the hidden field
+    $('#id_questions_json').val(JSON.stringify(questionsData));
+    
+    // Submit the form
+    $('#saveQuestionsBtn').addClass('loading');
+    document.getElementById('bulkQuestionsForm').submit();
+}
+
+// Form submission handler
+$(document).ready(function() {
+    $('#bulkQuestionsForm').on('submit', function(e) {
+        e.preventDefault();
+        submitForm();
+    });
+    
+    // Auto-save to localStorage
+    setInterval(function() {
+        const formData = {
+            subject: $('#id_subject').val(),
+            questions: collectQuestionsData()
+        };
+        localStorage.setItem('bulk_questions_draft', JSON.stringify(formData));
+    }, 30000); // Auto-save every 30 seconds
+    
+    // Load saved draft
+    const savedDraft = localStorage.getItem('bulk_questions_draft');
+    if (savedDraft) {
+        const draft = JSON.parse(savedDraft);
+        if (draft.subject) {
+            $('#id_subject').val(draft.subject);
+        }
+        // You could restore questions here if needed
+    }
+});
+
+// Clear draft on successful submission
+window.addEventListener('beforeunload', function() {
+    if (performance.navigation.type === 1) { // Page refresh
+        localStorage.removeItem('bulk_questions_draft');
+    }
+});
+
+// Real-time validation
+$(document).on('input', '.question-text, .option-a, .option-b, .option-c, .option-d', function() {
+    const $row = $(this).closest('.question-row');
+    const filled = $row.find('input, textarea, select').filter(function() {
+        return $(this).val().trim() !== '';
+    }).length;
+    
+    if (filled > 0) {
+        $row.addClass('border-info');
+    } else {
+        $row.removeClass('border-info');
+    }
+});
+</script>
+{% endblock %}
