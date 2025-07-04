@@ -16,32 +16,65 @@ import json
 
 logger = logging.getLogger(__name__)
 
-def send_telegram(test):
+def send_telegram(tests):
     """Send notification to Telegram channel about new test creation"""
+    if not tests:
+        return
+    
     try:
-        telegram_token = settings.TELEGRAM_BOT_TOKEN
-        chat_id = settings.TELEGRAM_CHAT_ID
-        message = f"<b>📌 {test.id}-test. {test.subject.name} ({test.subject.grade}-klass)</b>" 
-        url = f"https://api.telegram.org/bot{telegram_token}/sendMessage"
-        keyboard = {
-            'inline_keyboard': [
-                [
+        test_names = set()
+        test_grades = set()
+        for test in tests:
+            test_names.add(test.subject.name)
+            test_grades.add(test.subject.grade)
+        
+        keyboards = []
+        if len(tests) == 1:
+            message = f"📌 {tests[0].subject.start_time.strftime('%H:%M')} waqıtına rejelestirilgen <b>{tests[0].subject.name}</b> páninen <b>{tests[0].subject.grade}-klasslar</b> ushın test." 
+            keyboard = [
+                {
+                    'text': f'🚀 Qatnasıw',
+                    'url': f'{settings.WEB_APP_URL}/test?startapp={tests[0].id}'
+                }
+            ]
+            keyboards.append(keyboard)
+        elif len(test_names) == 1:
+            message = f"📌 {tests[0].subject.start_time.strftime('%H:%M')} waqıtına rejelestirilgen <b>{list(test_names)[0]}</b> páninen testler." 
+            sorted_tests = sorted(tests, key=lambda x: x.subject.grade) 
+            for test in sorted_tests:
+                keyboard = [
                     {
-                        'text': '🚀 Baslaw',
+                        'text': f'{test.subject.grade}-klass',
                         'url': f'{settings.WEB_APP_URL}/test?startapp={test.id}'
                     }
-                ],
-                # [                    
-                #     {
-                #         'text': '📊 Nátiyjeler',
-                #         'url': f'{settings.WEB_APP_URL}/result?startapp={test.id}'
-                #     },               
-                #     {
-                #         'text': '✨ Analizlew',
-                #         'url': f'{settings.WEB_APP_URL}/chatbot?startapp={test.id}'
-                #     }
-                # ]
-            ]
+                ]
+                keyboards.append(keyboard)
+        elif len(test_grades) == 1:
+            message = f"📌 {tests[0].subject.start_time.strftime('%H:%M')} waqıtına rejelestirilgen <b>{list(test_grades)[0]}-klasslar</b> ushın testler." 
+            for test in tests:
+                keyboard = [
+                    {
+                        'text': f'{test.subject.name}',
+                        'url': f'{settings.WEB_APP_URL}/test?startapp={test.id}'
+                    }
+                ]
+                keyboards.append(keyboard)
+        else:
+            message = f"📌 {tests[0].subject.start_time.strftime('%H:%M')} waqıtına rejelestirilgen testler." 
+            for test in tests:
+                keyboard = [
+                    {
+                        'text': f'{test.subject.name} ({test.subject.grade}-klass)',
+                        'url': f'{settings.WEB_APP_URL}/test?startapp={test.id}'
+                    }
+                ]
+                keyboards.append(keyboard)
+        
+        telegram_token = settings.TELEGRAM_BOT_TOKEN
+        chat_id = settings.TELEGRAM_CHAT_ID
+        url = f"https://api.telegram.org/bot{telegram_token}/sendMessage"
+        keyboard = {
+            'inline_keyboard': keyboards
         }
         payload = {
             'chat_id': chat_id,
@@ -51,7 +84,7 @@ def send_telegram(test):
         }
         response = requests.post(url, data=payload)
         if response.status_code == 200:
-            logger.info(f"Telegram notification sent for test ID: {test.id}")
+            logger.info(f"Telegram notification sent")
         else:
             logger.error(f"Failed to send Telegram notification for test ID: {test.id}, {response.text}")
     except Exception as e:
@@ -101,6 +134,7 @@ def create_scheduled_tests_func(force=False, target_date=None, stdout=None):
     skipped_tests = 0
     errors = 0
 
+    tests = []
     for subject in scheduled_subjects:
         print(f'Processing subject: {subject.name} (ID: {subject.id}) Time: {subject.start_time.strftime("%H:%M")}')
         try:
@@ -131,7 +165,7 @@ def create_scheduled_tests_func(force=False, target_date=None, stdout=None):
                     order_number=index
                 )
             
-            send_telegram(test)
+            tests.append(test)
 
             msg = f'✓ Created test for {subject.name} (ID: {test.id}) with {len(selected_questions)} questions'
             if stdout:
@@ -146,6 +180,8 @@ def create_scheduled_tests_func(force=False, target_date=None, stdout=None):
             else:
                 print(msg)
             errors += 1
+
+    send_telegram(tests)
 
     summary = (
         f'\n=== Summary for {target_date} ===\n'
