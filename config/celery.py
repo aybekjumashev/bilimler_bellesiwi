@@ -23,7 +23,7 @@ from celery.schedules import crontab
 app.conf.beat_schedule = {
     'create-scheduled-tests': {
         'task': 'testapp.tasks.create_scheduled_tests_task',
-        'schedule': crontab(),   # minute='0,10,20,30,40,50'
+        'schedule': crontab(minute='0,10,20,30,40,50'),   # minute='0,10,20,30,40,50'
     },
     # 'cleanup-old-data': {
     #     'task': 'testapp.tasks.cleanup_old_data_task',
