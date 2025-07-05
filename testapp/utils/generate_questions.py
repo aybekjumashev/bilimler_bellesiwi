@@ -11,7 +11,7 @@ class QuizQuestion(BaseModel):
     correct_option_id: int
 
 
-client = genai.Client(api_key=settings.API_KEY_GENAI)
+client = genai.Client(api_key=settings.API_KEY_GENAI_ADMIN)
 
 
 def generate_questions(subject="Matematika", grade=5, count=10):
