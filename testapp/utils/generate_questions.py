@@ -9,6 +9,7 @@ class QuizQuestion(BaseModel):
     question: str
     options: list[str]
     correct_option_id: int
+    topic: str
 
 
 client = genai.Client(api_key=settings.API_KEY_GENAI_ADMIN)
@@ -50,7 +51,7 @@ def generate_questions(subject="Matematika", grade=5, count=10, topics=None):
     )
     response = chat.send_message(prompt + f"\n\n{count} dana soraw jaratıń.")
 
-    history = [content.model_dump() for content in chat._curated_history[-300:]]
+    history = [content.model_dump() for content in chat._curated_history[-500:]]
     with open('history.json', 'w', encoding='utf-8') as file:
         json.dump(history, file, ensure_ascii=False, indent=4)
 
