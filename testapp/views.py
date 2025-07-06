@@ -204,7 +204,6 @@ def test_results_view(request):
     return render(request, 'testapp/test/results.html', context)
 
 
-@require_http_methods(["GET"])
 def test_landing_view(request):
     """Landing page for multiple tests"""
     test_ids = request.GET.get('tests') or request.GET.get('tgWebAppStartParam')
