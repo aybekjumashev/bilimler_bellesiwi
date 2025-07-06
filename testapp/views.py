@@ -1316,29 +1316,38 @@ def api_check_participation(request):
 
 @csrf_exempt
 def api_generate_questions(request):
-    subject_id = request.GET.get('subject_id')
-    questions_count = int(request.GET.get('questionsCount', 5))
-    topics = request.GET.get('topics')
-    print(topics)
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Faqat POST so‘rovi qabul qilinadi'}, status=405)
 
-    subject = get_object_or_404(Subject, id=subject_id)
+    try:
+        data = json.loads(request.body)
+        subject_id = data.get('subject_id')
+        questions_count = int(data.get('questionsCount', 5))
+        topics = data.get('topics') 
+        print(topics)
 
-    response_questions = generate_questions(subject=subject.name, grade=subject.grade, count=questions_count, topics=topics)
+        subject = get_object_or_404(Subject, id=subject_id)
 
-    # List of fake questions
-    questions = []
-    for q in response_questions:
-        questions.append({
-            'questionText': q.question,
-            'options': {
-                'A': q.options[0],
-                'B': q.options[1],
-                'C': q.options[2],
-                'D': q.options[3],
-                'correct': q.correct_option_id,
-            }
-        })
-    return JsonResponse({'questions': questions})
+        response_questions = generate_questions(subject=subject.name, grade=subject.grade, count=questions_count, topics=topics)
+
+        # List of fake questions
+        questions = []
+        for q in response_questions:
+            questions.append({
+                'questionText': q.question,
+                'options': {
+                    'A': q.options[0],
+                    'B': q.options[1],
+                    'C': q.options[2],
+                    'D': q.options[3],
+                    'correct': q.correct_option_id,
+                }
+            })
+        return JsonResponse({'questions': questions})
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+
 
 
 @csrf_exempt

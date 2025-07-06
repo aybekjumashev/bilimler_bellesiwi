@@ -4,6 +4,8 @@
 {% block title %}Bulk Add Questions - Admin{% endblock %}
 
 {% block content %}
+<!-- CSRF -->
+<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
 <div class="container py-4">
     <!-- Header -->
     <div class="row mb-4">
@@ -204,23 +206,34 @@ function generateQuestions() {
     }
     $('#questionsContainer').empty();
     $generateBtn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-2"></span>Generating...');
-    fetch(`/api/generate-questions/?subject_id=${subject}&questionsCount=${count}&topics=${topics}`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.questions && Array.isArray(data.questions)) {
-                data.questions.forEach(q => {
-                    addQuestionRow(q.questionText, q.options);
-                });
-            } else {
-                alert('Savollarni generatsiya qilishda xatolik!');
-            }
-        })
-        .catch(error => {
-            alert('Xatolik: ' + error);
-        })
-        .finally(() => {
-            $generateBtn.prop('disabled', false).html('<i class="bi bi-stars"></i> Generate Questions');
-        });
+    fetch('/api/generate-questions/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val(),
+        },
+        body: JSON.stringify({
+            subject_id: subject,
+            questionsCount: count,
+            topics: topics
+        }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.questions && Array.isArray(data.questions)) {
+            data.questions.forEach(q => {
+                addQuestionRow(q.questionText, q.options);
+            });
+        } else {
+            alert('Savollarni generatsiya qilishda xatolik!');
+        }
+    })
+    .catch(error => {
+        alert('Xatolik: ' + error);
+    })
+    .finally(() => {
+        $generateBtn.prop('disabled', false).html('<i class="bi bi-stars"></i> Generate Questions');
+    });
 }
 
 function submitForm() {
