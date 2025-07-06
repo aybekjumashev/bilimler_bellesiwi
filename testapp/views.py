@@ -1356,7 +1356,7 @@ def api_generate_answer(request):
         # TODO: Replace with real answer logic
         history = ChatMessage.objects.filter(student_id=student_id, test_id=test_id).order_by('created_at')
         today_histories = history.filter(created_at__date=timezone.now().date()).count()
-        if today_histories >= 60:
+        if today_histories >= int(settings.LIMIT_MESSAGES_PER_DAY):
             return JsonResponse({'success': True, 'answer': '`❗️Sizdiń bul test ushın búgingi kúnlik limitińiz tawsıldı.` '})
         result = get_object_or_404(Result, student_id=student_id, test_id=test_id)
         test = get_object_or_404(Test, id=test_id)

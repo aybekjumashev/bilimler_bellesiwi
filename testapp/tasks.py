@@ -39,22 +39,30 @@ def send_telegram(tests):
             ]
             keyboards.append(keyboard)
         elif len(test_names) == 1:
-            message = f"📌 {tests[0].subject.start_time.strftime('%H:%M')} waqıtına rejelestirilgen <b>{list(test_names)[0]}</b> páninen testler." 
+            message = f"📌 {tests[0].subject.start_time.strftime('%H:%M')} waqıtına rejelestirilgen <b>{list(test_names)[0]}</b> páninen test.\nTestti baslaw ushın klasıńızdı saylań 👇" 
             sorted_tests = sorted(tests, key=lambda x: x.subject.grade) 
-            for test in sorted_tests:
-                keyboard = [
-                    {
-                        'text': f'{test.subject.grade}-klass',
+            row_keyboards = []
+            for test in sorted_tests[:-2]:
+                col_keyboards = {
+                        'text': f'{test.subject.grade}',
                         'url': f'{settings.WEB_APP_URL}/test?startapp={test.id}'
                     }
-                ]
-                keyboards.append(keyboard)
+                row_keyboards.append(col_keyboards)
+            keyboards.append(row_keyboards)
+            row_keyboards = []
+            for test in sorted_tests[-2:]:
+                col_keyboards = {
+                        'text': f'{test.subject.grade}',
+                        'url': f'{settings.WEB_APP_URL}/test?startapp={test.id}'
+                    }
+                row_keyboards.append(col_keyboards)
+            keyboards.append(row_keyboards)
         elif len(test_grades) == 1:
             message = f"📌 {tests[0].subject.start_time.strftime('%H:%M')} waqıtına rejelestirilgen <b>{list(test_grades)[0]}-klasslar</b> ushın testler." 
             for test in tests:
                 keyboard = [
                     {
-                        'text': f'{test.subject.name}',
+                        'text': f'{test.subject.name} ({test.subject.grade}-klass)',
                         'url': f'{settings.WEB_APP_URL}/test?startapp={test.id}'
                     }
                 ]
