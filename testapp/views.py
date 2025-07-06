@@ -363,7 +363,7 @@ def admin_questions_view(request):
         questions = questions.filter(subject_id=subject_filter)
 
     # Paginate: 10 ta savol har bir sahifada
-    paginator = Paginator(questions, 10)
+    paginator = Paginator(questions, 100)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
