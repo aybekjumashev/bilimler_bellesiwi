@@ -300,4 +300,36 @@ $(document).on('input', '.question-text, .option-a, .option-b, .option-c, .optio
     }
 });
 </script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const subjectSelect = document.getElementById("id_subject");
+        const topicsTextarea = document.getElementById("topics");
+    
+        subjectSelect.addEventListener("change", function () {
+            const subjectId = this.value;
+    
+            if (!subjectId) {
+                topicsTextarea.value = '';
+                return;
+            }
+    
+            fetch(`/api/get-topics/?subject_id=${subjectId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.topics !== undefined) {
+                        topicsTextarea.value = data.topics;
+                    } else {
+                        topicsTextarea.value = '';
+                    }
+                })
+                .catch(error => {
+                    console.error("Xatolik:", error);
+                    topicsTextarea.value = '';
+                });
+        });
+    });
+</script>
+    
 {% endblock %}

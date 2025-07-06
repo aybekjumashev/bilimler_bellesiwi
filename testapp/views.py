@@ -1449,3 +1449,19 @@ def api_get_chat_history(request):
 
 
 
+@csrf_exempt
+def api_get_topics(request):
+    subject_id = request.GET.get('subject_id')
+
+    if not subject_id:
+        return JsonResponse({'error': 'subject_id is required'}, status=400)
+    
+    try:
+        subject = Subject.objects.get(id=subject_id)
+    except Subject.DoesNotExist:
+        return JsonResponse({'error': 'Subject not found'}, status=404)
+    
+    return JsonResponse({
+        'subject_id': subject_id,
+        'topics': subject.topics or ''
+    })

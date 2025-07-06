@@ -61,7 +61,7 @@ class SubjectForm(forms.ModelForm):
             }),
             'topics': forms.Textarea(attrs={       
                 'class': 'form-control',
-                'placeholder': 'Mavzularni yozing (masalan: Harakat, Kuch, Ish)',
+                'placeholder': 'Enter topics',
                 'rows': 3,
             }),
         }

@@ -64,6 +64,8 @@ urlpatterns = [
     path('api/generate-questions/', views.api_generate_questions, name='api_generate_questions'),
     path('api/generate-answer/', views.api_generate_answer, name='api_generate_answer'),
     path('api/chat-history/', views.api_get_chat_history, name='api_get_chat_history'),
+    path('api/get-topics/', views.api_get_topics, name='api_get_topics'),
+    
     
     # Notifications
     path('admin/tests/<int:test_id>/notify/', views.send_test_notification_view, name='send_test_notification'),
