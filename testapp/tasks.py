@@ -39,7 +39,7 @@ def send_telegram(tests):
             ]
             keyboards.append(keyboard)
         elif len(test_names) == 1:
-            message = f"<b>📌 {list(test_names)[0]} páninen test.</b>\nTestti baslaw ushın klasıńızdı saylań 👇" 
+            message = f"<b>📌 {list(test_names)[0]} páninen test.</b>\nTestti baslaw, analizlew hám nátiyjelerdi kóriw ushın klasıńızdı saylań 👇" 
             sorted_tests = sorted(tests, key=lambda x: x.subject.grade) 
             row_keyboards = []
             for test in sorted_tests[:-2]:
