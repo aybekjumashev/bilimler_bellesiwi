@@ -1318,10 +1318,12 @@ def api_check_participation(request):
 def api_generate_questions(request):
     subject_id = request.GET.get('subject_id')
     questions_count = int(request.GET.get('questionsCount', 5))
+    topics = request.GET.get('topics')
+    print(topics)
 
     subject = get_object_or_404(Subject, id=subject_id)
 
-    response_questions = generate_questions(subject=subject.name, grade=subject.grade, count=questions_count)
+    response_questions = generate_questions(subject=subject.name, grade=subject.grade, count=questions_count, topics=topics)
 
     # List of fake questions
     questions = []

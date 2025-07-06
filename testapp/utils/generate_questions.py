@@ -14,7 +14,7 @@ class QuizQuestion(BaseModel):
 client = genai.Client(api_key=settings.API_KEY_GENAI_ADMIN)
 
 
-def generate_questions(subject="Matematika", grade=5, count=10):
+def generate_questions(subject="Matematika", grade=5, count=10, topics=None):
     prompt = f"""
         Qaraqalpaq tilinde {subject} páni boyınsha {grade}-klass oqıwshıları ushın {count} DANA quiz sorawın jaratıń.
 
@@ -30,6 +30,9 @@ def generate_questions(subject="Matematika", grade=5, count=10):
         9. EŃ ÁHMIYETLISI: Qátesiz latın álipbesinde hám qaraqalpaq tilinde bolıwı kerek.
         10. {count} dana sorawdı bir json tizimi túrinde qaytarıń.
     """
+
+    if topics:
+        prompt += f'\n\nTemalar: \n{topics}'
 
     try:
         with open('history.json', 'r', encoding='utf-8') as file:
