@@ -34,10 +34,10 @@ class SubjectForm(forms.ModelForm):
         required=True,
         label="Hafta kunlari"
     )
-    
+
     class Meta:
         model = Subject
-        fields = ['name', 'grade', 'start_time', 'questions_count']
+        fields = ['name', 'grade', 'start_time', 'questions_count', 'topics']
         widgets = {
             'name': forms.TextInput(attrs={
                 'class': 'form-control',
@@ -59,14 +59,22 @@ class SubjectForm(forms.ModelForm):
                 'max': 50,
                 'placeholder': 'Questions count (5-50)',
             }),
+            'topics': forms.Textarea(attrs={       
+                'class': 'form-control',
+                'placeholder': 'Mavzularni yozing (masalan: Harakat, Kuch, Ish)',
+                'rows': 3,
+            }),
         }
+
         labels = {
             'name': 'Fan nomi',
             'grade': 'Sinf',
             'start_time': 'Boshlanish vaqti',
             'questions_count': 'Test savollar soni',
+            'topics': 'Mavzular',  
         }
-    
+
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         

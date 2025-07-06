@@ -153,6 +153,20 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="mb-4">
+                            <!-- Topics -->
+                            <label for="{{ form.topics.id_for_label }}" class="form-label fw-bold">
+                                <i class="bi bi-list-ul"></i> Topics
+                            </label>
+                            {{ form.topics }}
+                            {% if form.topics.errors %}
+                                <div class="text-danger small mt-1">
+                                    {{ form.topics.errors.0 }}
+                                </div>
+                            {% endif %}
+                        </div>
+
                         
                         <!-- Form Actions -->
                         <div class="d-flex justify-content-end gap-2">

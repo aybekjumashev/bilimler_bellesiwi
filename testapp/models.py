@@ -10,6 +10,7 @@ class Subject(models.Model):
     grade = models.IntegerField(verbose_name="Grade")
     start_time = models.TimeField(verbose_name="Boshlanish vaqti")
     questions_count = models.IntegerField(verbose_name="Test savollar soni", default=10)
+    topics = models.TextField(verbose_name="Mavzular", blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     
     class Meta:

@@ -1447,3 +1447,5 @@ def api_get_chat_history(request):
     ]
     return JsonResponse({'success': True, 'history': history})
 
+
+
