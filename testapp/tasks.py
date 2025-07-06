@@ -30,7 +30,7 @@ def send_telegram(tests):
         
         keyboards = []
         if len(tests) == 1:
-            message = f"📌 {tests[0].subject.start_time.strftime('%H:%M')} waqıtına rejelestirilgen <b>{tests[0].subject.name}</b> páninen <b>{tests[0].subject.grade}-klasslar</b> ushın test." 
+            message = f"📌 <b>{tests[0].subject.name}</b> páninen <b>{tests[0].subject.grade}-klasslar</b> ushın test." 
             keyboard = [
                 {
                     'text': f'🚀 Qatnasıw',
@@ -39,7 +39,7 @@ def send_telegram(tests):
             ]
             keyboards.append(keyboard)
         elif len(test_names) == 1:
-            message = f"📌 {tests[0].subject.start_time.strftime('%H:%M')} waqıtına rejelestirilgen <b>{list(test_names)[0]}</b> páninen test.\nTestti baslaw ushın klasıńızdı saylań 👇" 
+            message = f"<b>📌 {list(test_names)[0]} páninen test.</b>\nTestti baslaw ushın klasıńızdı saylań 👇" 
             sorted_tests = sorted(tests, key=lambda x: x.subject.grade) 
             row_keyboards = []
             for test in sorted_tests[:-2]:
@@ -58,7 +58,7 @@ def send_telegram(tests):
                 row_keyboards.append(col_keyboards)
             keyboards.append(row_keyboards)
         elif len(test_grades) == 1:
-            message = f"📌 {tests[0].subject.start_time.strftime('%H:%M')} waqıtına rejelestirilgen <b>{list(test_grades)[0]}-klasslar</b> ushın testler." 
+            message = f"📌 <b>{list(test_grades)[0]}-klasslar</b> ushın testler." 
             for test in tests:
                 keyboard = [
                     {
