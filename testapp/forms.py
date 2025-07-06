@@ -62,7 +62,7 @@ class SubjectForm(forms.ModelForm):
             'topics': forms.Textarea(attrs={       
                 'class': 'form-control',
                 'placeholder': 'Enter topics',
-                'rows': 3,
+                'rows': 10,
             }),
         }
 
