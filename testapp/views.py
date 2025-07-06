@@ -353,23 +353,27 @@ def admin_subject_delete_view(request, subject_id):
 
 @login_required
 def admin_questions_view(request):
-    """Questions management page"""
     if not request.user.is_staff:
         return redirect('testapp:admin_login')
     
     questions = Question.objects.all().order_by('-created_at')
-    
-    # Filter
+
     subject_filter = request.GET.get('subject')
     if subject_filter:
         questions = questions.filter(subject_id=subject_filter)
-    
+
+    # Paginate: 10 ta savol har bir sahifada
+    paginator = Paginator(questions, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     subjects = Subject.objects.all()
     
     context = {
-        'questions': questions,
+        'questions': page_obj,  # o‘zgartirildi
         'subjects': subjects,
         'selected_subject': subject_filter,
+        'page_obj': page_obj,   # pagination uchun template’da kerak
     }
     return render(request, 'testapp/admin/questions.html', context)
 
