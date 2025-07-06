@@ -221,7 +221,8 @@
     </div>
 </div>
 
-
+<!-- Error display -->
+<div id="error-display" class="alert alert-danger d-none"></div>
 
 <!-- Review Modal -->
 <div class="modal fade" id="reviewModal" tabindex="-1">
@@ -284,10 +285,14 @@
         })
         .catch(error => {
             console.error('Xatolik:', error);
+            document.getElementById("error-display").classList.remove("d-none");
+            document.getElementById("error-display").textContent = error.message;
         });
   
     } else {
       console.warn("Foydalanuvchi ma'lumotlari mavjud emas.");
+      document.getElementById("error-display").classList.remove("d-none");
+      document.getElementById("error-display").textContent = 'User data not available.';
     }
   };
 </script>

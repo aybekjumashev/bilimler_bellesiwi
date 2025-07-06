@@ -231,7 +231,7 @@ def test_landing_view(request):
         
         context = {
             'tests': tests,
-            'total_tests': tests.count()
+            'total_tests': tests.count(),
         }
         return render(request, 'testapp/test/landing.html', context)
         
