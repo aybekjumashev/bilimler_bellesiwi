@@ -190,6 +190,7 @@
 <script>
 function generateQuestions() {
     const count = parseInt($('#questionsCount').val());
+    const topics = $('#topics').val();
     const subject = $('#id_subject').val();
     const $btn = $('#addQuestionBtn');
     const $generateBtn = $("button[onclick='generateQuestions()']");
@@ -203,7 +204,7 @@ function generateQuestions() {
     }
     $('#questionsContainer').empty();
     $generateBtn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-2"></span>Generating...');
-    fetch(`/api/generate-questions/?subject_id=${subject}&questionsCount=${count}`)
+    fetch(`/api/generate-questions/?subject_id=${subject}&questionsCount=${count}&topics=${topics}`)
         .then(response => response.json())
         .then(data => {
             if (data.questions && Array.isArray(data.questions)) {
