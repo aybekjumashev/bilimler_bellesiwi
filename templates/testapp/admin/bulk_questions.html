@@ -36,27 +36,30 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
-                                <textarea name="topics" id="topics" class="h-100"></textarea>
+                                <label for="topics" class="form-label">Example textarea</label>
+                                <textarea class="form-control" name="topics" id="topics" class="h-100"></textarea>
                             </div>
                             <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="{{ form.subject.id_for_label }}" class="form-label fw-bold">
-                                        Select Subject <span class="text-danger">*</span>
-                                    </label>
-                                    {{ form.subject }}
-                                    {% if form.subject.errors %}
-                                        <div class="text-danger small mt-1">
-                                            {{ form.subject.errors.0 }}
+                                <div class="d-flex">
+                                    <div class="mb-3">
+                                        <label for="{{ form.subject.id_for_label }}" class="form-label fw-bold">
+                                            Select Subject <span class="text-danger">*</span>
+                                        </label>
+                                        {{ form.subject }}
+                                        {% if form.subject.errors %}
+                                            <div class="text-danger small mt-1">
+                                                {{ form.subject.errors.0 }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="questionsCount" class="form-label fw-bold">
+                                            Number of Questions for Generate <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="number" class="form-control" id="questionsCount" name="questions_count" min="1" max="50" value="10" required>
+                                        <div class="invalid-feedback">
+                                            Please enter a valid number of questions (1-50).
                                         </div>
-                                    {% endif %}
-                                </div>
-                                <div class="mb-3">
-                                    <label for="questionsCount" class="form-label fw-bold">
-                                        Number of Questions for Generate <span class="text-danger">*</span>
-                                    </label>
-                                    <input type="number" class="form-control" id="questionsCount" name="questions_count" min="1" max="50" value="10" required>
-                                    <div class="invalid-feedback">
-                                        Please enter a valid number of questions (1-50).
                                     </div>
                                 </div>
                                 <div class="mb-3">
