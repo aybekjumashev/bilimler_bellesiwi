@@ -40,8 +40,8 @@
                                 <textarea class="form-control" name="topics" id="topics" rows="10"></textarea>
                             </div>
                             <div class="col-md-6">
-                                <div class="d-flex justify-content-between">
-                                    <div class="mb-3">
+                                <div class="row mb-3">
+                                    <div class="col-6">
                                         <label for="{{ form.subject.id_for_label }}" class="form-label fw-bold">
                                             Select Subject <span class="text-danger">*</span>
                                         </label>
@@ -52,7 +52,7 @@
                                             </div>
                                         {% endif %}
                                     </div>
-                                    <div class="mb-3">
+                                    <div class="col-6">
                                         <label for="questionsCount" class="form-label fw-bold">
                                             Number of Questions for Generate <span class="text-danger">*</span>
                                         </label>
