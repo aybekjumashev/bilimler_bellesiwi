@@ -13,6 +13,7 @@ urlpatterns = [
     path('start/', views.test_start_view, name='test_start'),
     path('results/', views.test_results_view, name='test_results'),
     path('chatbot/', views.test_chatbot_view, name='test_chatbot'),
+    path('landing/', views.test_landing_view, name='test_landing'),
     
     # Admin sahifalari
     path('admin/login/', views.admin_login_view, name='admin_login'),

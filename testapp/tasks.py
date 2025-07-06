@@ -39,24 +39,32 @@ def send_telegram(tests):
             ]
             keyboards.append(keyboard)
         elif len(test_names) == 1:
-            message = f"<b>📌 {list(test_names)[0]} páninen test.</b>\nTestti baslaw, analizlew hám nátiyjelerdi kóriw ushın klasıńızdı saylań 👇" 
-            sorted_tests = sorted(tests, key=lambda x: x.subject.grade) 
-            row_keyboards = []
-            for test in sorted_tests[:-2]:
-                col_keyboards = {
-                        'text': f'{test.subject.grade}',
-                        'url': f'{settings.WEB_APP_URL}/test?startapp={test.id}'
+            message = f"<b>📌 {list(test_names)[0]} páninen test.</b>" 
+            # sorted_tests = sorted(tests, key=lambda x: x.subject.grade) 
+            # row_keyboards = []
+            # for test in sorted_tests[:-2]:
+            #     col_keyboards = {
+            #             'text': f'{test.subject.grade}',
+            #             'url': f'{settings.WEB_APP_URL}/test?startapp={test.id}'
+            #         }
+            #     row_keyboards.append(col_keyboards)
+            # keyboards.append(row_keyboards)
+            # row_keyboards = []
+            # for test in sorted_tests[-2:]:
+            #     col_keyboards = {
+            #             'text': f'{test.subject.grade}',
+            #             'url': f'{settings.WEB_APP_URL}/test?startapp={test.id}'
+            #         }
+            #     row_keyboards.append(col_keyboards)
+            # keyboards.append(row_keyboards)
+            keyboard = [
+                    {
+                        'text': 'Qatnasıw | Analizlew | Nátiyjeler',
+                        'url': f'{settings.WEB_APP_URL}/landing?startapp={','.join([str(test.id) for test in tests])}'
                     }
-                row_keyboards.append(col_keyboards)
-            keyboards.append(row_keyboards)
-            row_keyboards = []
-            for test in sorted_tests[-2:]:
-                col_keyboards = {
-                        'text': f'{test.subject.grade}',
-                        'url': f'{settings.WEB_APP_URL}/test?startapp={test.id}'
-                    }
-                row_keyboards.append(col_keyboards)
-            keyboards.append(row_keyboards)
+                ]
+            keyboards.append(keyboard)
+
         elif len(test_grades) == 1:
             message = f"📌 <b>{list(test_grades)[0]}-klasslar</b> ushın testler." 
             for test in tests:

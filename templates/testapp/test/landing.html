@@ -1,0 +1,31 @@
+{% extends 'testapp/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    {% if tests %}
+                        <div class="list-group">
+                            {% for test in tests %}
+                                <a href="{% url 'testapp:test_start' %}?test_id={{ test.id }}" 
+                                   class="list-group-item list-group-item-action">
+                                    <div class="w-100">
+                                        <h5 class="mb-1">{{ test.subject.grade }}-klass</h5>
+                                    </div>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="alert alert-warning">
+                            Testler tabılmadı!
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

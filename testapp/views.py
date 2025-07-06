@@ -204,6 +204,39 @@ def test_results_view(request):
     return render(request, 'testapp/test/results.html', context)
 
 
+@require_http_methods(["GET"])
+def test_landing_view(request):
+    """Landing page for multiple tests"""
+    test_ids = request.GET.get('tests') or request.GET.get('tgWebAppStartParam')
+    
+    if not test_ids:
+        messages.error(request, 'Test IDs not provided!')
+        return redirect('testapp:home')
+    
+    try:
+        # Split test IDs and convert to list of integers
+        test_id_list = [int(tid.strip()) for tid in test_ids.split(',') if tid.strip()]
+        
+        # Get all active tests with these IDs
+        tests = Test.objects.filter(
+            id__in=test_id_list,
+            is_active=True
+        ).select_related('subject').order_by('subject__grade')
+                
+        if not tests.exists():
+            messages.error(request, 'No active tests found!')
+            return redirect('testapp:home')
+        
+        context = {
+            'tests': tests,
+            'total_tests': tests.count()
+        }
+        return render(request, 'testapp/test/landing.html', context)
+        
+    except (ValueError, TypeError):
+        messages.error(request, 'Invalid test ID format!')
+        return redirect('testapp:home')
+
 
 def test_chatbot_view(request):
     """Test chatbot page"""
