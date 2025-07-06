@@ -293,9 +293,29 @@ def admin_subjects_view(request):
     """Subjects management page"""
     if not request.user.is_staff:
         return redirect('testapp:admin_login')
-    
+
     subjects = Subject.objects.all().order_by('name')
-    context = {'subjects': subjects}
+
+    # Filterlar
+    name_filter = request.GET.get('name')
+    grade_filter = request.GET.get('grade')
+
+    if name_filter:
+        subjects = subjects.filter(name=name_filter)
+    if grade_filter:
+        subjects = subjects.filter(grade=grade_filter)
+
+    # Unikal fan nomlari va sinflar select uchun
+    all_names = Subject.objects.values_list('name', flat=True).distinct()
+    all_grades = Subject.objects.values_list('grade', flat=True).distinct().order_by('grade')
+
+    context = {
+        'subjects': subjects,
+        'selected_name': name_filter,
+        'selected_grade': grade_filter,
+        'all_names': all_names,
+        'all_grades': all_grades,
+    }
     return render(request, 'testapp/admin/subjects.html', context)
 
 

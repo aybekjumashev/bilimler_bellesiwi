@@ -26,6 +26,28 @@
             </div>
         </div>
     </div>
+
+    <!-- Filter section -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <label class="form-label fw-bold">Filter by Subject Name:</label>
+            <select class="form-control" onchange="applyFilters()" id="filterName">
+                <option value="">All</option>
+                {% for name in all_names %}
+                    <option value="{{ name }}" {% if selected_name == name %}selected{% endif %}>{{ name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-bold">Filter by Grade:</label>
+            <select class="form-control" onchange="applyFilters()" id="filterGrade">
+                <option value="">All</option>
+                {% for grade in all_grades %}
+                    <option value="{{ grade }}" {% if selected_grade == grade|stringformat:"s" %}selected{% endif %}>Grade {{ grade }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
     
     <!-- Subjects List -->
     <div class="row">
@@ -244,4 +266,30 @@ function deleteSubject(subjectId, subjectName) {
     }
 }
 </script>
+
+
+<script>
+    function applyFilters() {
+        const name = document.getElementById('filterName').value;
+        const grade = document.getElementById('filterGrade').value;
+    
+        const url = new URL(window.location.href);
+        url.searchParams.delete('page'); // agar pagination bo'lsa, qayta 1-sahifaga
+    
+        if (name) {
+            url.searchParams.set('name', name);
+        } else {
+            url.searchParams.delete('name');
+        }
+    
+        if (grade) {
+            url.searchParams.set('grade', grade);
+        } else {
+            url.searchParams.delete('grade');
+        }
+    
+        window.location.href = url.toString();
+    }
+</script>
+    
 {% endblock %}
