@@ -214,7 +214,7 @@ def test_landing_view(request):
     
     try:
         # Split test IDs and convert to list of integers
-        test_id_list = [int(tid.strip()) for tid in test_ids.split(',') if tid.strip()]
+        test_id_list = [int(tid.strip()) for tid in test_ids.split('A') if tid.strip()]
         
         # Get all active tests with these IDs
         tests = Test.objects.filter(
