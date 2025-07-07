@@ -54,27 +54,6 @@
     if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
         const user = tg.initDataUnsafe.user;
         studentId = user.id;
-    
-        fetch(`/api/check-participation/?student_id=${user.id}&test_id=${testId}`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.participated) {
-                document.getElementById('chatbot_display').classList.remove('d-none');
-                // Load chat history from backend
-                loadChatHistory();
-                // // Scroll chat to bottom on load
-                // const messagesDiv = document.querySelector('.chatbot-messages');
-                // if (messagesDiv) {
-                //   messagesDiv.scrollTop = messagesDiv.scrollHeight;
-                // }
-            } else {
-                document.getElementById('not_participated').classList.remove('d-none');
-            }
-        })
-        .catch(error => {
-            console.error('Xatolik:', error);
-        });
-  
     } else {
       console.warn("Foydalanuvchi ma'lumotlari mavjud emas.");
     }
