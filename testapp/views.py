@@ -1409,6 +1409,7 @@ def api_check_participation(request):
         }
     else:
         result = None
+    print(exists)
     return JsonResponse({'participated': exists, 'result': result})
 
 
