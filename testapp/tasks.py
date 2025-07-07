@@ -59,7 +59,7 @@ def send_telegram(tests):
             # keyboards.append(row_keyboards)
             keyboard = [
                     {
-                        'text': 'Qatnasıw | Analizlew | Nátiyjeler',
+                        'text': 'Qatnasıw • Analizlew • Nátiyjeler',
                         'url': f"{settings.WEB_APP_URL}/landing?startapp={'A'.join([str(test.id) for test in tests])}"
                     }
                 ]
