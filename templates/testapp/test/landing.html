@@ -16,7 +16,7 @@
                         {% for test in tests %}
                             <a href="{% url 'testapp:test_start' %}?test_id={{test.id}}" 
                                 class="btn btn-primary btn-lg d-block mb-3">
-                                <h5 class="text-center m-1">{{ test.subject.grade }}-klass</h5>
+                                <h5 class="text-center m-1">{{ test.subject.name }} {{ test.subject.grade }}-klass</h5>
                             </a>
                         {% endfor %}
                     {% else %}
