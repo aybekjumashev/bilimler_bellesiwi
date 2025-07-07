@@ -81,9 +81,9 @@ def send_message(chat_id, message, test_id=None):
                 }
             ]]
             payload['reply_markup'] = json.dumps(keyboard)
-        print(payload)
         telegram_token = settings.TELEGRAM_BOT_TOKEN
         url = f"https://api.telegram.org/bot{telegram_token}/sendMessage"
+        print(payload, url)
         requests.post(url, data=payload)
     except Exception as e:
         print(f"Error sending message: {e}")
@@ -1583,7 +1583,7 @@ def api_get_user_results(request):
             'correct_answers': r.correct_answers,
             'total_questions': r.total_questions,
             'completed_at': (
-                r.completed_at.strftime('%H:%M') + " Búgin"
+                r.completed_at.strftime('%H:%M') + " BÚGIN"
                 if r.completed_at.date() == now.date()
                 else r.completed_at.strftime('%H:%M %d.%m.%Y')
             ),
