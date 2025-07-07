@@ -69,7 +69,7 @@ urlpatterns = [
     path('api/generate-answer/', views.api_generate_answer, name='api_generate_answer'),
     path('api/chat-history/', views.api_get_chat_history, name='api_get_chat_history'),
     path('api/get-topics/', views.api_get_topics, name='api_get_topics'),
-    path('api/get-user-results', views.api_get_user_results, name='api_get_user_results'),
+    path('api/get-user-results/', views.api_get_user_results, name='api_get_user_results'),
     
     
     # Notifications
