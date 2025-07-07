@@ -29,6 +29,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from google import genai
 from google.genai.types import Content, GenerateContentConfig
 from django.conf import settings
+import requests
 
 
 client = genai.Client(api_key=settings.API_KEY_GENAI)
@@ -64,6 +65,28 @@ def get_answer_ai(text, history, sys_instruct_chat):
             print(f'Model {model} is not available!')
             continue
 
+
+def send_message(chat_id, message, test_id=None):
+    try:
+        payload = {
+            'chat_id': chat_id,
+            'text': message,
+            'parse_mode': 'HTML'
+        }
+        if test_id:
+            keyboard = [[
+                {
+                    'text': 'Analizlew • Nátiyjeler',
+                    'url': f'{settings.WEB_APP_URL}/results?startapp={test_id}'
+                }
+            ]]
+            payload['reply_markup'] = json.dumps(keyboard)
+        telegram_token = settings.TELEGRAM_BOT_TOKEN
+        url = f"https://api.telegram.org/bot{telegram_token}/sendMessage"
+        requests.post(url, data=payload)
+    except Exception as e:
+        print(f"Error sending message: {e}")
+        
 
 # ==================== MAIN PAGES ====================
 
@@ -154,6 +177,9 @@ def test_start_view(request):
         result.correct_answers = correct_count
         result.score_percentage = score_percentage
         result.save()
+
+        message = f'🎉 <b>{student_name}</b> {test.subject.name} ({test.subject.grade}-klass) testinen nátiyjeńiz: {correct_count}/{total_questions}'
+        send_message(student_id, message, keyboard=True)
 
         text_model += f'Qaysı soraw boyınsha kómek kerek?'
         ChatMessage.objects.create(
@@ -1557,7 +1583,7 @@ def api_get_user_results(request):
             'correct_answers': r.correct_answers,
             'total_questions': r.total_questions,
             'completed_at': (
-                r.completed_at.strftime('%H:%M') + " búgin"
+                r.completed_at.strftime('%H:%M') + " Búgin"
                 if r.completed_at.date() == now.date()
                 else r.completed_at.strftime('%H:%M %d.%m.%Y')
             ),
