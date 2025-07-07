@@ -3,10 +3,15 @@
 {% block title %}User Dashboard{% endblock %}
 
 {% block content %}
+<style>
+    nav {
+        display: none !important;
+    }
+</style>
 <div class="container py-4">
-    <h2 class="mb-4">So‘nggi 1 oylik natijalar</h2>
+    <h2 class="mb-4">Sonǵı 1 aylıq nátiyjeler</h2>
     <div id="results-container">
-        <div class="text-center text-secondary" id="loading-results">Natijalar yuklanmoqda...</div>
+        <div class="text-center text-secondary" id="loading-results">Nátiyjeler júklenbekte...</div>
     </div>
 </div>
 {% endblock %}
@@ -23,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function() {
         fetchUserResults(userId);
     } else {
         document.getElementById("results-container").innerHTML = `
-            <div class="alert alert-danger">Foydalanuvchi ma'lumotlari topilmadi. Telegram WebApp orqali kiring.</div>
+            <div class="alert alert-danger">User not found.</div>
         `;
     }
 
@@ -35,13 +40,13 @@ document.addEventListener("DOMContentLoaded", function() {
                     renderResults(data.results);
                 } else {
                     document.getElementById("results-container").innerHTML = `
-                        <div class="alert alert-info">So‘nggi 1 oyda natijalar topilmadi.</div>
+                        <div class="alert alert-info">Nátiyjeler tabılmadı</div>
                     `;
                 }
             })
             .catch(error => {
                 document.getElementById("results-container").innerHTML = `
-                    <div class="alert alert-danger">Xatolik: ${error.message}</div>
+                    <div class="alert alert-danger">Qátelik: ${error.message}</div>
                 `;
             });
     }
@@ -49,28 +54,27 @@ document.addEventListener("DOMContentLoaded", function() {
     function renderResults(results) {
         let html = `
             <div class="table-responsive">
-                <table class="table table-bordered table-striped align-middle">
-                    <thead class="table-primary">
-                        <tr>
-                            <th>#</th>
-                            <th>Test nomi</th>
-                            <th>Sinf</th>
-                            <th>To‘g‘ri javoblar</th>
-                            <th>Ball (%)</th>
-                            <th>Sana</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                <table class="table results-table mb-0 border-0">
+                    <tbody class="table-dark">
         `;
         results.forEach((r, idx) => {
             html += `
                 <tr>
-                    <td>${idx + 1}</td>
-                    <td>${r.test_name}</td>
-                    <td>${r.grade}</td>
-                    <td>${r.correct_answers}/${r.total_questions}</td>
-                    <td>${r.score_percentage}</td>
-                    <td>${r.completed_at}</td>
+                    <td>
+                        <h6 class="mb-0">${r.test_name} (${r.grade}-klass)</h6>
+                    </td>
+                    <td>
+                        <div class="text-end">
+                            <h6 class="mb-0">
+                                ${r.correct_answers}/${r.total_questions}
+                            </h6>
+                        </div>     
+                        <div class="text-end">
+                            <small class="text-secondary">
+                                ${r.completed_at}
+                            </small>
+                        </div>
+                    </td>
                 </tr>
             `;
         });
