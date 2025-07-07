@@ -14,9 +14,9 @@
                 <div class="card-body">
                     {% if tests %}
                         {% for test in tests %}
-                            <a href="{{WEB_APP_URL}}/test?startapp={{test.id}}" 
+                            <a href="{% url 'testapp:test_start' %}?test_id={{test.id}}" 
                                 class="btn btn-primary btn-lg d-block mb-3">
-                                <h5 class="text-center m-0">{{ test.subject.grade }}-klass {{WEB_APP_URL}}/test?startapp={{test.id}}</h5>
+                                <h5 class="text-center">{{ test.subject.grade }}-klass</h5>
                             </a>
                         {% endfor %}
                     {% else %}
@@ -29,4 +29,60 @@
         </div>
     </div>
 </div>
+
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+    var testId = '';
+    var studentId = ''; 
+
+  function getQueryParam(name) {
+    const url = new URL(window.location.href);
+    return url.searchParams.get(name);
+  }
+
+
+
+  window.onload = function () {
+    // Telegram Web App API orqali foydalanuvchi ma'lumotlarini olish
+    const tg = window.Telegram.WebApp;
+
+    // test_id ni URLdan olish
+    testId = getQueryParam('test_id') || getQueryParam('tgWebAppStartParam');
+
+    // Foydalanuvchi ma'lumotlarini tekshiramiz
+    if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
+        const user = tg.initDataUnsafe.user;
+        studentId = user.id;
+    
+        fetch(`/api/check-participation/?student_id=${user.id}&test_id=${testId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.participated) {
+                document.getElementById('chatbot_display').classList.remove('d-none');
+                // Load chat history from backend
+                loadChatHistory();
+                // // Scroll chat to bottom on load
+                // const messagesDiv = document.querySelector('.chatbot-messages');
+                // if (messagesDiv) {
+                //   messagesDiv.scrollTop = messagesDiv.scrollHeight;
+                // }
+            } else {
+                document.getElementById('not_participated').classList.remove('d-none');
+            }
+        })
+        .catch(error => {
+            console.error('Xatolik:', error);
+        });
+  
+    } else {
+      console.warn("Foydalanuvchi ma'lumotlari mavjud emas.");
+    }
+
+
+  };
+</script>
+
+
+
 {% endblock %}
