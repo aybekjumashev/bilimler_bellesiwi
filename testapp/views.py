@@ -260,6 +260,14 @@ def test_chatbot_view(request):
     }
     return render(request, 'testapp/test/chatbot.html', context)
 
+
+def user_dashboard(request):
+    return render(request, 'testapp/user_dashboard.html')
+
+
+
+
+
 # ==================== ADMIN PAGES ====================
 
 
@@ -1525,3 +1533,31 @@ def api_get_topics(request):
         'subject_id': subject_id,
         'topics': subject.topics or ''
     })
+
+
+@csrf_exempt
+def api_get_user_results(request):
+    """Get last 1 month results for a student"""
+    student_id = request.GET.get('student_id')
+    if not student_id:
+        return JsonResponse({'success': False, 'error': 'student_id is required'}, status=400)
+    from datetime import timedelta
+    now = timezone.now()
+    month_ago = now - timedelta(days=30)
+    results = Result.objects.filter(
+        student_id=student_id,
+        completed_at__gte=month_ago
+    ).order_by('-completed_at')
+    data = [
+        {
+            'test_id': r.test.id,
+            'test_name': r.test.subject.name,
+            'grade': r.test.subject.grade,
+            'score_percentage': r.score_percentage,
+            'correct_answers': r.correct_answers,
+            'total_questions': r.total_questions,
+            'completed_at': r.completed_at.strftime('%Y-%m-%d %H:%M'),
+        }
+        for r in results
+    ]
+    return JsonResponse({'success': True, 'results': data})

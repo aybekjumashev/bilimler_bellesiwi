@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %}User Dashboard{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h2 class="mb-4">So‘nggi 1 oylik natijalar</h2>
+    <div id="results-container">
+        <div class="text-center text-secondary" id="loading-results">Natijalar yuklanmoqda...</div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const tg = window.Telegram.WebApp;
+    let userId = null;
+
+    if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.id) {
+        userId = tg.initDataUnsafe.user.id;
+        fetchUserResults(userId);
+    } else {
+        document.getElementById("results-container").innerHTML = `
+            <div class="alert alert-danger">Foydalanuvchi ma'lumotlari topilmadi. Telegram WebApp orqali kiring.</div>
+        `;
+    }
+
+    function fetchUserResults(userId) {
+        fetch(`/api/get-user-results/?student_id=${userId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success && data.results.length > 0) {
+                    renderResults(data.results);
+                } else {
+                    document.getElementById("results-container").innerHTML = `
+                        <div class="alert alert-info">So‘nggi 1 oyda natijalar topilmadi.</div>
+                    `;
+                }
+            })
+            .catch(error => {
+                document.getElementById("results-container").innerHTML = `
+                    <div class="alert alert-danger">Xatolik: ${error.message}</div>
+                `;
+            });
+    }
+
+    function renderResults(results) {
+        let html = `
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped align-middle">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>#</th>
+                            <th>Test nomi</th>
+                            <th>Sinf</th>
+                            <th>To‘g‘ri javoblar</th>
+                            <th>Ball (%)</th>
+                            <th>Sana</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        `;
+        results.forEach((r, idx) => {
+            html += `
+                <tr>
+                    <td>${idx + 1}</td>
+                    <td>${r.test_name}</td>
+                    <td>${r.grade}</td>
+                    <td>${r.correct_answers}/${r.total_questions}</td>
+                    <td>${r.score_percentage}</td>
+                    <td>${r.completed_at}</td>
+                </tr>
+            `;
+        });
+        html += `
+                    </tbody>
+                </table>
+            </div>
+        `;
+        document.getElementById("results-container").innerHTML = html;
+    }
+});
+</script>
+{% endblock %}
