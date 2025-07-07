@@ -9,7 +9,14 @@
     }
 </style>
 <div class="container py-4">
-    <h2 class="mb-4">Sonǵı 1 aylıq nátiyjeler</h2>
+    <div class="mb-3">
+        <h2 class="mb-1">
+            <i class="bi bi-person-fill"></i> <span id="user-fullname"></span>
+        </h2>
+        <p class="mb-0 opacity-75">
+            Sonǵı 1 aylıq nátiyjeler
+        </p>
+    </div>
     <div id="results-container">
         <div class="text-center text-secondary" id="loading-results">Nátiyjeler júklenbekte...</div>
     </div>
@@ -25,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.id) {
         userId = tg.initDataUnsafe.user.id;
+        document.getElementById("user-fullname").innerHTML = tg.initDataUnsafe.user.first_name;
         fetchUserResults(userId);
     } else {
         document.getElementById("results-container").innerHTML = `
@@ -66,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     <td>
                         <div class="text-end">
                             <h6 class="mb-0">
-                                ${r.correct_answers}/${r.total_questions}
+                                ${r.correct_answers} / ${r.total_questions}
                             </h6>
                         </div>     
                         <div class="text-end">

@@ -1556,7 +1556,7 @@ def api_get_user_results(request):
             'score_percentage': r.score_percentage,
             'correct_answers': r.correct_answers,
             'total_questions': r.total_questions,
-            'completed_at': r.completed_at.strftime('%Y-%m-%d %H:%M'),
+            'completed_at': r.completed_at.strftime('%H:%M %d.%m.%Y'),
         }
         for r in results
     ]
