@@ -179,7 +179,7 @@ def test_start_view(request):
         result.save()
 
         message = f'🎉 <b>{student_name}</b> {test.subject.name} ({test.subject.grade}-klass) testinen nátiyjeńiz: {correct_count}/{total_questions}'
-        send_message(student_id, message, keyboard=True)
+        send_message(student_id, message, test.id)
 
         text_model += f'Qaysı soraw boyınsha kómek kerek?'
         ChatMessage.objects.create(
