@@ -56,7 +56,7 @@
         studentId = user.id;
         testids_array = testIds.split('A');
         for (var i = 0; i < testids_array.length; i++) {
-            fetch(`/api/check-participation/?student_id=${user.id}&test_id=${testId}`)
+            fetch(`/api/check-participation/?student_id=${user.id}&test_id=${testids_array[i]}`)
             .then(response => response.json())
             .then(data => {
                 if (data.participated) {
