@@ -81,6 +81,7 @@ def send_message(chat_id, message, test_id=None):
                 }
             ]]
             payload['reply_markup'] = json.dumps(keyboard)
+        print(payload)
         telegram_token = settings.TELEGRAM_BOT_TOKEN
         url = f"https://api.telegram.org/bot{telegram_token}/sendMessage"
         requests.post(url, data=payload)
@@ -89,7 +90,6 @@ def send_message(chat_id, message, test_id=None):
         
 
 # ==================== MAIN PAGES ====================
-
 
 def home_view(request):
     return render(request, 'testapp/home.html')
