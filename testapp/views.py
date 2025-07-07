@@ -84,7 +84,8 @@ def send_message(chat_id, message, test_id=None):
         telegram_token = settings.TELEGRAM_BOT_TOKEN
         url = f"https://api.telegram.org/bot{telegram_token}/sendMessage"
         print(payload, url)
-        requests.post(url, data=payload)
+        res = requests.post(url, data=payload)
+        print(res.text)
     except Exception as e:
         print(f"Error sending message: {e}")
         
