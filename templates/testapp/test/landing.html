@@ -16,7 +16,7 @@
                         {% for test in tests %}
                             <a href="{% url 'testapp:test_start' %}?test_id={{test.id}}" 
                                 class="btn btn-primary btn-lg d-block mb-3">
-                                <h5 class="text-center m-1">{{ test.subject.name }} {{ test.subject.grade }}-klass</h5>
+                                <h5 class="text-center m-1">{{ test.subject.name }} {{ test.subject.grade }}-klass <i class="bi bi-check2 d-none" id="{{ test.id }}"></i></h5>
                             </a>
                         {% endfor %}
                     {% else %}
@@ -47,13 +47,28 @@
     // Telegram Web App API orqali foydalanuvchi ma'lumotlarini olish
     const tg = window.Telegram.WebApp;
 
-    // test_id ni URLdan olish
-    testId = getQueryParam('test_id') || getQueryParam('tgWebAppStartParam');
+    // tests ni URLdan olish
+    testIds = getQueryParam('tests') || getQueryParam('tgWebAppStartParam');  // tests = 1A2A3A4A5A6A
 
     // Foydalanuvchi ma'lumotlarini tekshiramiz
     if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
         const user = tg.initDataUnsafe.user;
         studentId = user.id;
+        testids_array = testIds.split('A');
+        for (var i = 0; i < testids_array.length; i++) {
+            fetch(`/api/check-participation/?student_id=${user.id}&test_id=${testId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.participated) {
+                // Student bu testga qatnashgan
+                    document.getElementById(testids_array[i]).classList.remove("d-none");
+                } 
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
     } else {
       console.warn("Foydalanuvchi ma'lumotlari mavjud emas.");
     }

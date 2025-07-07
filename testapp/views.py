@@ -262,7 +262,7 @@ def test_landing_view(request):
         context = {
             'tests': tests,
             'total_tests': tests.count(),
-            'WEB_APP_URL': settings.WEB_APP_URL,
+            'WEB_APP_URL': settings.WEB_APP_URL
         }
         return render(request, 'testapp/test/landing.html', context)
         
