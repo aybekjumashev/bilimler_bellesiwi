@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.id) {
         userId = tg.initDataUnsafe.user.id;
-        document.getElementById("user-fullname").innerHTML = tg.initDataUnsafe.user.first_name;
+        document.getElementById("user-fullname").innerHTML = `${tg.initDataUnsafe.user.first_name || ""} ${tg.initDataUnsafe.user.last_name || ""}`.trim();
         fetchUserResults(userId);
     } else {
         document.getElementById("results-container").innerHTML = `
