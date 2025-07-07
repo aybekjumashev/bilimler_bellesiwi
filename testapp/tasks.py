@@ -39,7 +39,10 @@ def send_telegram(tests):
             ]
             keyboards.append(keyboard)
         elif len(test_names) == 1:
-            message = f"<b>📌 {list(test_names)[0]} páninen test.</b>" 
+            sorted_tests = sorted(tests, key=lambda x: x.subject.grade) 
+            message = f"<b>📌 {list(test_names)[0]} páninen test.</b>\n\n" 
+            message += f"🎒 {','.join([str(test.subject.grade) for test in sorted_tests])}-klasslar ushın\n"
+            message += f'⏰ Baslanıw waqıtı: {tests[0].subject.start_time.strftime("%H:%M")}'
             # sorted_tests = sorted(tests, key=lambda x: x.subject.grade) 
             # row_keyboards = []
             # for test in sorted_tests[:-2]:
