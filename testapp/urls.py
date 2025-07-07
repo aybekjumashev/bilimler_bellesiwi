@@ -14,7 +14,7 @@ urlpatterns = [
     path('results/', views.test_results_view, name='test_results'),
     path('chatbot/', views.test_chatbot_view, name='test_chatbot'),
     path('landing/', views.test_landing_view, name='test_landing'),    
-    
+
     # User sahifalari
     path('user/dashboard/', views.user_dashboard, name='user_dashboard'),
     
@@ -69,6 +69,7 @@ urlpatterns = [
     path('api/generate-answer/', views.api_generate_answer, name='api_generate_answer'),
     path('api/chat-history/', views.api_get_chat_history, name='api_get_chat_history'),
     path('api/get-topics/', views.api_get_topics, name='api_get_topics'),
+    path('api/get-user-results', views.api_get_user_results, name='api_get_user_results'),
     
     
     # Notifications
