@@ -77,7 +77,7 @@ def send_message(chat_id, message, test_id=None):
             keyboard = [[
                 {
                     'text': 'Analizlew • Nátiyjeler',
-                    'url': f'{settings.WEB_APP_URL}/results?startapp={test_id}'
+                    'web_app': {'url': f'{settings.WEB_APP_URL}/results?startapp={test_id}'}
                 }
             ]]
             payload['reply_markup'] = json.dumps(keyboard)
