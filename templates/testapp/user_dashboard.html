@@ -70,6 +70,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 <tr>
                     <td>
                         <h6 class="mb-0">${r.test_name} (${r.grade}-klass)</h6>
+                        <div>
+                            <small class="text-secondary">
+                                ${r.completed_at}
+                            </small>
+                        </div>
                     </td>
                     <td>
                         <div class="text-end">
@@ -77,10 +82,9 @@ document.addEventListener("DOMContentLoaded", function() {
                                 ${r.correct_answers} / ${r.total_questions}
                             </h6>
                         </div>     
-                        <div class="text-end">
-                            <small class="text-secondary">
-                                ${r.completed_at}
-                            </small>
+                        <div class="d-flex gap-1">
+                            <button class="btn btn-dark btn-sm"><i class="bi bi-stars"></i> Analizlew</button>
+                            <button class="btn btn-dark btn-sm"><i class="bi bi-clipboard-data"></i> Nátiyjeler</button>
                         </div>
                     </td>
                 </tr>
