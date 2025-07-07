@@ -60,11 +60,12 @@
             .then(response => response.json())
             .then(data => {
                 if (data.participated) {
-                    document.getElementById(testids_array[i]).style.display = "inline-block";
+                    // document.getElementById(testids_array[i]).style.display = "inline-block";
                 } 
             })
             .catch(error => {
                 console.error('Error:', error);
+                document.getElementById(testids_array[i]).style.display = "inline-block";
             });
         }
 
