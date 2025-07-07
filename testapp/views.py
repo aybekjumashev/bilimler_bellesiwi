@@ -77,7 +77,7 @@ def send_message(chat_id, message, test_id=None):
             keyboard = {
                 'inline_keyboard': [[
                     {
-                        'text': 'Analizlew • Nátiyjeler',
+                        'text': 'Analizlew | Nátiyjeler',
                         'url': f'{settings.WEB_APP_URL}/result?startapp={test_id}'
                     }
                 ]]
