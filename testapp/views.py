@@ -254,6 +254,12 @@ def test_landing_view(request):
             id__in=test_id_list,
             is_active=True
         ).select_related('subject').order_by('subject__grade')
+
+        participants_dict = {}
+        for test in tests:
+            participants_dict[test.id] = list(
+                test.results.values_list('student_id', flat=True)
+            )
                 
         if not tests.exists():
             messages.error(request, 'No active tests found!')
@@ -262,7 +268,8 @@ def test_landing_view(request):
         context = {
             'tests': tests,
             'total_tests': tests.count(),
-            'WEB_APP_URL': settings.WEB_APP_URL
+            'WEB_APP_URL': settings.WEB_APP_URL,
+            'participants_dict': participants_dict,
         }
         return render(request, 'testapp/test/landing.html', context)
         

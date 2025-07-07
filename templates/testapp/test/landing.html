@@ -34,7 +34,8 @@
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
     var testId = '';
-    var studentId = ''; 
+    var studentId = '';
+    var participantsDict = {{ participants_dict|safe }};
 
   function getQueryParam(name) {
     const url = new URL(window.location.href);
@@ -56,19 +57,12 @@
         studentId = user.id;
         testids_array = testIds.split('A');
         for (var i = 0; i < testids_array.length; i++) {
-            fetch(`/api/check-participation/?student_id=${user.id}&test_id=${testids_array[i]}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.participated) {
-                    // document.getElementById(testids_array[i]).style.display = "inline-block";
-                } 
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                document.getElementById(testids_array[i]).style.display = "inline-block";
-            });
+            var tid = testids_array[i];
+            if (tid && participantsDict[tid] && participantsDict[tid].includes(String(studentId))) {
+                var el = document.getElementById(tid);
+                if (el) el.style.display = "inline-block";
+            }
         }
-
     } else {
       console.warn("Foydalanuvchi ma'lumotlari mavjud emas.");
     }
