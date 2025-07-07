@@ -82,8 +82,12 @@ document.addEventListener("DOMContentLoaded", function() {
                                 ${r.completed_at}
                             </small>
                             <div class="d-flex gap-2 justify-content-end">
-                                <button class="btn btn-primary btn-sm p-1"><i class="bi bi-stars"></i> Analizlew</button>
-                                <button class="btn btn-success btn-sm p-1"><i class="bi bi-clipboard-data"></i> Reyting</button>
+                                <a href="{% url 'testapp:test_chatbot' %}?test_id={{test.id}}" class="btn btn-primary btn-sm p-1">
+                                    <i class="bi bi-stars"></i> Analizlew
+                                </a>
+                                <a href="{% url 'testapp:test_results' %}?test_id={{test.id}}" class="btn btn-secondary btn-sm p-1">
+                                    <i class="bi bi-clipboard-data"></i> Reyting
+                                </a
                             </div>
                         </div>
                     </td>
