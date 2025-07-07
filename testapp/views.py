@@ -74,13 +74,18 @@ def send_message(chat_id, message, test_id=None):
             'parse_mode': 'HTML'
         }
         if test_id:
-            keyboard = [[
-                {
-                    'text': 'Analizlew • Nátiyjeler',
-                    'web_app': {'url': f'{settings.WEB_APP_URL}/results?startapp={test_id}'}
-                }
-            ]]
+            keyboard = {
+                'inline_keyboard': [[
+                    {
+                        'text': 'Analizlew • Nátiyjeler',
+                        'web_app': {
+                            'url': f'{settings.WEB_APP_URL}/results?startapp={test_id}'
+                        }
+                    }
+                ]]
+            }
             payload['reply_markup'] = json.dumps(keyboard)
+
         telegram_token = settings.TELEGRAM_BOT_TOKEN
         url = f"https://api.telegram.org/bot{telegram_token}/sendMessage"
         print(payload, url)
