@@ -14,9 +14,9 @@
                 <div class="card-body">
                     {% if tests %}
                         {% for test in tests %}
-                            <a href="{{WEB_APP_URL}}?startapp={{test.id}}" 
+                            <a href="{{WEB_APP_URL}}/test?startapp={{test.id}}" 
                                 class="btn btn-primary btn-lg d-block mb-3">
-                                <h5 class="text-center m-0">{{ test.subject.grade }}-klass {{WEB_APP_URL}}?startapp={{test.id}}</h5>
+                                <h5 class="text-center m-0">{{ test.subject.grade }}-klass {{WEB_APP_URL}}/test?startapp={{test.id}}</h5>
                             </a>
                         {% endfor %}
                     {% else %}
