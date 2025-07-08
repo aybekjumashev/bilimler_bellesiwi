@@ -30,10 +30,13 @@ def generate_questions(subject="Matematika", grade=5, count=10, topics=None):
         8. Sorawdıń teması hár saparı hár túrli bolsın.
         9. EŃ ÁHMIYETLISI: Qátesiz latın álipbesinde hám qaraqalpaq tilinde bolıwı kerek.
         10. {count} dana sorawdı bir json tizimi túrinde qaytarıń.
+        11. Eger tilge baylanıslı pán bolsa, sorawlar hám variantlar pánniń tilinde bolsın.
     """
 
     if topics:
         prompt += f'\n\nTemalar: \n{topics}'
+    
+    prompt += '\n\nEŃ BASLÍSÍ: ALDÍNǴÍ SORAWLARDÍ TÁKIRARLAMA!!!'
 
     try:
         with open('history.json', 'r', encoding='utf-8') as file:
