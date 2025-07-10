@@ -27,18 +27,18 @@
                                         </small>
                                     </div>
                                     <div id="result-{{ test.id }}" class="d-none"></div>
-                                    <div class="d-flex w-100 justify-content-between align-items-center mt-3">
+                                    <div class="d-flex w-100 justify-content-between align-items-center mt-3 btn-group">
                                         <a href="{% url 'testapp:test_start' %}?test_id={{test.id}}" 
                                             class="btn btn-primary btn-sm mb-3" id="test-start-{{ test.id }}">
-                                            Qatnasıw
+                                            <i class="bi bi-rocket-takeoff-fill d-block m-0"></i> Qatnasıw
                                         </a>
                                         <a href="{% url 'testapp:test_chatbot' %}?test_id={{test.id}}" 
                                             class="btn btn-primary btn-sm mb-3" id="test-chatbot-{{ test.id }}">
-                                            Analizlew
+                                            <i class="bi bi-stars d-block m-0"></i> Analizlew
                                         </a>
                                         <a href="{% url 'testapp:test_results' %}?test_id={{test.id}}" 
                                             class="btn btn-primary btn-sm mb-3" id="test-results-{{ test.id }}">
-                                            Nátiyjeler
+                                            <small>Barlıq nátiyjeler</small> Nátiyjeler
                                         </a>
                                     </div>
                                 </div>
