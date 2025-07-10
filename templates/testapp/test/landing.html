@@ -33,7 +33,7 @@
                                             Qatnasıw
                                         </a>
                                         <a href="{% url 'testapp:test_chatbot' %}?test_id={{test.id}}" 
-                                            class="btn btn-primary btn-sm d-block mb-3" id="chatbot-{{ test.id }}">
+                                            class="btn btn-primary btn-sm d-block mb-3" id="test-chatbot-{{ test.id }}">
                                             Analizlew
                                         </a>
                                         <a href="{% url 'testapp:test_results' %}?test_id={{test.id}}" 
@@ -84,8 +84,11 @@
         for (var i = 0; i < testids_array.length; i++) {
             var tid = testids_array[i];
             if (tid && participantsDict[tid] && participantsDict[tid].includes(String(studentId))) {
-                var el = document.getElementById(tid);
-                if (el) el.style.display = "inline-block";
+                var el = document.getElementById(`test-start-${tid}`);
+                if (el) el.style.display = "none";
+            } else {
+                var el = document.getElementById(`test-chatbot-${tid}`);
+                if (el) el.style.display = "none";
             }
         }
     } else {
