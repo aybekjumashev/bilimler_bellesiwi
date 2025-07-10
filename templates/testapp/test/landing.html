@@ -27,25 +27,19 @@
                                         </small>
                                     </div>
                                     <div id="result-{{ test.id }}" class="d-none"></div>
-                                    <div class="d-flex w-100 justify-content-between align-items-center">
-                                        <div class="btn-group">
-                                            <a href="{% url 'testapp:test_start' %}?test_id={{test.id}}" 
-                                                class="btn btn-primary btn d-block mb-3" id="test-start-{{ test.id }}">
-                                                Qatnasıw
-                                            </a>
-                                        </div>
-                                        <div class="btn-group">
-                                            <a href="{% url 'testapp:test_chatbot' %}?test_id={{test.id}}" 
-                                                class="btn btn-primary btn d-block mb-3" id="chatbot-{{ test.id }}">
-                                                Analizlew
-                                            </a>
-                                        </div>
-                                        <div class="btn-group">
-                                            <a href="{% url 'testapp:test_results' %}?test_id={{test.id}}" 
-                                                class="btn btn-primary btn d-block mb-3" id="test-results-{{ test.id }}">
-                                                Nátiyjeler
-                                            </a>
-                                        </div>
+                                    <div class="d-flex w-100 justify-content-between align-items-center mt-3">
+                                        <a href="{% url 'testapp:test_start' %}?test_id={{test.id}}" 
+                                            class="btn btn-primary btn d-block mb-3" id="test-start-{{ test.id }}">
+                                            Qatnasıw
+                                        </a>
+                                        <a href="{% url 'testapp:test_chatbot' %}?test_id={{test.id}}" 
+                                            class="btn btn-primary btn d-block mb-3" id="chatbot-{{ test.id }}">
+                                            Analizlew
+                                        </a>
+                                        <a href="{% url 'testapp:test_results' %}?test_id={{test.id}}" 
+                                            class="btn btn-primary btn d-block mb-3" id="test-results-{{ test.id }}">
+                                            Nátiyjeler
+                                        </a>
                                     </div>
                                 </div>
                             </div>
