@@ -14,10 +14,41 @@
                 <div class="card-body">
                     {% if tests %}
                         {% for test in tests %}
-                            <a href="{% url 'testapp:test_start' %}?test_id={{test.id}}" 
+                            <!-- <a href="{% url 'testapp:test_start' %}?test_id={{test.id}}" 
                                 class="btn btn-primary btn-lg d-block mb-3">
                                 <h5 class="text-center m-1">{{ test.subject.name }} {{ test.subject.grade }}-klass <i class="bi bi-check2" id="{{ test.id }}" style="display: none;"></i></h5>
-                            </a>
+                            </a> -->
+                            <div class="card border-primary mb-3" style="max-width: 18rem;">
+                                <div class="card-body text-primary">
+                                    <div class="d-flex w-100 justify-content-between align-items-center">
+                                        <h5 class="card-title m-0">{{ test.subject.name }} {{ test.subject.grade }}-klass</h5>
+                                        <small class="text-secondary">
+                                            <i class="bi bi-people"></i> {{ test.results.count }}
+                                        </small>
+                                    </div>
+                                    <div id="result-{{ test.id }}" class="d-none"></div>
+                                    <div class="d-flex w-100 justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <a href="{% url 'testapp:test_start' %}?test_id={{test.id}}" 
+                                                class="btn btn-primary btn-lg d-block mb-3" id="test-start-{{ test.id }}">
+                                                Qatnasıw
+                                            </a>
+                                        </div>
+                                        <div class="btn-group">
+                                            <a href="{% url 'testapp:chatbot' %}?test_id={{test.id}}" 
+                                                class="btn btn-primary btn-lg d-block mb-3" id="chatbot-{{ test.id }}">
+                                                Analizlew
+                                            </a>
+                                        </div>
+                                        <div class="btn-group">
+                                            <a href="{% url 'testapp:test_results' %}?test_id={{test.id}}" 
+                                                class="btn btn-primary btn-lg d-block mb-3" id="test-results-{{ test.id }}">
+                                                Nátiyjeler
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         {% endfor %}
                     {% else %}
                         <div class="alert alert-warning">
