@@ -351,7 +351,8 @@ def admin_dashboard_view(request):
         'total_questions': Question.objects.count(),
         'total_tests': Test.objects.count(),
         'today_tests': Test.objects.filter(created_at__date=timezone.now().date()).count(),
-        'total_participants': Result.objects.count(),
+        'total_participants': Result.objects.values('student_id').distinct().count(),
+        'total_results': Result.objects.count(),
     }
     
     # Today's tests
