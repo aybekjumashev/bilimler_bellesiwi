@@ -7,11 +7,11 @@
         display: none !important;
     }
 </style>
-<div class="container py-4">
+<div class="container py-3">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card bg-transparent border-0 m-0 p-0">
-                <div class="card-body">
+            <div class="card bg-transparent border-0">
+                <div class="card-body m-0 p-0">
                     {% if tests %}
                         {% for test in tests %}
                             <!-- <a href="{% url 'testapp:test_start' %}?test_id={{test.id}}" 
@@ -84,10 +84,10 @@
         for (var i = 0; i < testids_array.length; i++) {
             var tid = testids_array[i];
             if (tid && participantsDict[tid] && participantsDict[tid].includes(String(studentId))) {
-                document.getElementById(`test-start-${tid}`).disabled = true;
+                document.getElementById(`test-start-${tid}`).classList.add('disabled');
                 document.getElementById(tid).style.display = 'inline-block';
             } else {
-                document.getElementById(`test-chatbot-${tid}`).disabled = true;
+                document.getElementById(`test-chatbot-${tid}`).classList.add('disabled');
             }
         }
     } else {
