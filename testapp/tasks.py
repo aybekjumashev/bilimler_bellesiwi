@@ -40,7 +40,7 @@ def send_telegram(tests):
             keyboards.append(keyboard)
         elif len(test_names) == 1:
             sorted_tests = sorted(tests, key=lambda x: x.subject.grade) 
-            message = f"<b>📌 {list(test_names)[0]} páninen test</b>\n" 
+            message = f"<b>📌 {list(test_names)[0]} páninen testler</b>\n" 
             message += f"🎒 {','.join([str(test.subject.grade) for test in sorted_tests])}-klasslar ushın\n\n"
             message += f"@bilimler_bellesiwi | #{list(test_names)[0].lower().replace(' ', '_')}_test"
             # sorted_tests = sorted(tests, key=lambda x: x.subject.grade) 
