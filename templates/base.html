@@ -39,27 +39,27 @@
                     {% if user.is_authenticated and user.is_staff %}
                     
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'testapp:admin_dashboard' %}">
+                            <a class="nav-link {% if request.path == '/admin/dashboard/' %}active{% endif %}" href="{% url 'testapp:admin_dashboard' %}">
                                 <i class="bi bi-speedometer2"></i> Dashboard
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'testapp:admin_subjects' %}">
+                            <a class="nav-link {% if request.path == '/admin/subjects/' %}active{% endif %}" href="{% url 'testapp:admin_subjects' %}">
                                 <i class="bi bi-book"></i> Subjects
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'testapp:admin_questions' %}">
+                            <a class="nav-link {% if request.path == '/admin/questions/' %}active{% endif %}" href="{% url 'testapp:admin_questions' %}">
                                 <i class="bi bi-question-circle"></i> Questions
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'testapp:admin_tests' %}">
+                            <a class="nav-link {% if request.path == '/admin/tests/' %}active{% endif %}" href="{% url 'testapp:admin_tests' %}">
                                 <i class="bi bi-file-text"></i> Tests
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'testapp:admin_results' %}">
+                            <a class="nav-link {% if request.path == '/admin/results/' %}active{% endif %}" href="{% url 'testapp:admin_results' %}">
                                 <i class="bi bi-graph-up"></i> Results
                             </a>
                         </li>
