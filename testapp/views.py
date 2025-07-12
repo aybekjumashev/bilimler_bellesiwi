@@ -353,6 +353,13 @@ def admin_dashboard_view(request):
         'today_tests': Test.objects.filter(created_at__date=timezone.now().date()).count(),
         'total_participants': Result.objects.values('student_id').distinct().count(),
         'today_participants': Result.objects.filter(completed_at__date=timezone.now().date()).values('student_id').distinct().count(),
+        'new_participants': Result.objects.filter(
+            completed_at__date=timezone.now().date()
+        ).exclude(
+            student_id__in=Result.objects.filter(
+                completed_at__date__lt=timezone.now().date()
+            ).values_list('student_id', flat=True)
+        ).values('student_id').distinct().count(),
         'total_results': Result.objects.count(),
         'today_results': Result.objects.filter(completed_at__date=timezone.now().date()).count(),
     }
