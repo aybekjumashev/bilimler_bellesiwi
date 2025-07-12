@@ -347,8 +347,8 @@ def admin_dashboard_view(request):
     
     # Statistics
     stats = {
-        'total_subjects': Subject.objects.count(),
         'total_questions': Question.objects.count(),
+        'today_questions': Question.objects.filter(created_at__date=timezone.now().date()).count(),
         'total_tests': Test.objects.count(),
         'today_tests': Test.objects.filter(created_at__date=timezone.now().date()).count(),
         'total_participants': Result.objects.values('student_id').distinct().count(),
