@@ -352,7 +352,9 @@ def admin_dashboard_view(request):
         'total_tests': Test.objects.count(),
         'today_tests': Test.objects.filter(created_at__date=timezone.now().date()).count(),
         'total_participants': Result.objects.values('student_id').distinct().count(),
+        'today_participants': Result.objects.filter(completed_at__date=timezone.now().date()).values('student_id').distinct().count(),
         'total_results': Result.objects.count(),
+        'today_results': Result.objects.filter(completed_at__date=timezone.now().date()).count(),
     }
     
     # Today's tests
