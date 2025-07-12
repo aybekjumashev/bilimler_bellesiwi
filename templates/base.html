@@ -37,28 +37,38 @@
                     </li>
                     
                     {% if user.is_authenticated and user.is_staff %}
+                    
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'testapp:admin_dashboard' %}">
+                                <i class="bi bi-speedometer2"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'testapp:admin_subjects' %}">
+                                <i class="bi bi-book"></i> Subjects
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'testapp:admin_questions' %}">
+                                <i class="bi bi-question-circle"></i> Questions
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'testapp:admin_tests' %}">
+                                <i class="bi bi-file-text"></i> Tests
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'testapp:admin_results' %}">
+                                <i class="bi bi-graph-up"></i> Results
+                            </a>
+                        </li>
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                                 <i class="bi bi-gear"></i> Admin
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{% url 'testapp:admin_dashboard' %}">
-                                    <i class="bi bi-speedometer2"></i> Dashboard
-                                </a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="{% url 'testapp:admin_subjects' %}">
-                                    <i class="bi bi-book"></i> Subjects
-                                </a></li>
-                                <li><a class="dropdown-item" href="{% url 'testapp:admin_questions' %}">
-                                    <i class="bi bi-question-circle"></i> Questions
-                                </a></li>
-                                <li><a class="dropdown-item" href="{% url 'testapp:admin_tests' %}">
-                                    <i class="bi bi-file-text"></i> Tests
-                                </a></li>
-                                <li><a class="dropdown-item" href="{% url 'testapp:admin_results' %}">
-                                    <i class="bi bi-graph-up"></i> Results
-                                </a></li>
-                                <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="{% url 'testapp:admin_logout' %}">
                                     <i class="bi bi-box-arrow-right"></i> Logout
                                 </a></li>
