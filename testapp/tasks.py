@@ -114,7 +114,7 @@ def send_notification(todays_subjects):
         elif len(names) == 1 and len(times) == 1:
             message += '</b>\n\n'
             sorted_subjects = sorted(todays_subjects, key=lambda x: x.grade) 
-            message += f"{todays_subjects[0].start_time.strftime("%H:%M")} - {todays_subjects[0].name} ({sorted_subjects[0].grade}-{sorted_subjects[-1].grade})\n\n"
+            message += f"{todays_subjects[0].start_time.strftime('%H:%M')} - {todays_subjects[0].name} ({sorted_subjects[0].grade}-{sorted_subjects[-1].grade})\n\n"
         elif len(names) == 1:
             message += 'ler</b>\n\n'
             sorted_subjects = sorted(todays_subjects, key=lambda x: x.start_time) 
