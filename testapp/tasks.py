@@ -180,7 +180,7 @@ def create_scheduled_tests_func(force=False, target_date=None, stdout=None):
         todays_subjects = Subject.objects.filter(
             subject_days__day_of_week=current_weekday
         ).order_by('start_time').distinct()
-        if todays_subjects.exists() and todays_subjects[0].start_time.hour == current_time.hour + 7:
+        if todays_subjects.exists() and todays_subjects[0].start_time.hour == current_time.hour + 7 and todays_subjects[0].start_time.minute == current_time.minute:
             send_notification(todays_subjects)
             msg += 'Exists today subjects'
 
