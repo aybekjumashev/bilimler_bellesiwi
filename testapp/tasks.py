@@ -38,28 +38,12 @@ def send_telegram(tests):
                 }
             ]
             keyboards.append(keyboard)
+
         elif len(test_names) == 1:
             sorted_tests = sorted(tests, key=lambda x: x.subject.grade) 
             message = f"<b>📌 {list(test_names)[0]} páninen testler</b>\n" 
             message += f"🎒 {','.join([str(test.subject.grade) for test in sorted_tests])}-klasslar ushın\n\n"
             message += f"@bilimler_bellesiwi | #{list(test_names)[0].lower().replace(' ', '_')}_test"
-            # sorted_tests = sorted(tests, key=lambda x: x.subject.grade) 
-            # row_keyboards = []
-            # for test in sorted_tests[:-2]:
-            #     col_keyboards = {
-            #             'text': f'{test.subject.grade}',
-            #             'url': f'{settings.WEB_APP_URL}/test?startapp={test.id}'
-            #         }
-            #     row_keyboards.append(col_keyboards)
-            # keyboards.append(row_keyboards)
-            # row_keyboards = []
-            # for test in sorted_tests[-2:]:
-            #     col_keyboards = {
-            #             'text': f'{test.subject.grade}',
-            #             'url': f'{settings.WEB_APP_URL}/test?startapp={test.id}'
-            #         }
-            #     row_keyboards.append(col_keyboards)
-            # keyboards.append(row_keyboards)
             keyboard = [
                     {
                         'text': 'Qatnasıw | Analizlew | Nátiyjeler',
@@ -103,11 +87,61 @@ def send_telegram(tests):
         }
         response = requests.post(url, data=payload)
         if response.status_code == 200:
+            logger.info(f"Telegram test sent")
+        else:
+            logger.error(f"Failed to send Telegram for test ID: {test.id}, {response.text}")
+    except Exception as e:
+        logger.error(f"Error sending Telegram test: {e}")
+
+
+def send_notification(todays_subjects):
+    if not todays_subjects:
+        return
+
+    try:
+        names = set()
+        grades = set()
+        times = set()
+        for subject in todays_subjects:
+            names.add(subject.name)
+            grades.add(subject.grade)
+            times.add(subject.start_time)
+        message = '<b>✨ Búgingi rejelestirilgen test'
+
+        if len(todays_subjects) == 1:
+            message += '</b>\n\n'
+            message += f'{todays_subjects[0].start_time.strftime("%H:%M")} - {todays_subjects[0].name} ({todays_subjects[0].grade}-klass)\n\n'
+        elif len(names) == 1 and len(times) == 1:
+            message += '</b>\n\n'
+            sorted_subjects = sorted(todays_subjects, key=lambda x: x.grade) 
+            message += f"{todays_subjects[0].start_time.strftime("%H:%M")} - {todays_subjects[0].name} ({sorted_subjects[0].grade}-{sorted_subjects[-1].grade})\n\n"
+        elif len(names) == 1:
+            message += 'ler</b>\n\n'
+            sorted_subjects = sorted(todays_subjects, key=lambda x: x.start_time) 
+            for subject in sorted_subjects:
+                message += f"{subject.start_time.strftime('%H:%M')} - {subject.name} ({subject.grade}-klass)\n"
+            message += '\n'
+        
+        message += '@bilimler_bellesiwi'
+
+        telegram_token = settings.TELEGRAM_BOT_TOKEN
+        chat_id = settings.TELEGRAM_CHAT_ID
+        url = f"https://api.telegram.org/bot{telegram_token}/sendMessage"
+        payload = {
+            'chat_id': chat_id,
+            'text': message,
+            'parse_mode': 'HTML'
+        }
+        response = requests.post(url, data=payload)
+        
+        if response.status_code == 200:
             logger.info(f"Telegram notification sent")
         else:
-            logger.error(f"Failed to send Telegram notification for test ID: {test.id}, {response.text}")
+            logger.error(f"Failed to send Telegram notification: {response.text}") 
+
     except Exception as e:
-        logger.error(f"Error sending Telegram notification: {e}")
+        logger.error(f"Error sending notification: {e}")
+
 
 
 def create_scheduled_tests_func(force=False, target_date=None, stdout=None):
@@ -143,6 +177,13 @@ def create_scheduled_tests_func(force=False, target_date=None, stdout=None):
 
     if not scheduled_subjects.exists():
         msg = f'No subjects scheduled for {target_date} (weekday {current_weekday}, time {current_time.strftime("%H:%M")})'
+        todays_subjects = Subject.objects.filter(
+            subject_days__day_of_week=current_weekday
+        ).order_by('start_time').distinct()
+        if todays_subjects.exists() and todays_subjects[0].start_time.hour == current_time.hour + 7:
+            send_notification(todays_subjects)
+            msg += 'Exists today subjects'
+
         if stdout:
             stdout.write(msg)
         else:
